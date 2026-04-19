@@ -7,319 +7,1125 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
-      min-height: 100vh;
-      padding: 24px 16px 48px;
-      color: #1e293b;
+    :root {
+      --blue:    #2563eb;
+      --indigo:  #4f46e5;
+      --green:   #16a34a;
+      --red:     #dc2626;
+      --amber:   #d97706;
+      --gray-50: #f8fafc;
+      --gray-100:#f1f5f9;
+      --gray-200:#e2e8f0;
+      --gray-400:#94a3b8;
+      --gray-500:#64748b;
+      --gray-700:#334155;
+      --gray-900:#0f172a;
+      --radius:  10px;
+      --shadow:  0 8px 32px rgba(0,0,0,0.10);
     }
 
-    .card {
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(150deg, #dbeafe 0%, #e0e7ff 50%, #ede9fe 100%);
+      min-height: 100vh;
+      color: var(--gray-900);
+      line-height: 1.5;
+    }
+
+    /* ── Layout ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+
+    .layout { display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ── Header ── */
+    .brand-header {
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+      border-radius: 18px 18px 0 0;
+      padding: 28px 32px 24px;
+      color: #fff;
+    }
+    .brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .brand-row svg { flex-shrink: 0; }
+    .brand-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    .brand-sub  { font-size: 0.875rem; color: #bfdbfe; }
+
+    /* ── Progress ── */
+    .progress-bar {
       background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.10);
-      max-width: 560px;
-      margin: 0 auto;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .progress-bar::-webkit-scrollbar { display: none; }
+    .step {
+      display: flex; align-items: center; gap: 7px;
+      white-space: nowrap; flex-shrink: 0;
+      font-size: 0.78rem; font-weight: 600; color: var(--gray-400);
+      cursor: pointer;
+    }
+    .step.active { color: var(--blue); }
+    .step.done   { color: var(--green); }
+    .step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+      background: transparent; transition: background 0.2s;
+    }
+    .step.active .step-num { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .step.done   .step-num { background: var(--green); color: #fff; border-color: var(--green); }
+    .step-sep { flex: 1; min-width: 16px; height: 2px; background: var(--gray-200); margin: 0 4px; }
+    .step.done + .step-sep { background: var(--green); }
+
+    /* ── Card ── */
+    .form-card {
+      background: #fff;
+      border-radius: 0 0 18px 18px;
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .header {
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
+    /* ── Sections ── */
+    .section {
+      display: none;
       padding: 28px 32px;
-      color: #fff;
+      flex-direction: column;
+      gap: 22px;
+      animation: fadeIn 0.2s ease;
     }
-    .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-    .header-top svg { flex-shrink: 0; }
-    .header h1 { font-size: 1.5rem; font-weight: 700; }
-    .header p  { font-size: 0.875rem; color: #bfdbfe; }
+    .section.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 520px) { .section { padding: 20px 18px; } }
 
-    form { padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; }
+    .section-heading {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1rem; font-weight: 700; color: var(--gray-900);
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gray-100);
+    }
+    .section-heading svg { color: var(--blue); }
 
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 480px) { .row { grid-template-columns: 1fr; } form { padding: 20px 18px; } }
+    /* ── Fields ── */
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
 
     .field { display: flex; flex-direction: column; gap: 5px; }
-    label { font-size: 0.8rem; font-weight: 600; color: #475569; text-transform: uppercase; letter-spacing: 0.04em; }
 
-    input, select, textarea {
+    label {
+      font-size: 0.8rem; font-weight: 700; color: var(--gray-700);
+      letter-spacing: 0.02em;
+    }
+    label .opt { font-weight: 400; color: var(--gray-400); margin-left: 3px; }
+
+    .helper { font-size: 0.75rem; color: var(--gray-500); margin-top: 2px; }
+
+    input[type=text], input[type=tel], input[type=email],
+    input[type=number], input[type=date], input[type=file],
+    select, textarea {
       width: 100%;
-      padding: 10px 12px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      font-size: 0.95rem;
-      color: #1e293b;
-      background: #f8fafc;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 0.94rem;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
       outline: none;
+      font-family: inherit;
     }
     input:focus, select:focus, textarea:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
       background: #fff;
     }
-    input.error, select.error, textarea.error { border-color: #ef4444; }
-    .err-msg { font-size: 0.75rem; color: #ef4444; margin-top: 2px; }
-
-    textarea { resize: vertical; min-height: 80px; }
-    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-
-    .divider { border: none; border-top: 1.5px dashed #e2e8f0; }
-
-    .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; }
-
-    .server-error {
-      background: #fef2f2; border: 1.5px solid #fecaca;
-      border-radius: 9px; padding: 12px 14px;
-      font-size: 0.875rem; color: #b91c1c; display: none;
+    input.err, select.err, textarea.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
     }
+    input.ok, select.ok, textarea.ok { border-color: #22c55e; }
 
-    button[type="submit"] {
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 13px;
-      font-size: 1rem;
-      font-weight: 600;
+    .err-msg {
+      font-size: 0.75rem; color: var(--red);
+      display: flex; align-items: center; gap: 4px;
+      display: none;
+    }
+    .err-msg.show { display: flex; }
+
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* ── Checkboxes & Radios ── */
+    .check-group, .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .check-pill, .radio-pill {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 999px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: opacity 0.15s, transform 0.1s;
+      font-size: 0.85rem; font-weight: 500; color: var(--gray-700);
+      user-select: none;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      background: var(--gray-50);
     }
-    button[type="submit"]:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
-    button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+    .check-pill:hover, .radio-pill:hover { border-color: var(--blue); background: #eff6ff; }
+    .check-pill input, .radio-pill input { display: none; }
+    .check-pill.checked, .radio-pill.checked {
+      border-color: var(--blue); background: #eff6ff; color: var(--blue);
+    }
+    .check-pill.checked::before {
+      content: "✓ "; font-weight: 700;
+    }
+
+    /* ── File upload ── */
+    .file-drop {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--gray-50);
+      position: relative;
+    }
+    .file-drop:hover, .file-drop.drag { border-color: var(--blue); background: #eff6ff; }
+    .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .file-drop-icon { color: var(--gray-400); margin-bottom: 8px; }
+    .file-drop p { font-size: 0.875rem; color: var(--gray-500); }
+    .file-drop p strong { color: var(--blue); }
+    .file-drop small { font-size: 0.75rem; color: var(--gray-400); }
+    .file-preview {
+      display: none; align-items: center; gap: 10px;
+      background: #f0fdf4; border: 1.5px solid #86efac;
+      border-radius: var(--radius); padding: 10px 14px;
+      font-size: 0.875rem; color: var(--green);
+    }
+    .file-preview.show { display: flex; }
+    .file-remove { margin-left: auto; cursor: pointer; color: var(--gray-400); background: none; border: none; font-size: 1rem; }
+
+    /* ── Inline checkbox ── */
+    .inline-check {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: var(--gray-700); cursor: pointer;
+    }
+    .inline-check input[type=checkbox] {
+      width: 17px; height: 17px; accent-color: var(--blue);
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    /* ── Notices ── */
+    .notice {
+      border-radius: var(--radius); padding: 12px 14px;
+      font-size: 0.82rem; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .notice-amber { background: #fffbeb; border: 1.5px solid #fde68a; color: #92400e; }
+    .notice-blue  { background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1e40af; }
+    .notice-green { background: #f0fdf4; border: 1.5px solid #86efac; color: #14532d; }
+    .notice svg   { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Review card ── */
+    .review-card {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .review-header {
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+      color: #fff; padding: 14px 18px;
+      font-weight: 700; font-size: 0.9rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .review-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+    .review-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; font-size: 0.82rem; }
+    .review-label { color: var(--gray-500); flex-shrink: 0; }
+    .review-value { color: var(--gray-900); font-weight: 600; text-align: right; max-width: 180px; word-break: break-word; }
+    .review-value.empty { color: var(--gray-400); font-weight: 400; font-style: italic; }
+    .review-divider { border: none; border-top: 1px dashed var(--gray-200); }
+    .review-note {
+      font-size: 0.75rem; color: var(--gray-500);
+      background: var(--gray-100); border-radius: 7px;
+      padding: 10px 12px; line-height: 1.5;
+    }
+
+    /* ── Sidebar panel ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 24px; }
+    @media (max-width: 860px) { .sidebar { position: static; } }
+
+    .how-card {
+      background: #fff; border-radius: 14px;
+      box-shadow: var(--shadow); padding: 20px;
+    }
+    .how-title { font-size: 0.85rem; font-weight: 700; color: var(--gray-900); margin-bottom: 14px; }
+    .how-step { display: flex; gap: 12px; margin-bottom: 12px; }
+    .how-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+      color: #fff; font-size: 0.72rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .how-text { font-size: 0.82rem; color: var(--gray-700); padding-top: 3px; line-height: 1.4; }
+
+    .contact-card {
+      background: #fff; border-radius: 14px;
+      box-shadow: var(--shadow); padding: 20px;
+    }
+    .contact-title { font-size: 0.85rem; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
+    .contact-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.83rem; color: var(--gray-700); }
+    .contact-row svg { color: var(--blue); flex-shrink: 0; }
+    .privacy-note { font-size: 0.73rem; color: var(--gray-400); margin-top: 12px; line-height: 1.5; }
+
+    /* ── Navigation buttons ── */
+    .nav-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 32px;
+      border-top: 1px solid var(--gray-100);
+      background: var(--gray-50);
+      gap: 12px;
+    }
+    @media (max-width: 520px) { .nav-row { padding: 16px 18px; } }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 22px; border-radius: var(--radius);
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      border: none; transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+      color: #fff; box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+    }
+    .btn-primary:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+
+    .btn-ghost {
+      background: var(--gray-100); color: var(--gray-700);
+    }
+    .btn-ghost:hover:not(:disabled) { background: var(--gray-200); }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #fff; font-size: 1rem; padding: 13px 32px;
+      box-shadow: 0 4px 14px rgba(22,163,74,0.25);
+    }
 
     .spinner {
-      width: 18px; height: 18px;
+      width: 17px; height: 17px;
       border: 2.5px solid rgba(255,255,255,0.4);
       border-top-color: #fff;
       border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+      animation: spin 0.65s linear infinite;
       display: none;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .disclaimer { font-size: 0.75rem; color: #94a3b8; text-align: center; }
+    /* ── Server error ── */
+    .server-error {
+      margin: 0 32px 16px;
+      background: #fef2f2; border: 1.5px solid #fecaca;
+      border-radius: var(--radius); padding: 12px 16px;
+      font-size: 0.875rem; color: var(--red);
+      display: none; align-items: center; gap: 8px;
+    }
+    .server-error.show { display: flex; }
 
-    /* Success screen */
-    .success {
+    /* ── Success screen ── */
+    .success-screen {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 48px 32px;
-      gap: 16px;
+      flex-direction: column; align-items: center; text-align: center;
+      padding: 52px 32px 48px; gap: 16px;
     }
-    .success-icon { color: #22c55e; }
-    .success h2 { font-size: 1.5rem; font-weight: 700; }
-    .success p  { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+    .success-screen.show { display: flex; }
+    .success-icon { animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-screen h2 { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); }
+    .success-screen p  { color: var(--gray-500); font-size: 0.95rem; max-width: 360px; line-height: 1.6; }
     .order-badge {
-      background: #eff6ff; border-radius: 12px;
-      padding: 14px 28px; margin-top: 4px;
+      background: linear-gradient(135deg, #eff6ff, #eef2ff);
+      border: 2px solid #bfdbfe; border-radius: 14px;
+      padding: 16px 32px; margin: 4px 0;
     }
-    .order-badge small { font-size: 0.75rem; color: #64748b; display: block; margin-bottom: 4px; }
-    .order-badge strong { font-size: 1.6rem; font-weight: 800; color: #2563eb; letter-spacing: 0.05em; }
+    .order-badge small { font-size: 0.75rem; color: var(--gray-500); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .order-badge strong { font-size: 1.7rem; font-weight: 900; color: var(--blue); letter-spacing: 0.06em; }
     .again-btn {
-      background: none; border: 1.5px solid #e2e8f0;
-      border-radius: 10px; padding: 10px 24px;
-      font-size: 0.9rem; font-weight: 600; color: #475569;
-      cursor: pointer; margin-top: 8px;
-      transition: border-color 0.15s;
+      background: none; border: 2px solid var(--gray-200);
+      border-radius: var(--radius); padding: 10px 24px;
+      font-size: 0.9rem; font-weight: 700; color: var(--gray-600);
+      cursor: pointer; transition: border-color 0.15s, color 0.15s;
+      font-family: inherit; margin-top: 8px;
     }
-    .again-btn:hover { border-color: #2563eb; color: #2563eb; }
+    .again-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── Misc ── */
+    .conditional { display: none; }
+    .conditional.show { display: flex; flex-direction: column; gap: 18px; }
+    .divider { border: none; border-top: 1.5px dashed var(--gray-100); }
+
+    /* Mobile review summary toggle */
+    .mobile-summary-toggle {
+      display: none;
+      width: 100%; background: #eff6ff; border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius); padding: 11px 16px;
+      font-size: 0.85rem; font-weight: 700; color: var(--blue);
+      cursor: pointer; text-align: left; font-family: inherit;
+      align-items: center; justify-content: space-between;
+    }
+    @media (max-width: 860px) { .mobile-summary-toggle { display: flex; } }
+    .mobile-summary-body { display: none; }
+    .mobile-summary-body.open { display: block; margin-top: 12px; }
   </style>
 </head>
 <body>
-<div class="card">
-  <div class="header">
-    <div class="header-top">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
-      </svg>
-      <h1>Super Printers</h1>
-    </div>
-    <p>Fill in the details below and we'll get your order ready.</p>
-  </div>
+<div class="page">
+  <div class="layout">
 
-  <!-- Order form -->
-  <form id="orderForm" novalidate>
-    <p class="section-title">Your Details</p>
+    <!-- ── MAIN FORM ── -->
+    <div>
 
-    <div class="row">
-      <div class="field">
-        <label for="customer_name">Full Name *</label>
-        <input type="text" id="customer_name" placeholder="Your name" />
-        <span class="err-msg" id="err_customer_name"></span>
+      <!-- Brand header -->
+      <div class="brand-header">
+        <div class="brand-row">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span class="brand-name">Super Printers</span>
+        </div>
+        <p class="brand-sub">Fill in your order details — we'll review and confirm before printing starts.</p>
       </div>
-      <div class="field">
-        <label for="contact_no">Mobile Number *</label>
-        <input type="tel" id="contact_no" placeholder="10-digit number" maxlength="10" />
-        <span class="err-msg" id="err_contact_no"></span>
+
+      <!-- Progress -->
+      <div class="progress-bar" id="progressBar">
+        <div class="step active" data-step="1" onclick="goTo(1)">
+          <span class="step-num">1</span> Customer
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" data-step="2" onclick="goTo(2)">
+          <span class="step-num">2</span> Product
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" data-step="3" onclick="goTo(3)">
+          <span class="step-num">3</span> Artwork
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" data-step="4" onclick="goTo(4)">
+          <span class="step-num">4</span> Delivery
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" data-step="5" onclick="goTo(5)">
+          <span class="step-num">5</span> Review
+        </div>
+      </div>
+
+      <!-- Form card -->
+      <div class="form-card">
+
+        <!-- ── SECTION 1: Customer ── -->
+        <div class="section active" id="s1">
+          <div class="section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Your Details
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="customer_name">Full Name <span style="color:var(--red)">*</span></label>
+              <input type="text" id="customer_name" placeholder="e.g. Ramesh Kumar" autocomplete="name" aria-describedby="err_customer_name" />
+              <span class="err-msg" id="err_customer_name" role="alert">Please enter your full name.</span>
+            </div>
+            <div class="field">
+              <label for="company_name">Company Name <span class="opt">(optional)</span></label>
+              <input type="text" id="company_name" placeholder="e.g. ABC Traders" autocomplete="organization" />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="contact_no">Mobile Number <span style="color:var(--red)">*</span></label>
+              <input type="tel" id="contact_no" placeholder="10-digit number" maxlength="10" autocomplete="tel" aria-describedby="err_contact_no" />
+              <span class="err-msg" id="err_contact_no" role="alert">Enter a valid 10-digit mobile number.</span>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="opt">(optional)</span></label>
+              <input type="email" id="email" placeholder="you@example.com" autocomplete="email" aria-describedby="err_email" />
+              <span class="err-msg" id="err_email" role="alert">Enter a valid email address.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="inline-check" for="whatsapp_same">
+              <input type="checkbox" id="whatsapp_same" checked onchange="toggleWhatsapp()" />
+              WhatsApp number is the same as my mobile number
+            </label>
+          </div>
+
+          <div class="conditional" id="whatsapp_field">
+            <div class="field">
+              <label for="whatsapp_no">WhatsApp Number <span style="color:var(--red)">*</span></label>
+              <input type="tel" id="whatsapp_no" placeholder="10-digit WhatsApp number" maxlength="10" />
+              <span class="err-msg" id="err_whatsapp_no" role="alert">Enter a valid WhatsApp number.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Preferred Contact Method <span style="color:var(--red)">*</span></label>
+            <div class="radio-group" id="contact_method_group">
+              <label class="radio-pill checked"><input type="radio" name="contact_method" value="whatsapp" checked onchange="setPill(this)" /> WhatsApp</label>
+              <label class="radio-pill"><input type="radio" name="contact_method" value="call" onchange="setPill(this)" /> Phone Call</label>
+              <label class="radio-pill"><input type="radio" name="contact_method" value="email" onchange="setPill(this)" /> Email</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION 2: Product ── -->
+        <div class="section" id="s2">
+          <div class="section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Product Details
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="product_type">Product Type <span style="color:var(--red)">*</span></label>
+              <select id="product_type" onchange="onProductChange()" aria-describedby="err_product_type">
+                <option value="">Select product</option>
+                <option>Visiting Cards</option>
+                <option>Flex Banner</option>
+                <option>Brochure</option>
+                <option>Pamphlet</option>
+                <option>Sticker</option>
+                <option>Letterhead</option>
+                <option>Bill Book</option>
+                <option>Carry Bag</option>
+                <option>Other</option>
+              </select>
+              <span class="err-msg" id="err_product_type" role="alert">Please select a product type.</span>
+            </div>
+            <div class="field">
+              <label for="quantity">Quantity <span style="color:var(--red)">*</span></label>
+              <input type="number" id="quantity" min="1" placeholder="e.g. 500" aria-describedby="err_quantity" />
+              <span class="err-msg" id="err_quantity" role="alert">Enter a valid quantity (minimum 1).</span>
+            </div>
+          </div>
+
+          <!-- Other product description -->
+          <div class="conditional" id="other_product_field">
+            <div class="field">
+              <label for="other_product_desc">Describe your product <span style="color:var(--red)">*</span></label>
+              <input type="text" id="other_product_desc" placeholder="e.g. Custom packaging box, 30×20cm" />
+              <span class="err-msg" id="err_other_product_desc" role="alert">Please describe your product.</span>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="size">Size <span class="opt">(optional)</span></label>
+              <input type="text" id="size" placeholder='e.g. 3.5" × 2" or A4' />
+              <span class="helper">Include units — inches, cm, or standard sizes like A4, A5</span>
+            </div>
+            <div class="field">
+              <label for="color_mode">Color Mode</label>
+              <select id="color_mode">
+                <option value="full_color">Full Color (CMYK)</option>
+                <option value="black_white">Black &amp; White</option>
+                <option value="spot_color">Spot Color</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Paper type — shown only for paper products -->
+          <div class="conditional" id="paper_type_field">
+            <div class="field">
+              <label for="paper_type">Paper / Material Type <span class="opt">(optional)</span></label>
+              <select id="paper_type">
+                <option value="">I'm not sure – suggest one</option>
+                <option>130gsm Art Paper</option>
+                <option>170gsm Art Paper</option>
+                <option>300gsm Art Card</option>
+                <option>350gsm Art Card</option>
+                <option>80gsm Maplitho</option>
+                <option>100gsm Maplitho</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Finishing options — dynamic per product -->
+          <div class="conditional" id="finishing_field">
+            <div class="field">
+              <label>Finishing Options <span class="opt">(select all that apply)</span></label>
+              <div class="check-group" id="finishing_options"></div>
+            </div>
+          </div>
+
+          <!-- Urgent order -->
+          <div class="field">
+            <label class="inline-check" for="urgent">
+              <input type="checkbox" id="urgent" onchange="toggleUrgent()" />
+              This is an urgent order
+            </label>
+          </div>
+          <div class="conditional notice notice-amber" id="urgent_notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Urgent orders are subject to availability and confirmation by our team. Additional charges may apply.</span>
+          </div>
+        </div>
+
+        <!-- ── SECTION 3: Artwork ── -->
+        <div class="section" id="s3">
+          <div class="section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Artwork &amp; Design File
+          </div>
+
+          <div class="notice notice-blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Upload your design file <strong>now or later</strong> — you can also share it via WhatsApp or email after booking.</span>
+          </div>
+
+          <div class="field">
+            <label>Design File <span class="opt">(optional at this stage)</span></label>
+            <div class="file-drop" id="fileDrop">
+              <input type="file" id="artwork_file" accept=".pdf,.ai,.psd,.cdr,.png,.jpg,.jpeg,.eps,.svg" onchange="onFileSelect()" aria-label="Upload design file" />
+              <div class="file-drop-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <p><strong>Click to upload</strong> or drag and drop</p>
+              <small>PDF, AI, PSD, CDR, PNG, JPG, EPS — max 30 MB</small>
+            </div>
+            <div class="file-preview" id="filePreview">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span id="fileName">file.pdf</span>
+              <button type="button" class="file-remove" onclick="removeFile()" aria-label="Remove file">✕</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="special_instructions">Special Instructions <span class="opt">(optional)</span></label>
+            <textarea id="special_instructions" placeholder="Any specific design notes, colour references, text to include, or anything else we should know..."></textarea>
+          </div>
+        </div>
+
+        <!-- ── SECTION 4: Delivery ── -->
+        <div class="section" id="s4">
+          <div class="section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Delivery &amp; Timeline
+          </div>
+
+          <div class="field">
+            <label>Delivery Method <span style="color:var(--red)">*</span></label>
+            <div class="radio-group" id="delivery_method_group">
+              <label class="radio-pill checked"><input type="radio" name="delivery_method" value="pickup" checked onchange="onDeliveryChange(this)" /> Store Pickup</label>
+              <label class="radio-pill"><input type="radio" name="delivery_method" value="local_delivery" onchange="onDeliveryChange(this)" /> Local Delivery</label>
+              <label class="radio-pill"><input type="radio" name="delivery_method" value="courier" onchange="onDeliveryChange(this)" /> Courier</label>
+            </div>
+          </div>
+
+          <div class="conditional notice notice-green" id="pickup_notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Pickup available from our store — <strong>Super Printers, Chennai</strong>. Timings: 9 AM – 8 PM, Mon–Sat.</span>
+          </div>
+
+          <!-- Delivery address — shown for local/courier -->
+          <div class="conditional" id="delivery_address_field">
+            <div class="field">
+              <label for="delivery_address">Delivery Address <span style="color:var(--red)">*</span></label>
+              <textarea id="delivery_address" placeholder="Full address including flat/door no., street, area, city, pincode" rows="3" aria-describedby="err_delivery_address"></textarea>
+              <span class="err-msg" id="err_delivery_address" role="alert">Please enter a delivery address.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="delivery_date">Required By <span style="color:var(--red)">*</span></label>
+            <input type="date" id="delivery_date" aria-describedby="err_delivery_date" />
+            <span class="helper">We'll confirm the production timeline after reviewing your order.</span>
+            <span class="err-msg" id="err_delivery_date" role="alert">Please select a required date.</span>
+          </div>
+        </div>
+
+        <!-- ── SECTION 5: Review ── -->
+        <div class="section" id="s5">
+          <div class="section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+            Review Your Order
+          </div>
+
+          <!-- Mobile summary toggle -->
+          <button type="button" class="mobile-summary-toggle" onclick="toggleMobileSummary()">
+            <span>Order Summary</span>
+            <svg id="summaryChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="mobile-summary-body" id="mobileSummaryBody">
+            <div class="review-card" id="reviewCardMobile"></div>
+          </div>
+
+          <div class="notice notice-blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Please check your details before submitting. <strong>Final pricing and production timeline will be confirmed by our team after review.</strong></span>
+          </div>
+
+          <div class="field">
+            <label class="inline-check" for="terms">
+              <input type="checkbox" id="terms" aria-describedby="err_terms" />
+              I confirm the details are correct and agree to be contacted by Super Printers to finalise this order. <span style="color:var(--red)">*</span>
+            </label>
+            <span class="err-msg" id="err_terms" role="alert">Please confirm to proceed.</span>
+          </div>
+        </div>
+
+        <!-- ── SUCCESS SCREEN ── -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">
+            <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <h2>Order Placed!</h2>
+          <p>Thank you! Our team will contact you on <strong id="confirmPhone"></strong> shortly to confirm your order and pricing.</p>
+          <div class="order-badge">
+            <small>Your Order Reference</small>
+            <strong id="confirmOrderNo"></strong>
+          </div>
+          <p style="font-size:0.8rem;color:var(--gray-400)">Save this reference number for your records.</p>
+          <button class="again-btn" onclick="resetForm()">Place Another Order</button>
+        </div>
+
+        <!-- Server error -->
+        <div class="server-error" id="serverError" role="alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="serverErrorText"></span>
+        </div>
+
+        <!-- Nav buttons -->
+        <div class="nav-row" id="navRow">
+          <button type="button" class="btn btn-ghost" id="prevBtn" onclick="prev()" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+            Back
+          </button>
+          <div style="flex:1"></div>
+          <button type="button" class="btn btn-primary" id="nextBtn" onclick="next()">
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <button type="button" class="btn btn-submit" id="submitBtn" onclick="submit()" style="display:none" disabled>
+            <span id="btnText">Submit Order</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="field">
-      <label for="email">Email (optional)</label>
-      <input type="email" id="email" placeholder="you@example.com" />
-      <span class="err-msg" id="err_email"></span>
-    </div>
+    <!-- ── SIDEBAR ── -->
+    <div class="sidebar">
 
-    <hr class="divider" />
-    <p class="section-title">Order Details</p>
-
-    <div class="row">
-      <div class="field">
-        <label for="product_type">Product Type *</label>
-        <select id="product_type">
-          <option value="">Select product</option>
-          <option>Visiting Cards</option>
-          <option>Flex Banner</option>
-          <option>Brochure</option>
-          <option>Pamphlet</option>
-          <option>Sticker</option>
-          <option>Letterhead</option>
-          <option>Bill Book</option>
-          <option>Carry Bag</option>
-          <option>Other</option>
-        </select>
-        <span class="err-msg" id="err_product_type"></span>
+      <!-- Live review (desktop) -->
+      <div class="review-card" id="reviewCardDesktop">
+        <div class="review-header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+          Order Summary
+        </div>
+        <div class="review-body" id="reviewBody">
+          <p style="font-size:0.8rem;color:var(--gray-400);text-align:center;padding:8px 0">Fill in the form to see your order summary here.</p>
+        </div>
       </div>
-      <div class="field">
-        <label for="quantity">Quantity *</label>
-        <input type="number" id="quantity" min="1" placeholder="e.g. 500" />
-        <span class="err-msg" id="err_quantity"></span>
+
+      <!-- How it works -->
+      <div class="how-card">
+        <p class="how-title">How it works</p>
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-text">Submit your order details and artwork file.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-text">We review artwork, specifications, and confirm pricing.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-text">You approve — printing begins after your confirmation.</div>
+        </div>
+        <div class="how-step" style="margin-bottom:0">
+          <div class="how-num">4</div>
+          <div class="how-text">Order is ready for pickup or delivery as agreed.</div>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="field">
-        <label for="size">Size (optional)</label>
-        <input type="text" id="size" placeholder='e.g. 3.5" × 2"' />
+      <!-- Contact -->
+      <div class="contact-card">
+        <p class="contact-title">Need help?</p>
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.97-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+91 98401 99878</span>
+        </div>
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>WhatsApp: +91 98401 99878</span>
+        </div>
+        <p class="privacy-note">🔒 Your files and contact details are used only to process your order and will never be shared with third parties.</p>
       </div>
-      <div class="field">
-        <label for="color_mode">Color Mode</label>
-        <select id="color_mode">
-          <option value="full_color">Full Color</option>
-          <option value="black_white">Black &amp; White</option>
-          <option value="spot_color">Spot Color</option>
-        </select>
-      </div>
+
     </div>
-
-    <div class="row">
-      <div class="field">
-        <label for="paper_type">Paper Type (optional)</label>
-        <select id="paper_type">
-          <option value="">Select paper</option>
-          <option>130gsm Art Paper</option>
-          <option>170gsm Art Paper</option>
-          <option>300gsm Art Card</option>
-          <option>80gsm Maplitho</option>
-          <option>100gsm Maplitho</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="delivery_date">Required By *</label>
-        <input type="date" id="delivery_date" />
-        <span class="err-msg" id="err_delivery_date"></span>
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="special_instructions">Special Instructions (optional)</label>
-      <textarea id="special_instructions" placeholder="Design notes, finishes, artwork details..."></textarea>
-    </div>
-
-    <div class="server-error" id="serverError"></div>
-
-    <button type="submit" id="submitBtn">
-      <span id="btnText">Place Order</span>
-      <div class="spinner" id="spinner"></div>
-    </button>
-
-    <p class="disclaimer">By submitting you agree to be contacted by our team to confirm your order.</p>
-  </form>
-
-  <!-- Success screen -->
-  <div class="success" id="successScreen">
-    <svg class="success-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>
-    </svg>
-    <h2>Order Placed!</h2>
-    <p>Thank you! Our team will contact you on <strong id="confirmPhone"></strong> to confirm your order details.</p>
-    <div class="order-badge">
-      <small>Your Order Number</small>
-      <strong id="confirmOrderNo"></strong>
-    </div>
-    <p style="font-size:0.8rem;color:#94a3b8;">Please save this number for reference.</p>
-    <button class="again-btn" onclick="resetForm()">Place Another Order</button>
   </div>
 </div>
 
 <script>
   const EDGE_URL = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/submit-public-order";
 
-  // Set min date to tomorrow
+  // ── State ──
+  let currentStep = 1;
+  const TOTAL_STEPS = 5;
+  let submitting = false;
+
+  // Set min delivery date to tomorrow
   const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
   document.getElementById("delivery_date").min = tomorrow;
 
-  function validate() {
-    let valid = true;
-    const clear = (id) => { document.getElementById("err_" + id).textContent = ""; document.getElementById(id).classList.remove("error"); };
-    const err   = (id, msg) => { document.getElementById("err_" + id).textContent = msg; document.getElementById(id).classList.add("error"); valid = false; };
+  // ── Finishing options by product ──
+  const FINISHING = {
+    "Visiting Cards": ["Matt Lamination", "Gloss Lamination", "Spot UV", "Soft Touch", "Rounded Corners"],
+    "Flex Banner":    ["Eyelets", "Hemming", "Pole Pocket", "Reinforced Edges"],
+    "Brochure":       ["Bi-fold", "Tri-fold", "Z-fold", "Saddle Stitch", "Perfect Binding", "Gloss Lamination", "Matt Lamination"],
+    "Pamphlet":       ["Bi-fold", "Tri-fold", "Stapling"],
+    "Sticker":        ["Die Cut", "Kiss Cut", "Waterproof Coating", "Gloss Finish", "Matt Finish"],
+    "Letterhead":     ["Gloss Lamination", "Matt Lamination"],
+    "Bill Book":      ["Serial Numbering", "Perforation", "Spiral Binding", "Perfect Binding", "Carbon Copy"],
+    "Carry Bag":      ["Rope Handle", "Die Cut Handle", "Gloss Lamination", "Matt Lamination"],
+  };
 
-    ["customer_name","contact_no","product_type","quantity","delivery_date"].forEach(clear);
+  const PAPER_PRODUCTS = ["Visiting Cards", "Brochure", "Pamphlet", "Letterhead", "Bill Book"];
 
-    const name = document.getElementById("customer_name").value.trim();
-    if (!name || name.length < 2) err("customer_name", "Please enter your full name.");
+  // ── Product change ──
+  function onProductChange() {
+    const val = document.getElementById("product_type").value;
 
-    const phone = document.getElementById("contact_no").value.replace(/\D/g,"");
-    if (phone.length !== 10) err("contact_no", "Enter a valid 10-digit mobile number.");
+    // Other description
+    toggleEl("other_product_field", val === "Other");
 
-    const email = document.getElementById("email").value.trim();
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      document.getElementById("err_email").textContent = "Invalid email address.";
-      document.getElementById("email").classList.add("error");
-      valid = false;
+    // Paper type
+    toggleEl("paper_type_field", PAPER_PRODUCTS.includes(val));
+
+    // Finishing
+    const opts = FINISHING[val];
+    if (opts && opts.length) {
+      document.getElementById("finishing_options").innerHTML =
+        opts.map(o => `<label class="check-pill"><input type="checkbox" name="finishing" value="${o}" onchange="setCheckPill(this)"/> ${o}</label>`).join("");
+      toggleEl("finishing_field", true);
+    } else {
+      toggleEl("finishing_field", false);
     }
 
-    if (!document.getElementById("product_type").value) err("product_type", "Please select a product type.");
-
-    const qty = Number(document.getElementById("quantity").value);
-    if (!qty || qty < 1 || !Number.isInteger(qty)) err("quantity", "Enter a valid quantity.");
-
-    if (!document.getElementById("delivery_date").value) err("delivery_date", "Please select a delivery date.");
-
-    return valid;
+    updateReview();
   }
 
-  document.getElementById("orderForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    document.getElementById("serverError").style.display = "none";
-    if (!validate()) return;
+  function toggleEl(id, show) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle("show", show);
+  }
+
+  function setCheckPill(input) {
+    input.closest(".check-pill").classList.toggle("checked", input.checked);
+    updateReview();
+  }
+
+  function setPill(input) {
+    const group = input.closest(".radio-group, .check-group");
+    if (!group) return;
+    group.querySelectorAll(".radio-pill, .check-pill").forEach(p => p.classList.remove("checked"));
+    input.closest(".radio-pill, .check-pill").classList.add("checked");
+    updateReview();
+  }
+
+  // ── WhatsApp toggle ──
+  function toggleWhatsapp() {
+    const same = document.getElementById("whatsapp_same").checked;
+    toggleEl("whatsapp_field", !same);
+  }
+
+  // ── Urgent toggle ──
+  function toggleUrgent() {
+    const urgent = document.getElementById("urgent").checked;
+    toggleEl("urgent_notice", urgent);
+  }
+
+  // ── Delivery change ──
+  function onDeliveryChange(input) {
+    setPill(input);
+    const val = input.value;
+    toggleEl("delivery_address_field", val !== "pickup");
+    toggleEl("pickup_notice", val === "pickup");
+    updateReview();
+  }
+
+  // ── File handling ──
+  const fileDrop = document.getElementById("fileDrop");
+
+  fileDrop.addEventListener("dragover", e => { e.preventDefault(); fileDrop.classList.add("drag"); });
+  fileDrop.addEventListener("dragleave", () => fileDrop.classList.remove("drag"));
+  fileDrop.addEventListener("drop", e => {
+    e.preventDefault(); fileDrop.classList.remove("drag");
+    const f = e.dataTransfer.files[0];
+    if (f) setFile(f);
+  });
+
+  function onFileSelect() {
+    const f = document.getElementById("artwork_file").files[0];
+    if (f) setFile(f);
+  }
+
+  function setFile(f) {
+    document.getElementById("fileName").textContent = f.name + " (" + (f.size / 1024 / 1024).toFixed(2) + " MB)";
+    document.getElementById("filePreview").classList.add("show");
+    fileDrop.style.display = "none";
+    updateReview();
+  }
+
+  function removeFile() {
+    document.getElementById("artwork_file").value = "";
+    document.getElementById("filePreview").classList.remove("show");
+    fileDrop.style.display = "";
+    updateReview();
+  }
+
+  // ── Navigation ──
+  function goTo(step) {
+    if (step < 1 || step > TOTAL_STEPS) return;
+    if (step > currentStep && !validateStep(currentStep)) return;
+    showStep(step);
+  }
+
+  function next() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep < TOTAL_STEPS) showStep(currentStep + 1);
+  }
+
+  function prev() {
+    if (currentStep > 1) showStep(currentStep - 1);
+  }
+
+  function showStep(n) {
+    document.getElementById("s" + currentStep).classList.remove("active");
+    document.getElementById("s" + n).classList.add("active");
+
+    // Mark steps done/active
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const s = document.querySelector(`[data-step="${i}"]`);
+      s.classList.remove("active", "done");
+      if (i < n)       s.classList.add("done");
+      else if (i === n) s.classList.add("active");
+    }
+
+    currentStep = n;
+
+    document.getElementById("prevBtn").style.display = n > 1 ? "" : "none";
+    document.getElementById("nextBtn").style.display = n < TOTAL_STEPS ? "" : "none";
+    document.getElementById("submitBtn").style.display = n === TOTAL_STEPS ? "" : "none";
+
+    // Enable submit button only when terms checked
+    if (n === TOTAL_STEPS) {
+      checkTerms();
+      updateReview();
+    }
+
+    document.getElementById("serverError").classList.remove("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("terms").addEventListener("change", checkTerms);
+
+  function checkTerms() {
+    document.getElementById("submitBtn").disabled = !document.getElementById("terms").checked;
+  }
+
+  // ── Validation ──
+  function validateStep(step) {
+    let ok = true;
+
+    const setErr = (id, show) => {
+      const msg = document.getElementById("err_" + id);
+      const inp = document.getElementById(id);
+      if (!msg) return;
+      msg.classList.toggle("show", show);
+      if (inp) { inp.classList.toggle("err", show); inp.classList.toggle("ok", !show && inp.value.trim()); }
+      if (show) ok = false;
+    };
+
+    if (step === 1) {
+      const name = document.getElementById("customer_name").value.trim();
+      setErr("customer_name", name.length < 2);
+
+      const phone = document.getElementById("contact_no").value.replace(/\D/g,"");
+      setErr("contact_no", phone.length !== 10);
+
+      const email = document.getElementById("email").value.trim();
+      if (email) setErr("email", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+      else { document.getElementById("err_email").classList.remove("show"); document.getElementById("email").classList.remove("err"); }
+
+      if (!document.getElementById("whatsapp_same").checked) {
+        const wa = document.getElementById("whatsapp_no").value.replace(/\D/g,"");
+        setErr("whatsapp_no", wa.length !== 10);
+      }
+    }
+
+    if (step === 2) {
+      setErr("product_type", !document.getElementById("product_type").value);
+      const qty = Number(document.getElementById("quantity").value);
+      setErr("quantity", !qty || qty < 1);
+      if (document.getElementById("product_type").value === "Other") {
+        setErr("other_product_desc", !document.getElementById("other_product_desc").value.trim());
+      }
+    }
+
+    if (step === 4) {
+      const method = document.querySelector('input[name="delivery_method"]:checked')?.value;
+      if (method !== "pickup") {
+        setErr("delivery_address", !document.getElementById("delivery_address").value.trim());
+      }
+      setErr("delivery_date", !document.getElementById("delivery_date").value);
+    }
+
+    if (!ok) {
+      // Scroll to first error
+      const firstErr = document.querySelector("#s" + step + " .err");
+      if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    return ok;
+  }
+
+  // ── Review summary ──
+  function rv(label, value, fallback) {
+    const v = (value || "").toString().trim();
+    return `<div class="review-row">
+      <span class="review-label">${label}</span>
+      <span class="review-value ${v ? "" : "empty"}">${v || (fallback || "—")}</span>
+    </div>`;
+  }
+
+  function updateReview() {
+    const name     = document.getElementById("customer_name").value.trim();
+    const company  = document.getElementById("company_name").value.trim();
+    const phone    = document.getElementById("contact_no").value.trim();
+    const product  = document.getElementById("product_type").value;
+    const otherDesc= document.getElementById("other_product_desc")?.value.trim();
+    const qty      = document.getElementById("quantity").value;
+    const size     = document.getElementById("size").value.trim();
+    const color    = document.getElementById("color_mode").selectedOptions[0]?.text || "";
+    const paper    = document.getElementById("paper_type")?.value || "";
+    const date     = document.getElementById("delivery_date").value;
+    const delivery = document.querySelector('input[name="delivery_method"]:checked')?.value || "";
+    const address  = document.getElementById("delivery_address")?.value.trim() || "";
+    const urgent   = document.getElementById("urgent").checked;
+    const hasFile  = !!document.getElementById("artwork_file").files[0];
+    const finishing= [...document.querySelectorAll('input[name="finishing"]:checked')].map(i => i.value).join(", ");
+    const instructions = document.getElementById("special_instructions").value.trim();
+
+    const deliveryLabels = { pickup: "Store Pickup", local_delivery: "Local Delivery", courier: "Courier" };
+
+    const html = `
+      <div class="review-body">
+        ${rv("Name", name)}
+        ${company ? rv("Company", company) : ""}
+        ${rv("Phone", phone)}
+        <hr class="review-divider"/>
+        ${rv("Product", product === "Other" && otherDesc ? `Other – ${otherDesc}` : product)}
+        ${rv("Quantity", qty)}
+        ${rv("Size", size)}
+        ${rv("Colour", color)}
+        ${paper ? rv("Paper", paper) : ""}
+        ${finishing ? rv("Finishing", finishing) : ""}
+        ${urgent ? `<div class="review-row"><span class="review-label">Priority</span><span class="review-value" style="color:var(--amber)">⚡ Urgent</span></div>` : ""}
+        <hr class="review-divider"/>
+        ${rv("Delivery", deliveryLabels[delivery] || delivery)}
+        ${delivery !== "pickup" && address ? rv("Address", address) : ""}
+        ${rv("Required by", date ? new Date(date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "")}
+        <hr class="review-divider"/>
+        ${rv("Design file", hasFile ? "✓ Attached" : "Not uploaded yet")}
+        ${instructions ? rv("Notes", instructions) : ""}
+        <div class="review-note">Final pricing and production timeline will be confirmed by our team after review.</div>
+      </div>`;
+
+    document.getElementById("reviewBody").innerHTML = html;
+    document.getElementById("reviewCardMobile").innerHTML =
+      `<div class="review-header"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg> Order Summary</div>${html}`;
+  }
+
+  // Live review update on input
+  document.querySelectorAll("input, select, textarea").forEach(el => {
+    el.addEventListener("input", updateReview);
+    el.addEventListener("change", updateReview);
+  });
+
+  // ── Mobile summary toggle ──
+  function toggleMobileSummary() {
+    const body    = document.getElementById("mobileSummaryBody");
+    const chevron = document.getElementById("summaryChevron");
+    const open    = body.classList.toggle("open");
+    chevron.style.transform = open ? "rotate(180deg)" : "";
+  }
+
+  // ── Submit ──
+  async function submit() {
+    if (submitting) return;
+    if (!validateStep(4)) { showStep(4); return; }
+
+    document.getElementById("serverError").classList.remove("show");
+    submitting = true;
 
     const btn     = document.getElementById("submitBtn");
     const spinner = document.getElementById("spinner");
     const btnText = document.getElementById("btnText");
-
-    btn.disabled     = true;
+    btn.disabled        = true;
     spinner.style.display = "block";
-    btnText.textContent   = "Placing Order…";
+    btnText.textContent = "Submitting…";
+
+    const finishing = [...document.querySelectorAll('input[name="finishing"]:checked')].map(i => i.value);
+    const delivery  = document.querySelector('input[name="delivery_method"]:checked')?.value || "pickup";
+    const contact   = document.querySelector('input[name="contact_method"]:checked')?.value || "whatsapp";
+    const product   = document.getElementById("product_type").value;
+    const otherDesc = document.getElementById("other_product_desc")?.value.trim() || "";
+    const urgent    = document.getElementById("urgent").checked;
+    const address   = document.getElementById("delivery_address")?.value.trim() || "";
+
+    // Build special instructions to include all extra data
+    let extras = [];
+    if (document.getElementById("company_name").value.trim()) extras.push("Company: " + document.getElementById("company_name").value.trim());
+    if (finishing.length)  extras.push("Finishing: " + finishing.join(", "));
+    if (delivery !== "pickup") extras.push("Delivery: " + delivery + (address ? " – " + address : ""));
+    else extras.push("Delivery: Store Pickup");
+    extras.push("Contact via: " + contact);
+    if (urgent) extras.push("URGENT ORDER");
+    const baseInstructions = document.getElementById("special_instructions").value.trim();
+    const specialInstructions = [baseInstructions, ...extras].filter(Boolean).join("\n");
+
+    const whatsappSame = document.getElementById("whatsapp_same").checked;
+    const phone        = document.getElementById("contact_no").value.replace(/\D/g,"");
 
     const payload = {
       customer_name:        document.getElementById("customer_name").value.trim(),
-      contact_no:           document.getElementById("contact_no").value.replace(/\D/g,""),
+      contact_no:           phone,
       email:                document.getElementById("email").value.trim() || undefined,
-      product_type:         document.getElementById("product_type").value,
+      product_type:         product === "Other" && otherDesc ? `Other – ${otherDesc}` : product,
       quantity:             Number(document.getElementById("quantity").value),
       size:                 document.getElementById("size").value.trim() || undefined,
       color_mode:           document.getElementById("color_mode").value,
-      paper_type:           document.getElementById("paper_type").value || undefined,
-      special_instructions: document.getElementById("special_instructions").value.trim() || undefined,
+      paper_type:           document.getElementById("paper_type")?.value || undefined,
+      special_instructions: specialInstructions || undefined,
       delivery_date:        document.getElementById("delivery_date").value,
     };
 
@@ -327,31 +1133,54 @@
       const res  = await fetch(EDGE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const data = await res.json();
 
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Something went wrong. Please try again.");
-      }
+      if (!res.ok || !data.success) throw new Error(data.error || "Something went wrong. Please try again.");
 
-      document.getElementById("confirmPhone").textContent   = payload.contact_no;
+      document.getElementById("confirmPhone").textContent   = phone;
       document.getElementById("confirmOrderNo").textContent = data.order_no;
-      document.getElementById("orderForm").style.display    = "none";
-      document.getElementById("successScreen").style.display = "flex";
+
+      // Hide form elements
+      for (let i = 1; i <= TOTAL_STEPS; i++) document.getElementById("s" + i).classList.remove("active");
+      document.getElementById("navRow").style.display      = "none";
+      document.getElementById("progressBar").style.display = "none";
+      document.getElementById("successScreen").classList.add("show");
 
     } catch (err) {
       const box = document.getElementById("serverError");
-      box.textContent    = err.message;
-      box.style.display  = "block";
+      document.getElementById("serverErrorText").textContent = err.message;
+      box.classList.add("show");
     } finally {
-      btn.disabled           = false;
-      spinner.style.display  = "none";
-      btnText.textContent    = "Place Order";
+      submitting         = false;
+      btn.disabled       = false;
+      spinner.style.display = "none";
+      btnText.textContent = "Submit Order";
+      checkTerms();
     }
-  });
-
-  function resetForm() {
-    document.getElementById("orderForm").reset();
-    document.getElementById("orderForm").style.display    = "flex";
-    document.getElementById("successScreen").style.display = "none";
   }
+
+  // ── Reset ──
+  function resetForm() {
+    document.querySelectorAll("input, select, textarea").forEach(el => {
+      if (el.type === "checkbox" || el.type === "radio") el.checked = el.defaultChecked;
+      else el.value = el.defaultValue;
+    });
+    removeFile();
+    document.querySelectorAll(".check-pill").forEach(p => p.classList.remove("checked"));
+    document.querySelectorAll(".radio-pill").forEach(p => p.classList.remove("checked"));
+    document.querySelectorAll(".radio-pill input:checked").forEach(i => i.closest(".radio-pill").classList.add("checked"));
+
+    document.getElementById("successScreen").classList.remove("show");
+    document.getElementById("navRow").style.display      = "";
+    document.getElementById("progressBar").style.display = "";
+    onProductChange();
+    toggleWhatsapp();
+    toggleUrgent();
+    showStep(1);
+    updateReview();
+  }
+
+  // ── Init ──
+  updateReview();
+  document.getElementById("pickup_notice").classList.add("show");
 </script>
 </body>
 </html>
