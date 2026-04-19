@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Place Your Order – Super Printers</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+      color: #1e293b;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.10);
+      max-width: 560px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      padding: 28px 32px;
+      color: #fff;
+    }
+    .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .header-top svg { flex-shrink: 0; }
+    .header h1 { font-size: 1.5rem; font-weight: 700; }
+    .header p  { font-size: 0.875rem; color: #bfdbfe; }
+
+    form { padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 480px) { .row { grid-template-columns: 1fr; } form { padding: 20px 18px; } }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: 0.8rem; font-weight: 600; color: #475569; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      background: #fff;
+    }
+    input.error, select.error, textarea.error { border-color: #ef4444; }
+    .err-msg { font-size: 0.75rem; color: #ef4444; margin-top: 2px; }
+
+    textarea { resize: vertical; min-height: 80px; }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+    .divider { border: none; border-top: 1.5px dashed #e2e8f0; }
+
+    .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; }
+
+    .server-error {
+      background: #fef2f2; border: 1.5px solid #fecaca;
+      border-radius: 9px; padding: 12px 14px;
+      font-size: 0.875rem; color: #b91c1c; display: none;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    button[type="submit"]:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
+    button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .disclaimer { font-size: 0.75rem; color: #94a3b8; text-align: center; }
+
+    /* Success screen */
+    .success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 48px 32px;
+      gap: 16px;
+    }
+    .success-icon { color: #22c55e; }
+    .success h2 { font-size: 1.5rem; font-weight: 700; }
+    .success p  { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+    .order-badge {
+      background: #eff6ff; border-radius: 12px;
+      padding: 14px 28px; margin-top: 4px;
+    }
+    .order-badge small { font-size: 0.75rem; color: #64748b; display: block; margin-bottom: 4px; }
+    .order-badge strong { font-size: 1.6rem; font-weight: 800; color: #2563eb; letter-spacing: 0.05em; }
+    .again-btn {
+      background: none; border: 1.5px solid #e2e8f0;
+      border-radius: 10px; padding: 10px 24px;
+      font-size: 0.9rem; font-weight: 600; color: #475569;
+      cursor: pointer; margin-top: 8px;
+      transition: border-color 0.15s;
+    }
+    .again-btn:hover { border-color: #2563eb; color: #2563eb; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="header-top">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+      </svg>
+      <h1>Super Printers</h1>
+    </div>
+    <p>Fill in the details below and we'll get your order ready.</p>
+  </div>
+
+  <!-- Order form -->
+  <form id="orderForm" novalidate>
+    <p class="section-title">Your Details</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="customer_name">Full Name *</label>
+        <input type="text" id="customer_name" placeholder="Your name" />
+        <span class="err-msg" id="err_customer_name"></span>
+      </div>
+      <div class="field">
+        <label for="contact_no">Mobile Number *</label>
+        <input type="tel" id="contact_no" placeholder="10-digit number" maxlength="10" />
+        <span class="err-msg" id="err_contact_no"></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email (optional)</label>
+      <input type="email" id="email" placeholder="you@example.com" />
+      <span class="err-msg" id="err_email"></span>
+    </div>
+
+    <hr class="divider" />
+    <p class="section-title">Order Details</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="product_type">Product Type *</label>
+        <select id="product_type">
+          <option value="">Select product</option>
+          <option>Visiting Cards</option>
+          <option>Flex Banner</option>
+          <option>Brochure</option>
+          <option>Pamphlet</option>
+          <option>Sticker</option>
+          <option>Letterhead</option>
+          <option>Bill Book</option>
+          <option>Carry Bag</option>
+          <option>Other</option>
+        </select>
+        <span class="err-msg" id="err_product_type"></span>
+      </div>
+      <div class="field">
+        <label for="quantity">Quantity *</label>
+        <input type="number" id="quantity" min="1" placeholder="e.g. 500" />
+        <span class="err-msg" id="err_quantity"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="size">Size (optional)</label>
+        <input type="text" id="size" placeholder='e.g. 3.5" × 2"' />
+      </div>
+      <div class="field">
+        <label for="color_mode">Color Mode</label>
+        <select id="color_mode">
+          <option value="full_color">Full Color</option>
+          <option value="black_white">Black &amp; White</option>
+          <option value="spot_color">Spot Color</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="paper_type">Paper Type (optional)</label>
+        <select id="paper_type">
+          <option value="">Select paper</option>
+          <option>130gsm Art Paper</option>
+          <option>170gsm Art Paper</option>
+          <option>300gsm Art Card</option>
+          <option>80gsm Maplitho</option>
+          <option>100gsm Maplitho</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="delivery_date">Required By *</label>
+        <input type="date" id="delivery_date" />
+        <span class="err-msg" id="err_delivery_date"></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="special_instructions">Special Instructions (optional)</label>
+      <textarea id="special_instructions" placeholder="Design notes, finishes, artwork details..."></textarea>
+    </div>
+
+    <div class="server-error" id="serverError"></div>
+
+    <button type="submit" id="submitBtn">
+      <span id="btnText">Place Order</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <p class="disclaimer">By submitting you agree to be contacted by our team to confirm your order.</p>
+  </form>
+
+  <!-- Success screen -->
+  <div class="success" id="successScreen">
+    <svg class="success-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>
+    </svg>
+    <h2>Order Placed!</h2>
+    <p>Thank you! Our team will contact you on <strong id="confirmPhone"></strong> to confirm your order details.</p>
+    <div class="order-badge">
+      <small>Your Order Number</small>
+      <strong id="confirmOrderNo"></strong>
+    </div>
+    <p style="font-size:0.8rem;color:#94a3b8;">Please save this number for reference.</p>
+    <button class="again-btn" onclick="resetForm()">Place Another Order</button>
+  </div>
+</div>
+
+<script>
+  const EDGE_URL = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/submit-public-order";
+
+  // Set min date to tomorrow
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+  document.getElementById("delivery_date").min = tomorrow;
+
+  function validate() {
+    let valid = true;
+    const clear = (id) => { document.getElementById("err_" + id).textContent = ""; document.getElementById(id).classList.remove("error"); };
+    const err   = (id, msg) => { document.getElementById("err_" + id).textContent = msg; document.getElementById(id).classList.add("error"); valid = false; };
+
+    ["customer_name","contact_no","product_type","quantity","delivery_date"].forEach(clear);
+
+    const name = document.getElementById("customer_name").value.trim();
+    if (!name || name.length < 2) err("customer_name", "Please enter your full name.");
+
+    const phone = document.getElementById("contact_no").value.replace(/\D/g,"");
+    if (phone.length !== 10) err("contact_no", "Enter a valid 10-digit mobile number.");
+
+    const email = document.getElementById("email").value.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById("err_email").textContent = "Invalid email address.";
+      document.getElementById("email").classList.add("error");
+      valid = false;
+    }
+
+    if (!document.getElementById("product_type").value) err("product_type", "Please select a product type.");
+
+    const qty = Number(document.getElementById("quantity").value);
+    if (!qty || qty < 1 || !Number.isInteger(qty)) err("quantity", "Enter a valid quantity.");
+
+    if (!document.getElementById("delivery_date").value) err("delivery_date", "Please select a delivery date.");
+
+    return valid;
+  }
+
+  document.getElementById("orderForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    document.getElementById("serverError").style.display = "none";
+    if (!validate()) return;
+
+    const btn     = document.getElementById("submitBtn");
+    const spinner = document.getElementById("spinner");
+    const btnText = document.getElementById("btnText");
+
+    btn.disabled     = true;
+    spinner.style.display = "block";
+    btnText.textContent   = "Placing Order…";
+
+    const payload = {
+      customer_name:        document.getElementById("customer_name").value.trim(),
+      contact_no:           document.getElementById("contact_no").value.replace(/\D/g,""),
+      email:                document.getElementById("email").value.trim() || undefined,
+      product_type:         document.getElementById("product_type").value,
+      quantity:             Number(document.getElementById("quantity").value),
+      size:                 document.getElementById("size").value.trim() || undefined,
+      color_mode:           document.getElementById("color_mode").value,
+      paper_type:           document.getElementById("paper_type").value || undefined,
+      special_instructions: document.getElementById("special_instructions").value.trim() || undefined,
+      delivery_date:        document.getElementById("delivery_date").value,
+    };
+
+    try {
+      const res  = await fetch(EDGE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      document.getElementById("confirmPhone").textContent   = payload.contact_no;
+      document.getElementById("confirmOrderNo").textContent = data.order_no;
+      document.getElementById("orderForm").style.display    = "none";
+      document.getElementById("successScreen").style.display = "flex";
+
+    } catch (err) {
+      const box = document.getElementById("serverError");
+      box.textContent    = err.message;
+      box.style.display  = "block";
+    } finally {
+      btn.disabled           = false;
+      spinner.style.display  = "none";
+      btnText.textContent    = "Place Order";
+    }
+  });
+
+  function resetForm() {
+    document.getElementById("orderForm").reset();
+    document.getElementById("orderForm").style.display    = "flex";
+    document.getElementById("successScreen").style.display = "none";
+  }
+</script>
+</body>
+</html>
