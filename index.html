@@ -627,6 +627,38 @@
     .contact-row:last-of-type { margin-bottom: 0; }
     .contact-row svg { color: var(--blue); flex-shrink: 0; }
     .privacy { font-size: 0.71rem; color: var(--gray-400); margin-top: 10px; line-height: 1.5; border-top: 1px solid var(--gray-100); padding-top: 10px; }
+
+    /* ── Share card ── */
+    .share-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .share-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--gray-700); margin-bottom: 14px; }
+    .qr-wrap {
+      display: flex; justify-content: center;
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius); padding: 14px;
+      margin-bottom: 12px;
+    }
+    .share-url {
+      font-size: 0.72rem; color: var(--blue);
+      word-break: break-all; text-align: center;
+      background: var(--blue-light); border-radius: var(--radius-sm);
+      padding: 8px 10px; margin-bottom: 10px;
+      font-family: monospace;
+    }
+    .share-btns { display: flex; flex-direction: column; gap: 8px; }
+    .share-btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 9px 14px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700; font-family: var(--font);
+      cursor: pointer; border: none; transition: opacity 0.12s;
+    }
+    .share-btn:hover { opacity: 0.88; }
+    .share-btn-copy { background: var(--blue); color: #fff; }
+    .share-btn-wa   { background: #16a34a; color: #fff; }
   </style>
 </head>
 <body>
@@ -1106,6 +1138,17 @@
             WhatsApp: +91 98401 99878
           </div>
           <p class="privacy">🔒 Your files and contact details are used only to process your order and are never shared with third parties.</p>
+        </div>
+      </div>
+
+      <!-- Share this form -->
+      <div class="share-card">
+        <h3>📤 Share this form</h3>
+        <div class="qr-wrap"><div id="qrCanvas"></div></div>
+        <div class="share-url" id="shareUrl"></div>
+        <div class="share-btns">
+          <button class="share-btn share-btn-copy" id="copyBtn">Copy Link</button>
+          <button class="share-btn share-btn-wa"   id="waShareBtn">Share on WhatsApp</button>
         </div>
       </div>
 
@@ -1678,6 +1721,38 @@ document.querySelectorAll("input, select, textarea").forEach(el => {
 });
 
 onSummary();
+</script>
+
+<!-- QR code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  const PAGE_URL = window.location.href.split("?")[0].split("#")[0];
+
+  // Render QR code
+  new QRCode(document.getElementById("qrCanvas"), {
+    text:          PAGE_URL,
+    width:         140,
+    height:        140,
+    colorDark:     "#1d4ed8",
+    colorLight:    "#ffffff",
+    correctLevel:  QRCode.CorrectLevel.M,
+  });
+
+  document.getElementById("shareUrl").textContent = PAGE_URL;
+
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    navigator.clipboard.writeText(PAGE_URL).then(() => {
+      const btn = document.getElementById("copyBtn");
+      btn.textContent = "✓ Copied!";
+      btn.style.background = "#15803d";
+      setTimeout(() => { btn.textContent = "Copy Link"; btn.style.background = ""; }, 2000);
+    });
+  });
+
+  document.getElementById("waShareBtn").addEventListener("click", () => {
+    const msg = encodeURIComponent("Place your print order with Super Printers here: " + PAGE_URL);
+    window.open("https://wa.me/?text=" + msg, "_blank");
+  });
 </script>
 </body>
 </html>
