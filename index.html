@@ -3,1115 +3,477 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Place Your Print Order – Super Printers, Chennai</title>
-<meta name="description" content="Request a print quote from Super Printers, Chennai. Business cards, wedding cards, flyers, banners & more. Quote confirmed before production starts."/>
-<meta name="keywords" content="print shop Chennai, business cards Chennai, wedding cards printing, flyers printing Chennai, Super Printers"/>
-<meta property="og:title" content="Print Order – Super Printers, Chennai"/>
-<meta property="og:description" content="Share your print requirement. We review specs, confirm the quote, then print."/>
+<title>Send a Print Request – Super Printers, Chennai</title>
+<meta name="description" content="Send your print request to Super Printers, Chennai. Upload your design files and we'll confirm the quote."/>
+<meta property="og:title" content="Send a Print Request – Super Printers, Chennai"/>
+<meta property="og:description" content="Upload your design files and we'll confirm the quote on WhatsApp."/>
 <meta property="og:type" content="website"/>
 <meta name="theme-color" content="#0C1A2E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","name":"Super Printers","description":"Professional printing services in Chennai — business cards, wedding cards, brochures, banners and more.","address":{"@type":"PostalAddress","addressLocality":"Chennai","addressRegion":"Tamil Nadu","addressCountry":"IN"},"telephone":"+919840199878","url":"https://sbaranidharan2694-ai.github.io/superprinters-order-form/","openingHours":"Mo-Sa 09:00-20:00"}
-</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --n:#0C1A2E;--n2:#162035;--b:#1B3A6B;
+  --n:#0C1A2E;
   --a:#C9973A;--a2:#E8B14A;
-  --cr:#F5EDD6;--cr2:#EDE4CC;
-  --w:#fff;--g:#64748B;--g2:#94A3B8;
-  --br:#E2E8F0;--re:#DC2626;--gr:#059669;
+  --cr:#F5EDD6;
+  --w:#fff;
+  --g:#64748B;--g2:#94A3B8;
+  --br:#E2E8F0;--br2:#CBD5E1;
+  --bg:#F8FAFC;
+  --re:#DC2626;--gr:#059669;
   --fh:'DM Serif Display',Georgia,serif;
   --fb:'DM Sans',system-ui,sans-serif;
 }
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--fb);color:var(--n);background:var(--w);line-height:1.55;min-height:100dvh}
-button{cursor:pointer;font-family:var(--fb)}
-input,select,textarea{font-family:var(--fb)}
-.hidden{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--n);min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px}
 
-/* ── LANDING ─────────────────────────────────────────────── */
-#view-landing{background:var(--w)}
+/* ── Page shell ── */
+.page{width:100%;max-width:520px}
 
-.hero{background:var(--n);padding:72px 24px 64px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.015) 40px,rgba(255,255,255,.015) 41px)}
-.hero-in{max-width:680px;margin:0 auto;position:relative;z-index:1}
-.badge{display:inline-block;background:rgba(201,151,58,.18);color:var(--a2);border:1px solid rgba(201,151,58,.4);border-radius:2px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:22px}
-h1.sp{font-family:var(--fh);font-size:clamp(28px,5vw,48px);color:var(--cr);line-height:1.15;margin:0 0 16px;font-weight:400}
-.hero-sub{font-size:16px;color:rgba(245,237,214,.72);line-height:1.65;max-width:520px;margin:0 0 30px}
-.paths{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-.btn-pri{display:inline-flex;align-items:center;gap:8px;background:var(--a);color:var(--n);border:none;border-radius:4px;padding:13px 24px;font-size:14px;font-weight:700;text-decoration:none;transition:background .15s,transform .1s}
-.btn-pri:hover{background:var(--a2);transform:translateY(-1px)}
-.btn-sec{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--cr);border:1px solid rgba(245,237,214,.3);border-radius:4px;padding:12px 18px;font-size:13px;font-weight:500;transition:border-color .15s,background .15s}
-.btn-sec:hover{border-color:rgba(245,237,214,.65);background:rgba(245,237,214,.06)}
-.cnt-badge{background:var(--a);color:var(--n);border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:4px}
-.hero-time{font-size:12px;color:rgba(245,237,214,.5)}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:32px}
+.brand-mark{width:36px;height:36px;background:var(--n);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--a);font-size:18px;flex-shrink:0}
+.brand-name{font-weight:700;font-size:15px;color:var(--n);line-height:1.1}
+.brand-loc{font-size:11px;color:var(--g);margin-top:1px}
 
-.abanner{background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:12px 24px}
-.abanner-in{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:#1E40AF}
-.abtn{background:#1E40AF;color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:12px;font-weight:600}
+.headline{font-family:var(--fh);font-size:clamp(22px,5vw,30px);color:var(--n);font-weight:400;margin-bottom:6px;line-height:1.2}
+.subline{font-size:14px;color:var(--g);margin-bottom:28px;line-height:1.5}
 
-.sec{padding:52px 24px}
-.sec-in{max-width:960px;margin:0 auto}
-.sec-h{font-family:var(--fh);font-size:26px;color:var(--n);margin:0 0 24px;font-weight:400}
-.bg-cr{background:var(--cr)}
-.bg-w{background:var(--w)}
-.bg-n{background:var(--n)}
-.bg-cr2{background:var(--cr2)}
+/* ── Card ── */
+.card{background:var(--w);border:1px solid var(--br);border-radius:10px;padding:28px;display:flex;flex-direction:column;gap:18px}
+@media(max-width:480px){.card{padding:20px 16px}}
 
-.catpills{display:flex;flex-wrap:wrap;gap:10px}
-.pill{display:inline-flex;align-items:center;gap:8px;background:var(--w);border:1px solid var(--cr2);border-radius:40px;padding:8px 16px;font-size:13px;font-weight:500;color:var(--n)}
-
-.howgrid{display:grid;gap:14px}
-.howcard{display:flex;gap:16px;align-items:flex-start;padding:16px;border:1px solid var(--br);border-radius:6px}
-.hown{font-family:var(--fh);font-size:24px;color:var(--a);line-height:1;min-width:32px;font-weight:400}
-.howt{font-size:14px;font-weight:600;margin-bottom:3px;color:var(--n)}
-.howb{font-size:13px;color:var(--g);line-height:1.5}
-
-.trustgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.ti{display:flex;gap:10px;align-items:center;color:var(--cr);font-size:13px}
-
-.btm-in{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:480px;margin:0 auto;text-align:center}
-.btmh{font-family:var(--fh);font-size:26px;margin:0;color:var(--n);font-weight:400}
-.btms{font-size:15px;color:var(--g);margin:0}
-.walink{display:inline-flex;align-items:center;gap:6px;color:var(--g);font-size:13px;text-decoration:none}
-.walink:hover{color:var(--n)}
-
-/* ── PAST ORDERS DRAWER ──────────────────────────────────── */
-.overlay{position:fixed;inset:0;background:rgba(12,26,46,.6);z-index:200;display:flex;justify-content:flex-end}
-.drawer{background:var(--w);width:100%;max-width:440px;height:100%;overflow-y:auto;display:flex;flex-direction:column}
-.dr-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--br);position:sticky;top:0;background:var(--w);z-index:1}
-.dr-title{font-family:var(--fh);font-size:20px;font-weight:400;margin:0}
-.dr-close{background:none;border:none;font-size:17px;color:var(--g);padding:4px}
-.dr-sec{padding:16px 22px;border-bottom:1px solid var(--br)}
-.sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--g2);margin:0 0 10px}
-.empty-msg{padding:28px 22px;color:var(--g);font-size:14px}
-.dr-note{padding:14px 22px;font-size:11px;color:var(--g2)}
-
-.ocard{border:1px solid var(--br);border-radius:6px;padding:13px 15px;margin-bottom:10px;background:#FAFAFA}
-.ocard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.ono{font-weight:700;font-size:14px;color:var(--n)}
-.ometa{font-size:12px;color:var(--g);margin-top:2px}
-.odate{font-size:11px;color:var(--g2);margin-top:2px}
-.sbadge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
-.oacts{display:flex;gap:7px}
-.osm{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:4px;font-size:11px;font-weight:600;border:none;transition:opacity .1s}
-.osm:hover{opacity:.82}
-.osm-out{background:transparent;border:1px solid var(--br);color:var(--n)}
-.osm-pri{background:var(--a);color:var(--n)}
-
-/* ── FORM VIEW ───────────────────────────────────────────── */
-#view-form{background:#F8FAFC;min-height:100vh;padding:0 0 80px}
-.flayout{max-width:1080px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
-@media(max-width:768px){.flayout{grid-template-columns:1fr;padding:14px}.fsidebar{display:none}}
-
-.prog{display:flex;align-items:center;margin-bottom:22px;overflow-x:auto;padding-bottom:4px}
-.pitem{display:flex;align-items:center;flex-shrink:0}
-.pdot{width:26px;height:26px;border-radius:50%;background:var(--br);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:background .2s,color .2s}
-.pdot.act{background:var(--a);color:var(--n)}
-.pdot.done{background:var(--gr);color:#fff}
-.plbl{font-size:11px;color:var(--g2);margin:0 7px;white-space:nowrap;font-weight:500}
-.plbl.act{color:var(--n);font-weight:700}
-.pline{height:2px;width:20px;background:var(--br);flex-shrink:0}
-.pline.done{background:var(--gr)}
-
-.msum{background:var(--n);border-radius:6px;overflow:hidden;margin-bottom:14px}
-.msum-tog{width:100%;display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:none;border:none;color:var(--cr);font-size:12px;font-weight:600}
-.msum-body{padding:0 14px 11px;display:flex;flex-direction:column;gap:3px}
-.msum-spec{font-size:11px;color:rgba(245,237,214,.6)}
-.msum-note{font-size:10px;color:rgba(245,237,214,.45);border-top:1px solid rgba(245,237,214,.12);padding-top:8px;margin-top:4px}
-
-.fcard{background:var(--w);border:1px solid var(--br);border-radius:8px;padding:28px}
-@media(max-width:600px){.fcard{padding:18px 14px}}
-
-.step-h{font-family:var(--fh);font-size:21px;font-weight:400;color:var(--n);margin:0 0 6px}
-.step-sub{font-size:13px;color:var(--g);margin:0 0 18px;line-height:1.5}
-
-.catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:20px}
-@media(max-width:460px){.catgrid{grid-template-columns:repeat(2,1fr)}}
-.catcard{display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 8px;border:2px solid var(--br);border-radius:6px;background:var(--w);transition:border-color .15s,background .15s;text-align:center}
-.catcard:hover{border-color:var(--a);background:#FFFBF2}
-.catcard.sel{border-color:var(--a);background:#FFFBF2;box-shadow:0 0 0 3px rgba(201,151,58,.12)}
-.cati{font-size:22px}
-.catl{font-size:12px;font-weight:600;color:var(--n)}
-.catd{font-size:10px;color:var(--g2)}
-
-.qrow{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 8px}
-.qchip{padding:6px 13px;border:1px solid var(--br);border-radius:20px;background:var(--w);font-size:12px;font-weight:500;color:var(--n);transition:border-color .15s,background .15s}
-.qchip:hover{border-color:var(--a)}
-.qchip.sel{border-color:var(--a);background:#FFFBF2;font-weight:700}
-
-.spgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:4px}
-.spf{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.spl{font-size:12px;font-weight:600;color:var(--n)}
-.spi{padding:9px 11px;border:1px solid var(--br);border-radius:5px;font-size:13px;color:var(--n);background:var(--w);transition:border-color .15s;width:100%;outline:none}
-.spi:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(201,151,58,.1)}
-textarea.spi{resize:vertical}
+/* ── Fields ── */
+.field{display:flex;flex-direction:column;gap:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:400px){.field-row{grid-template-columns:1fr}}
+label{font-size:12px;font-weight:600;color:var(--n)}
+.opt{font-weight:400;color:var(--g2)}
+input,select,textarea{
+  padding:10px 12px;border:1.5px solid var(--br);border-radius:6px;
+  font-size:14px;font-family:var(--fb);color:var(--n);background:var(--w);
+  width:100%;outline:none;transition:border-color .15s,box-shadow .15s;
+  -webkit-appearance:none;appearance:none
+}
+input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(201,151,58,.12)}
+textarea{resize:vertical;min-height:80px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.err{font-size:11px;color:var(--re);display:none}
+.err.show{display:block}
 .hint{font-size:11px;color:var(--g2)}
-.ferr{font-size:11px;color:var(--re)}
 
-.awchoice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:460px){.awchoice{grid-template-columns:1fr}}
-.awcard{display:flex;align-items:flex-start;gap:12px;padding:16px 14px;border:2px solid var(--br);border-radius:6px;background:var(--w);text-align:left;transition:border-color .15s,background .15s}
-.awcard:hover{border-color:var(--a)}
-.awcard.sel{border-color:var(--a);background:#FFFBF2}
-.awi{font-size:22px}
-.awt{font-size:13px;font-weight:600;color:var(--n);margin-bottom:3px}
-.awd{font-size:11px;color:var(--g)}
-.awbox{display:flex;flex-direction:column;gap:12px}
-.awinfo{font-size:12px;color:var(--g);background:#F0F9FF;border:1px solid #BAE6FD;border-radius:5px;padding:11px 13px;line-height:1.55}
+/* ── Divider ── */
+.divider{height:1px;background:var(--br);margin:2px 0}
 
-.fs{border:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:9px}
-.drow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-@media(max-width:460px){.drow{grid-template-columns:1fr}}
-.dcard{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 8px;border:2px solid var(--br);border-radius:6px;background:var(--w);font-size:12px;font-weight:500;transition:border-color .15s,background .15s;text-align:center;color:var(--n)}
-.dcard:hover{border-color:var(--a)}
-.dcard.sel{border-color:var(--a);background:#FFFBF2}
-.di{font-size:20px}
-.urow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-@media(max-width:460px){.urow{grid-template-columns:1fr}}
-.ucard{display:flex;flex-direction:column;gap:3px;padding:13px 10px;border:2px solid var(--br);border-radius:6px;background:var(--w);text-align:center;transition:border-color .15s,background .15s}
-.ucard:hover{border-color:var(--a)}
-.ucard.sel{border-color:var(--a);background:#FFFBF2}
-.ul{font-size:13px;font-weight:700;color:var(--n)}
-.ud{font-size:10px;color:var(--g)}
+/* ── File upload ── */
+.upload-zone{
+  border:2px dashed var(--br2);border-radius:8px;padding:20px 16px;
+  text-align:center;cursor:pointer;transition:border-color .15s,background .15s;
+  position:relative
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--a);background:#FFFDF5}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.uz-icon{font-size:28px;margin-bottom:8px}
+.uz-title{font-size:13px;font-weight:600;color:var(--n);margin-bottom:3px}
+.uz-sub{font-size:11px;color:var(--g2)}
 
-.radiorow{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.cchip{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:2px solid var(--br);border-radius:20px;font-size:12px;font-weight:500;background:var(--w);transition:border-color .15s;color:var(--n)}
-.cchip.sel{border-color:var(--a);background:#FFFBF2}
+.file-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.file-item{
+  display:flex;align-items:center;gap:10px;
+  background:#F8FAFC;border:1px solid var(--br);border-radius:6px;
+  padding:8px 10px;
+}
+.file-preview{width:40px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0;border:1px solid var(--br)}
+.file-icon{width:40px;height:40px;border-radius:4px;background:var(--n);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--cr);flex-shrink:0;font-family:monospace;letter-spacing:-.5px}
+.file-info{flex:1;min-width:0}
+.file-name{font-size:12px;font-weight:600;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-size{font-size:11px;color:var(--g2);margin-top:1px}
+.file-remove{background:none;border:none;color:var(--g2);font-size:18px;line-height:1;padding:2px 4px;cursor:pointer;flex-shrink:0;border-radius:4px;transition:color .1s,background .1s}
+.file-remove:hover{color:var(--re);background:#FEF2F2}
 
-.gsttog{background:none;border:none;font-size:12px;color:var(--b);font-weight:600;text-align:left;padding:0;margin-bottom:12px}
+/* ── Submit ── */
+.submit-btn{
+  width:100%;padding:13px;background:var(--a);color:var(--n);border:none;
+  border-radius:6px;font-size:15px;font-weight:700;font-family:var(--fb);
+  cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.submit-btn:hover:not(:disabled){background:var(--a2)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.spin{display:inline-block;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.revcard{border:1px solid var(--br);border-radius:6px;overflow:hidden;margin-top:8px}
-.revhead{background:var(--n);color:var(--cr);padding:9px 15px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.revrow{display:flex;justify-content:space-between;padding:7px 15px;font-size:12px;border-bottom:1px solid #F1F5F9}
-.revk{color:var(--g)}
-.revv{font-weight:600;color:var(--n);text-transform:capitalize}
-.revnote{padding:9px 15px;font-size:11px;color:var(--g);background:#FAFAFA}
+.err-global{background:#FEF2F2;border:1px solid #FECACA;border-radius:6px;padding:11px 14px;font-size:13px;color:var(--re);display:none}
+.err-global.show{display:block}
 
-.fnav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:18px;border-top:1px solid var(--br)}
-.fbk{display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--br);border-radius:4px;padding:9px 14px;font-size:12px;font-weight:500;color:var(--g);transition:border-color .15s}
-.fbk:hover{border-color:var(--g);color:var(--n)}
-.fnxt{display:inline-flex;align-items:center;gap:7px;background:var(--a);color:var(--n);border:none;border-radius:4px;padding:11px 22px;font-size:13px;font-weight:700;transition:background .15s}
-.fnxt:hover:not(:disabled){background:var(--a2)}
-.fnxt:disabled{opacity:.6;cursor:not-allowed}
-.errbox{background:#FEF2F2;border:1px solid #FECACA;border-radius:5px;padding:11px 14px;font-size:12px;color:var(--re);margin-top:12px}
+.trust-line{text-align:center;font-size:11px;color:var(--g2);line-height:1.6;margin-top:4px}
 
-.summ{background:var(--n);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.summ-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--a);margin-bottom:2px}
-.summ-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--cr)}
-.summ-spec{font-size:11px;color:rgba(245,237,214,.6)}
-.summ-note{font-size:10px;color:rgba(245,237,214,.45);border-top:1px solid rgba(245,237,214,.12);padding-top:8px;margin-top:2px}
-
-.trust{background:#F8FAFC;border:1px solid var(--br);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.trow{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:var(--g);line-height:1.4}
-.wabtn{display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#fff;border-radius:4px;padding:8px 12px;font-size:11px;font-weight:600;text-decoration:none;margin-top:4px}
-
-/* ── SUCCESS ─────────────────────────────────────────────── */
-#view-success{min-height:100vh;background:var(--n);display:flex;align-items:center;justify-content:center;padding:24px}
-.succ-card{background:var(--w);border-radius:10px;padding:36px 28px;max-width:460px;width:100%;text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center}
-.succ-icon{width:52px;height:52px;background:var(--gr);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700}
-.succ-h{font-family:var(--fh);font-size:24px;font-weight:400;margin:0;color:var(--n)}
-.ono-big{background:var(--n);color:var(--cr);border-radius:4px;padding:9px 22px;font-size:20px;font-weight:700;letter-spacing:.08em;font-family:monospace}
-.succ-body{font-size:14px;color:var(--g);line-height:1.6;margin:0}
-.nexts{display:flex;flex-direction:column;gap:9px;width:100%;text-align:left}
-.nxt{display:flex;gap:11px;align-items:flex-start;font-size:12px;color:var(--g)}
-.nxt-num{width:20px;height:20px;background:var(--a);color:var(--n);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+/* ── Success ── */
+#view-success{display:none;width:100%;max-width:520px}
+.succ-card{background:var(--w);border:1px solid var(--br);border-radius:10px;padding:36px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+@media(max-width:480px){.succ-card{padding:28px 18px}}
+.succ-tick{width:56px;height:56px;background:var(--gr);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
+.succ-h{font-family:var(--fh);font-size:22px;color:var(--n);font-weight:400}
+.succ-ono{background:var(--n);color:var(--cr);border-radius:5px;padding:8px 20px;font-size:18px;font-weight:700;letter-spacing:.08em;font-family:monospace}
+.succ-body{font-size:14px;color:var(--g);line-height:1.65;max-width:380px}
+.succ-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#25D366;color:#fff;border-radius:6px;
+  padding:11px 20px;font-size:14px;font-weight:600;text-decoration:none;
+  font-family:var(--fb);
+}
+.succ-files{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;padding:12px 16px;font-size:12px;color:#166534;text-align:left;width:100%}
+.succ-files strong{display:block;margin-bottom:4px;font-size:13px}
+.succ-again{background:none;border:1.5px solid var(--br);border-radius:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;font-family:var(--fb);transition:border-color .15s}
+.succ-again:hover{border-color:var(--n);color:var(--n)}
 .succ-note{font-size:11px;color:var(--g2)}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════ LANDING ════════════════════════════════ -->
-<div id="view-landing">
-  <section class="hero">
-    <div class="hero-in">
-      <div class="badge">Chennai's trusted print partner</div>
-      <h1 class="sp">Share your print requirement.<br/>We handle the rest.</h1>
-      <p class="hero-sub">Submit a print requirement in under 3 minutes. We review the specs, confirm the quote, then start printing only after your approval.</p>
-      <div class="paths">
-        <button class="btn-pri" onclick="startNew()">＋ Start a New Print Request</button>
-        <button class="btn-sec hidden" id="btn-past" onclick="showPast()">
-          ↺ Reorder or Continue
-          <span class="cnt-badge hidden" id="active-cnt"></span>
-        </button>
-      </div>
-      <p class="hero-time">⏱ Most first-time requests take under 3 minutes</p>
-    </div>
-  </section>
-
-  <div class="abanner hidden" id="abanner">
-    <div class="abanner-in">
-      <span>You have <strong id="active-count-text"></strong> active order(s) — open for editing or tracking.</span>
-      <button class="abtn" onclick="showPast()">View Orders</button>
+<!-- ═══════════ FORM VIEW ═══════════ -->
+<div class="page" id="view-form">
+  <div class="brand">
+    <div class="brand-mark">🖨</div>
+    <div>
+      <div class="brand-name">Super Printers</div>
+      <div class="brand-loc">Chennai</div>
     </div>
   </div>
 
-  <section class="sec bg-cr">
-    <div class="sec-in">
-      <h2 class="sec-h">What we print</h2>
-      <div class="catpills" id="land-cats"></div>
-    </div>
-  </section>
+  <h1 class="headline">Send us your print request</h1>
+  <p class="subline">Upload your design files and we'll review the job and confirm the quote — usually within a few hours.</p>
 
-  <section class="sec bg-w">
-    <div class="sec-in">
-      <h2 class="sec-h">How it works</h2>
-      <div class="howgrid">
-        <div class="howcard"><div class="hown">01</div><div><div class="howt">Share your requirement</div><div class="howb">Select what you want to print, add specs, and tell us about your artwork.</div></div></div>
-        <div class="howcard"><div class="hown">02</div><div><div class="howt">We review and quote</div><div class="howb">Our team checks the specs and artwork, then sends you a confirmed price.</div></div></div>
-        <div class="howcard"><div class="hown">03</div><div><div class="howt">You approve</div><div class="howb">Printing starts only after your explicit approval of the quote and artwork.</div></div></div>
-        <div class="howcard"><div class="hown">04</div><div><div class="howt">Ready for pickup or delivery</div><div class="howb">We coordinate dispatch and keep you updated throughout.</div></div></div>
+  <form class="card" id="order-form" novalidate>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="f-name">Your name <span style="color:var(--re)">*</span></label>
+        <input id="f-name" type="text" placeholder="Full name" autocomplete="name"/>
+        <span class="err" id="e-name">Please enter your name</span>
+      </div>
+      <div class="field">
+        <label for="f-phone">WhatsApp / Mobile <span style="color:var(--re)">*</span></label>
+        <input id="f-phone" type="tel" placeholder="10-digit number" maxlength="10" inputmode="numeric"/>
+        <span class="err" id="e-phone">Enter a valid 10-digit number</span>
       </div>
     </div>
-  </section>
 
-  <section class="sec bg-n">
-    <div class="sec-in">
-      <div class="trustgrid">
-        <div class="ti"><span>🔍</span><span>Artwork reviewed before printing</span></div>
-        <div class="ti"><span>✅</span><span>Quote confirmed before production starts</span></div>
-        <div class="ti"><span>💬</span><span>WhatsApp support throughout your order</span></div>
-        <div class="ti"><span>🔒</span><span>Files handled securely and privately</span></div>
-        <div class="ti"><span>📍</span><span>Chennai-based team, local support</span></div>
-        <div class="ti"><span>♻️</span><span>Easy reorder from past orders</span></div>
+    <div class="field">
+      <label for="f-email">Email <span class="opt">(optional)</span></label>
+      <input id="f-email" type="email" placeholder="you@example.com" autocomplete="email"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="f-product">What are you printing? <span style="color:var(--re)">*</span></label>
+        <select id="f-product">
+          <option value="">Select type…</option>
+          <option>Business Cards</option>
+          <option>Wedding Cards</option>
+          <option>Flyers</option>
+          <option>Brochures</option>
+          <option>Stickers &amp; Labels</option>
+          <option>Posters &amp; Banners</option>
+          <option>Invitations</option>
+          <option>Custom Print Job</option>
+        </select>
+        <span class="err" id="e-product">Please select a print type</span>
+      </div>
+      <div class="field">
+        <label for="f-qty">Quantity <span style="color:var(--re)">*</span></label>
+        <input id="f-qty" type="number" placeholder="e.g. 500" min="1" inputmode="numeric"/>
+        <span class="err" id="e-qty">Please enter a quantity</span>
       </div>
     </div>
-  </section>
 
-  <section class="sec bg-cr2">
-    <div class="btm-in">
-      <h2 class="btmh">Ready to get started?</h2>
-      <p class="btms">Fill the short form — takes about 2–3 minutes.</p>
-      <button class="btn-pri" onclick="startNew()">＋ Start a New Print Request</button>
-      <a href="https://wa.me/919840199878" class="walink" target="_blank" rel="noopener noreferrer">💬 Need help? Chat with us on WhatsApp</a>
+    <div class="field">
+      <label for="f-desc">Briefly describe your requirement <span style="color:var(--re)">*</span></label>
+      <textarea id="f-desc" placeholder="E.g. Double-sided business cards, 90×54mm, gloss lamination, 300gsm. Or just describe what you need and we'll guide you."></textarea>
+      <span class="err" id="e-desc">Please describe your requirement</span>
     </div>
-  </section>
+
+    <div class="field">
+      <label for="f-date">Needed by <span style="color:var(--re)">*</span></label>
+      <input id="f-date" type="date"/>
+      <span class="hint">We'll confirm if this date is achievable.</span>
+      <span class="err" id="e-date">Please select a date</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- File Upload -->
+    <div class="field">
+      <label>Design / artwork files <span class="opt">(optional — you can also send via WhatsApp)</span></label>
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="f-files" multiple
+          accept=".pdf,.jpg,.jpeg,.png,.ai,.psd,.cdr,.zip,.tif,.tiff,.eps"
+          aria-label="Upload design files"/>
+        <div class="uz-icon">📎</div>
+        <div class="uz-title">Tap to upload files</div>
+        <div class="uz-sub">PDF, JPG, PNG, AI, PSD, CDR, ZIP — up to 20 MB each</div>
+      </div>
+      <div class="file-list" id="file-list"></div>
+    </div>
+
+    <div class="field">
+      <label for="f-notes">Additional notes <span class="opt">(optional)</span></label>
+      <textarea id="f-notes" placeholder="Paper type, lamination, any special instructions…" style="min-height:60px"></textarea>
+    </div>
+
+    <div class="err-global" id="err-global"></div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">
+      <span id="submit-label">Send Print Request</span>
+    </button>
+
+    <p class="trust-line">🔍 Artwork reviewed before printing &nbsp;·&nbsp; ✅ Quote confirmed before production starts &nbsp;·&nbsp; 💬 WhatsApp support</p>
+
+  </form>
 </div>
 
-<!-- ═══════════════════════════ PAST ORDERS ════════════════════════════ -->
-<div id="view-past" class="overlay hidden" onclick="hidePast(event)">
-  <div class="drawer" onclick="event.stopPropagation()">
-    <div class="dr-head">
-      <h2 class="dr-title">Your Orders</h2>
-      <button class="dr-close" onclick="hidePast()">✕</button>
+<!-- ═══════════ SUCCESS VIEW ═══════════ -->
+<div id="view-success">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+    <div class="brand-mark">🖨</div>
+    <div>
+      <div class="brand-name">Super Printers</div>
+      <div class="brand-loc">Chennai</div>
     </div>
-    <div id="drawer-body"></div>
-    <p class="dr-note">Orders shown are saved on this device only.</p>
   </div>
-</div>
-
-<!-- ═══════════════════════════ FORM ═══════════════════════════════════ -->
-<div id="view-form" class="hidden">
-  <div class="flayout">
-    <div class="fmain">
-      <!-- Progress -->
-      <nav class="prog" id="progress" aria-label="Form progress"></nav>
-      <!-- Mobile summary -->
-      <div class="msum hidden" id="msum">
-        <button class="msum-tog" onclick="toggleMsum()">
-          <span id="msum-label">Your request</span>
-          <span id="msum-arrow">▾</span>
-        </button>
-        <div class="msum-body hidden" id="msum-body"></div>
-      </div>
-      <!-- Form card -->
-      <div class="fcard">
-        <div id="step-content"></div>
-        <div class="errbox hidden" id="errbox"></div>
-        <div class="fnav">
-          <button class="fbk" id="btn-back" onclick="goBack()">← <span id="back-label">Back to Home</span></button>
-          <button class="fnxt" id="btn-next" onclick="goNext()"><span id="next-label">Continue to Specifications</span> →</button>
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar -->
-    <aside class="fsidebar">
-      <div class="summ hidden" id="summ">
-        <div class="summ-head">Your Request</div>
-        <div id="summ-body"></div>
-        <div class="summ-note">Final pricing confirmed after artwork review</div>
-      </div>
-      <div class="trust">
-        <div class="trow"><span>🔍</span><span>Artwork reviewed manually before printing</span></div>
-        <div class="trow"><span>✅</span><span>No printing before your approval</span></div>
-        <div class="trow"><span>💬</span><span>WhatsApp support throughout</span></div>
-        <div class="trow"><span>🔒</span><span>Files handled securely</span></div>
-        <div class="trow"><span>📍</span><span>Chennai-based, local support</span></div>
-        <a href="https://wa.me/919840199878" class="wabtn" target="_blank" rel="noopener noreferrer">💬 Need help? WhatsApp us</a>
-      </div>
-    </aside>
-  </div>
-</div>
-
-<!-- ═══════════════════════════ SUCCESS ═══════════════════════════════ -->
-<div id="view-success" class="hidden">
   <div class="succ-card">
-    <div class="succ-icon">✓</div>
+    <div class="succ-tick">✓</div>
     <h2 class="succ-h">Request received!</h2>
-    <div class="ono-big" id="succ-ono"></div>
+    <div class="succ-ono" id="succ-ono"></div>
     <p class="succ-body" id="succ-body"></p>
-    <div class="nexts">
-      <div class="nxt"><span class="nxt-num">1</span><span>Share your artwork files via WhatsApp or email</span></div>
-      <div class="nxt"><span class="nxt-num">2</span><span>Receive quote confirmation from our team</span></div>
-      <div class="nxt"><span class="nxt-num">3</span><span>Approve and we begin printing</span></div>
+    <div class="succ-files hidden" id="succ-files">
+      <strong>📎 Send your design files on WhatsApp</strong>
+      <span id="succ-files-list"></span>
     </div>
-    <button class="btn-pri" style="width:100%" onclick="backToHome()">＋ Place Another Order</button>
+    <a href="https://wa.me/919840199878" class="succ-wa" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat with us on WhatsApp
+    </a>
+    <button class="succ-again" onclick="resetForm()">Send another request</button>
     <p class="succ-note" id="succ-note"></p>
   </div>
 </div>
 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────────
+// BACKEND: Supabase Edge Function endpoint
 const ENDPOINT = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/submit-public-order";
-const LS_KEY   = "sp_pub_orders";
-const LS_DRAFT = "sp_pub_draft";
+// BACKEND: File upload requires Supabase anon JWT or a signed-URL edge function.
+// Currently, file names are included in the submission payload and customer is
+// directed to WhatsApp the files after submission.
 
-const CATS = [
-  {id:"business_cards",  label:"Business Cards",    icon:"🪪", desc:"500–10,000 pcs"},
-  {id:"wedding_cards",   label:"Wedding Cards",     icon:"💌", desc:"Invite sets & boxes"},
-  {id:"flyers",          label:"Flyers",            icon:"📄", desc:"A4, A5, DL"},
-  {id:"brochures",       label:"Brochures",         icon:"📋", desc:"Bi-fold, tri-fold"},
-  {id:"stickers_labels", label:"Stickers & Labels", icon:"🏷️", desc:"Custom cut shapes"},
-  {id:"posters_banners", label:"Posters & Banners", icon:"🖼️", desc:"Indoor & outdoor"},
-  {id:"invitations",     label:"Invitations",       icon:"✉️", desc:"Events & occasions"},
-  {id:"custom",          label:"Custom Print Job",  icon:"⚙️", desc:"Describe your need"},
-];
+// ── FILE STATE ──────────────────────────────────────────────────────────────
+let selectedFiles = []; // Array of {file, previewUrl, id}
 
-const STATUS_META = {
-  pending:   {label:"Pending Review",   color:"#2563EB", editable:true},
-  in_review: {label:"Under Review",     color:"#D97706", editable:true},
-  printing:  {label:"Being Printed",    color:"#7C3AED", editable:false},
-  ready:     {label:"Ready for Pickup", color:"#059669", editable:false},
-  delivered: {label:"Delivered",        color:"#6B7280", editable:false},
-  cancelled: {label:"Cancelled",        color:"#DC2626", editable:false},
-};
+// ── FILE UPLOAD ─────────────────────────────────────────────────────────────
+const fileInput = document.getElementById("f-files");
+const fileList  = document.getElementById("file-list");
+const zone      = document.getElementById("upload-zone");
 
-const STEPS = [
-  {id:1, short:"Type"},
-  {id:2, short:"Specs"},
-  {id:3, short:"Artwork"},
-  {id:4, short:"Delivery"},
-  {id:5, short:"Review"},
-];
-
-const CTA = {
-  1:"Continue to Specifications",
-  2:"Continue to Artwork",
-  3:"Continue to Delivery",
-  4:"Review My Request",
-  5:"Send for Quote Review",
-};
-
-const PAPER_TYPES = ["130gsm Art Paper","170gsm Art Paper","300gsm Art Card","80gsm Maplitho","100gsm Maplitho","Other"];
-
-// ── STATE ───────────────────────────────────────────────────────────────────
-let state = {
-  step: 1,
-  editingId: null,
-  msumOpen: false,
-  gstOpen: false,
-  form: freshForm(),
-};
-
-function freshForm() {
-  return {
-    product_category:"", specs:{}, quantity:0,
-    artwork_mode:"", artwork_notes:"", design_language:"", design_style:"", design_content_note:"",
-    delivery_mode:"", urgency:"", delivery_date:"", delivery_address:"",
-    customer_name:"", contact_no:"", email:"", company:"", gstin:"",
-    preferred_contact:"whatsapp", special_instructions:"",
-  };
+function fmtSize(b) {
+  if (b < 1024) return b + " B";
+  if (b < 1048576) return (b/1024).toFixed(1) + " KB";
+  return (b/1048576).toFixed(1) + " MB";
 }
 
-// ── LOCALSTORAGE ────────────────────────────────────────────────────────────
-function loadOrders() {
-  try { return JSON.parse(localStorage.getItem(LS_KEY)||"[]"); } catch { return []; }
-}
-function saveOrder(o) {
-  const all = loadOrders();
-  const idx = all.findIndex(x=>x.id===o.id);
-  if (idx>=0) all[idx]=o; else all.unshift(o);
-  localStorage.setItem(LS_KEY, JSON.stringify(all.slice(0,10)));
-}
-function loadDraft() {
-  try { return JSON.parse(localStorage.getItem(LS_DRAFT)||"null"); } catch { return null; }
-}
-function saveDraft() { localStorage.setItem(LS_DRAFT, JSON.stringify(state.form)); }
-function clearDraft() { localStorage.removeItem(LS_DRAFT); }
-
-// ── VIEWS ───────────────────────────────────────────────────────────────────
-function showView(id) {
-  ["view-landing","view-form","view-success","view-past"].forEach(v=>{
-    const el = document.getElementById(v);
-    if (el) { v===id ? el.classList.remove("hidden") : el.classList.add("hidden"); }
-  });
+function fileExt(name) {
+  return name.split(".").pop().toUpperCase().slice(0,4);
 }
 
-function backToHome() {
-  state.form = freshForm();
-  state.step = 1;
-  state.editingId = null;
-  initLanding();
-  showView("view-landing");
-  window.scrollTo(0,0);
+function isImage(file) {
+  return file.type.startsWith("image/");
 }
 
-// ── LANDING INIT ────────────────────────────────────────────────────────────
-function initLanding() {
-  // Category pills
-  const el = document.getElementById("land-cats");
-  if (el) el.innerHTML = CATS.map(c=>`<div class="pill"><span>${c.icon}</span><span>${c.label}</span></div>`).join("");
+function isPdf(file) {
+  return file.type === "application/pdf";
+}
 
-  // Past orders
-  const orders = loadOrders();
-  const active = orders.filter(o=>!["delivered","cancelled"].includes(o.status));
-
-  const btnPast = document.getElementById("btn-past");
-  if (orders.length>0 && btnPast) btnPast.classList.remove("hidden");
-
-  const cntBadge = document.getElementById("active-cnt");
-  if (active.length>0 && cntBadge) {
-    cntBadge.textContent = active.length;
-    cntBadge.classList.remove("hidden");
-  }
-
-  const abanner = document.getElementById("abanner");
-  const actText = document.getElementById("active-count-text");
-  if (active.length>0 && abanner) {
-    abanner.classList.remove("hidden");
-    if (actText) actText.textContent = active.length;
+function addFiles(newFiles) {
+  for (const file of newFiles) {
+    if (selectedFiles.some(f => f.file.name === file.name && f.file.size === file.size)) continue;
+    const id = crypto.randomUUID();
+    const entry = {file, id, previewUrl: null};
+    if (isImage(file)) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        entry.previewUrl = e.target.result;
+        renderFileItem(id);
+      };
+      reader.readAsDataURL(file);
+    }
+    selectedFiles.push(entry);
+    renderFileItem(id);
   }
 }
 
-// ── PAST ORDERS DRAWER ──────────────────────────────────────────────────────
-function showPast() {
-  const orders = loadOrders();
-  const active = orders.filter(o=>!["delivered","cancelled"].includes(o.status));
-  const past   = orders.filter(o=> ["delivered","cancelled"].includes(o.status));
+function renderFileItem(id) {
+  const entry = selectedFiles.find(f => f.id === id);
+  if (!entry) return;
 
-  let html = "";
-  if (orders.length===0) {
-    html = `<p class="empty-msg">No past orders saved on this device.</p>`;
-  }
-  if (active.length>0) {
-    html += `<div class="dr-sec"><p class="sec-lbl">Active Orders</p>${active.map(renderOrderCard).join("")}</div>`;
-  }
-  if (past.length>0) {
-    html += `<div class="dr-sec"><p class="sec-lbl">Past Orders</p>${past.map(renderOrderCard).join("")}</div>`;
-  }
-  document.getElementById("drawer-body").innerHTML = html;
-  document.getElementById("view-past").classList.remove("hidden");
-}
+  let existing = document.getElementById("fi-" + id);
+  const thumb = entry.previewUrl
+    ? `<img class="file-preview" src="${entry.previewUrl}" alt="${entry.file.name}" loading="lazy"/>`
+    : `<div class="file-icon">${fileExt(entry.file.name)}</div>`;
 
-function hidePast(e) {
-  if (!e || e.target===document.getElementById("view-past")) {
-    document.getElementById("view-past").classList.add("hidden");
-  }
-}
-
-function renderOrderCard(o) {
-  const meta = STATUS_META[o.status] || STATUS_META.pending;
-  const date = new Date(o.submitted_at).toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
-  const editBtn = meta.editable
-    ? `<button class="osm osm-out" onclick="editOrder('${o.id}')">✏ Edit</button>`
-    : "";
-  const dupLabel = o.status==="delivered" ? "Reorder" : "Duplicate";
-  return `
-    <div class="ocard">
-      <div class="ocard-top">
-        <div>
-          <div class="ono">${o.order_no}</div>
-          <div class="ometa">${o.product_label} · ${Number(o.quantity).toLocaleString("en-IN")} pcs</div>
-          <div class="odate">${date}</div>
-        </div>
-        <span class="sbadge" style="background:${meta.color}20;color:${meta.color}">${meta.label}</span>
+  const html = `
+    <div class="file-item" id="fi-${id}">
+      ${thumb}
+      <div class="file-info">
+        <div class="file-name" title="${entry.file.name}">${entry.file.name}</div>
+        <div class="file-size">${fmtSize(entry.file.size)}</div>
       </div>
-      <div class="oacts">
-        ${editBtn}
-        <button class="osm osm-pri" onclick="reorderOrder('${o.id}')">↺ ${dupLabel}</button>
-      </div>
-    </div>`;
-}
-
-function reorderOrder(id) {
-  const o = loadOrders().find(x=>x.id===id);
-  if (!o) return;
-  state.form = {...freshForm(), ...o.form_data};
-  state.editingId = null;
-  hidePast();
-  startForm();
-}
-
-function editOrder(id) {
-  const o = loadOrders().find(x=>x.id===id);
-  if (!o || !(STATUS_META[o.status]||{}).editable) return;
-  state.form = {...freshForm(), ...o.form_data};
-  state.editingId = id;
-  document.getElementById("next-label").textContent = "Update My Request";
-  hidePast();
-  startForm();
-}
-
-// ── FORM START ──────────────────────────────────────────────────────────────
-function startNew() {
-  const draft = loadDraft();
-  state.form = (draft && draft.product_category) ? {...freshForm(),...draft} : freshForm();
-  state.step = 1;
-  state.editingId = null;
-  startForm();
-}
-
-function startForm() {
-  state.step = 1;
-  renderProgress();
-  renderStep();
-  showView("view-form");
-  window.scrollTo(0,0);
-}
-
-// ── PROGRESS BAR ────────────────────────────────────────────────────────────
-function renderProgress() {
-  const el = document.getElementById("progress");
-  el.innerHTML = STEPS.map((s,i) => {
-    const done = state.step>s.id;
-    const act  = state.step===s.id;
-    const line = i<STEPS.length-1 ? `<div class="pline${done?" done":""}"></div>` : "";
-    return `
-      <div class="pitem">
-        <div class="pdot${act?" act":done?" done":""}">${done?"✓":s.id}</div>
-        <span class="plbl${act?" act":""}">${s.short}</span>
-        ${line}
-      </div>`;
-  }).join("");
-}
-
-// ── MOBILE SUMMARY ───────────────────────────────────────────────────────────
-function toggleMsum() {
-  state.msumOpen = !state.msumOpen;
-  document.getElementById("msum-body").classList.toggle("hidden", !state.msumOpen);
-  document.getElementById("msum-arrow").textContent = state.msumOpen ? "▴" : "▾";
-}
-
-function updateSummary() {
-  const f = state.form;
-  const cat = CATS.find(c=>c.id===f.product_category);
-  if (state.step<2 || !cat) {
-    document.getElementById("summ")?.classList.add("hidden");
-    document.getElementById("msum")?.classList.add("hidden");
-    return;
-  }
-
-  const specs = Object.values(f.specs).filter(Boolean).slice(0,4).map(v=>`<div class="summ-spec">${v}</div>`).join("");
-  const aw = f.artwork_mode==="print_ready"?"✓ Artwork ready":f.artwork_mode==="need_design"?"✎ Design help needed":"";
-  const qty = f.quantity>0 ? f.quantity.toLocaleString("en-IN")+" pcs" : "";
-  const byDate = f.delivery_date ? "By "+new Date(f.delivery_date).toLocaleDateString("en-IN",{day:"2-digit",month:"short"}) : "";
-  const urgency = f.urgency ? (f.urgency.charAt(0).toUpperCase()+f.urgency.slice(1))+" delivery" : "";
-
-  const body = `
-    <div class="summ-row"><span>${cat.icon} ${cat.label}</span>${qty?`<span>${qty}</span>`:""}</div>
-    ${specs}
-    ${aw?`<div class="summ-spec">${aw}</div>`:""}
-    ${urgency?`<div class="summ-spec">${urgency}</div>`:""}
-    ${byDate?`<div class="summ-spec">${byDate}</div>`:""}
-  `;
-  document.getElementById("summ-body").innerHTML = body;
-  document.getElementById("summ").classList.remove("hidden");
-
-  // Mobile
-  document.getElementById("msum-label").textContent = `${cat.icon} ${cat.label}${qty?" · "+qty:""}`;
-  document.getElementById("msum-body").innerHTML = body + `<div class="msum-note">Quote confirmed before printing starts</div>`;
-  document.getElementById("msum").classList.remove("hidden");
-}
-
-// ── STEP RENDERER ────────────────────────────────────────────────────────────
-function renderStep() {
-  renderProgress();
-  updateSummary();
-  const f = state.form;
-  const el = document.getElementById("step-content");
-  const nextLbl = document.getElementById("next-label");
-  const backLbl = document.getElementById("back-label");
-  backLbl.textContent = state.step===1?"Back to Home":"Back";
-  nextLbl.textContent = state.editingId&&state.step===5?"Update My Request":(CTA[state.step]||"Continue");
-  document.getElementById("errbox").classList.add("hidden");
-
-  switch(state.step) {
-    case 1: el.innerHTML = renderStep1(); bindStep1(); break;
-    case 2: el.innerHTML = renderStep2(); bindStep2(); break;
-    case 3: el.innerHTML = renderStep3(); bindStep3(); break;
-    case 4: el.innerHTML = renderStep4(); bindStep4(); break;
-    case 5: el.innerHTML = renderStep5(); bindStep5(); break;
-  }
-}
-
-// ── STEP 1: Print Type ───────────────────────────────────────────────────────
-function renderStep1() {
-  const f = state.form;
-  const cards = CATS.map(c=>`
-    <button class="catcard${f.product_category===c.id?" sel":""}" onclick="selectCat('${c.id}')">
-      <span class="cati">${c.icon}</span>
-      <span class="catl">${c.label}</span>
-      <span class="catd">${c.desc}</span>
-    </button>`).join("");
-
-  const presets = [100,250,500,1000,2000,5000].map(n=>`
-    <button class="qchip${f.quantity===n?" sel":""}" onclick="selectQty(${n})">${n.toLocaleString("en-IN")}</button>`).join("");
-
-  return `
-    <h2 class="step-h">What would you like to print?</h2>
-    <p class="step-sub">Choose a category — we'll show the right fields from there.</p>
-    <div class="catgrid" role="radiogroup">${cards}</div>
-    <div id="cat-err" class="ferr hidden">Please select a print type</div>
-    <div class="spf">
-      <label class="spl">Approximate quantity needed *</label>
-      <div class="qrow">${presets}</div>
-      <input class="spi" type="number" id="qty-input" min="1" placeholder="Or type a number" value="${f.quantity||""}"/>
-      <div id="qty-err" class="ferr hidden">Please enter a quantity</div>
-    </div>`;
-}
-
-function bindStep1() {
-  document.getElementById("qty-input").addEventListener("input", e=>{
-    state.form.quantity = parseInt(e.target.value)||0;
-    saveDraft();
-    // deselect chips
-    document.querySelectorAll(".qchip").forEach(c=>c.classList.remove("sel"));
-  });
-}
-
-function selectCat(id) {
-  state.form.product_category = id;
-  state.form.specs = {};
-  saveDraft();
-  renderStep();
-}
-
-function selectQty(n) {
-  state.form.quantity = n;
-  saveDraft();
-  document.getElementById("qty-input").value = n;
-  document.querySelectorAll(".qchip").forEach(c=>c.classList.toggle("sel", parseInt(c.textContent.replace(/,/g,""))===n));
-}
-
-// ── STEP 2: Specs ────────────────────────────────────────────────────────────
-function renderStep2() {
-  const cat = CATS.find(c=>c.id===state.form.product_category);
-  return `
-    <h2 class="step-h">${cat?.label||""} — specifications</h2>
-    <p class="step-sub">You can update these during quote review — don't overthink it.</p>
-    <div id="spec-fields">${renderSpecFields()}</div>`;
-}
-
-function renderSpecFields() {
-  const cat = state.form.product_category;
-  const f   = state.form.specs;
-  const sel = (id,label,opts)=> `
-    <div class="spf">
-      <label class="spl" for="${id}">${label}</label>
-      <select id="${id}" class="spi" onchange="setSpec('${id}',this.value)">
-        <option value="">Select…</option>
-        ${opts.map(o=>`<option${f[id]===o?" selected":""}>${o}</option>`).join("")}
-      </select>
+      <button type="button" class="file-remove" onclick="removeFile('${id}')" aria-label="Remove file">×</button>
     </div>`;
 
-  if (cat==="business_cards") return `<div class="spgrid">
-    ${sel("sides","Sides",["Single Side","Double Side"])}
-    ${sel("size","Size",["90×54mm (Standard)","85×55mm","Square 55mm","Custom"])}
-    ${sel("paper","Paper",["300gsm Art Card","350gsm Art Card","400gsm Matt Board"])}
-    ${sel("lamination","Lamination",["Gloss","Matte","Soft Touch Matte","None"])}
-    ${sel("corners","Corners",["Square","Rounded"])}
-  </div>`;
-
-  if (cat==="wedding_cards") return `<div class="spgrid">
-    ${sel("card_type","Card Type",["Single Card","Folded Card","Box Set"])}
-    ${sel("language","Language",["English","Tamil","Tamil & English","Hindi","Hindi & English"])}
-    ${sel("paper","Paper",["300gsm Art Card","270gsm Conqueror","250gsm Textured"])}
-    ${sel("envelope","Envelope",["Yes","No"])}
-    ${sel("inserts","Inserts",["None","1 Insert","2 Inserts","3 Inserts"])}
-    ${sel("box","Box Packaging",["No box","Printed box","Premium box"])}
-  </div>`;
-
-  if (cat==="flyers") return `<div class="spgrid">
-    ${sel("size","Size",["A4","A5","A6","DL","Custom"])}
-    ${sel("sides","Sides",["Single Side","Double Side"])}
-    ${sel("paper","Paper",PAPER_TYPES)}
-  </div>`;
-
-  if (cat==="brochures") return `<div class="spgrid">
-    ${sel("size","Size",["A4","A5","DL"])}
-    ${sel("fold","Fold Type",["Bi-fold (4 panels)","Tri-fold (6 panels)","Z-fold","Gate-fold"])}
-    ${sel("paper","Paper",PAPER_TYPES)}
-  </div>`;
-
-  if (cat==="stickers_labels") return `<div class="spgrid">
-    ${sel("shape","Shape",["Rectangle","Circle","Oval","Custom Cut"])}
-    ${sel("finish","Finish",["Gloss","Matte","Transparent"])}
-    ${sel("use","Use",["Indoor","Outdoor (weatherproof)"])}
-    ${sel("size","Size",["Small (≤5cm)","Medium (5–10cm)","Large (10–20cm)","Custom"])}
-  </div>`;
-
-  if (cat==="posters_banners") return `<div class="spgrid">
-    ${sel("type","Type",["Poster (Paper)","Flex Banner","Vinyl Banner","Canvas Print"])}
-    ${sel("size","Size",["A3","A2","A1","2×3ft","3×4ft","4×6ft","Custom"])}
-    ${sel("use","Use",["Indoor","Outdoor"])}
-    ${sel("finishing","Finishing",["None","Lamination","Mounted on board","Eyelets"])}
-  </div>`;
-
-  if (cat==="invitations") return `<div class="spgrid">
-    ${sel("occasion","Occasion",["Wedding","Birthday","Corporate Event","Housewarming","Other"])}
-    ${sel("language","Language",["English","Tamil","Tamil & English","Hindi","Hindi & English"])}
-    ${sel("size","Size",["A5","A4","DL","Square","Custom"])}
-    ${sel("envelope","Envelope",["Yes","No"])}
-  </div>`;
-
-  // custom
-  return `
-    <div class="spf"><label class="spl" for="desc">Describe your print requirement</label>
-      <textarea id="desc" class="spi" rows="3" placeholder="E.g. A3 certificate on 250gsm textured paper, 50 pieces…" oninput="setSpec('description',this.value)">${state.form.specs.description||""}</textarea></div>
-    <div class="spf"><label class="spl" for="dims">Approximate dimensions</label>
-      <input id="dims" class="spi" placeholder='E.g. 210×297mm or A3' value="${state.form.specs.dimensions||""}" oninput="setSpec('dimensions',this.value)"/></div>
-    <div class="spf"><label class="spl" for="special2">Special requirements</label>
-      <textarea id="special2" class="spi" rows="2" placeholder="Finishes, constraints…" oninput="setSpec('special',this.value)">${state.form.specs.special||""}</textarea></div>`;
-}
-
-function bindStep2() {}
-function setSpec(k,v) { state.form.specs[k]=v; saveDraft(); updateSummary(); }
-
-// ── STEP 3: Artwork ──────────────────────────────────────────────────────────
-function renderStep3() {
-  const f = state.form;
-  return `
-    <h2 class="step-h">Artwork</h2>
-    <p class="step-sub">All artwork is reviewed manually before printing starts.</p>
-    <div class="awchoice" role="radiogroup">
-      <button class="awcard${f.artwork_mode==="print_ready"?" sel":""}" onclick="setArtwork('print_ready')">
-        <span class="awi">📁</span>
-        <div><div class="awt">I have print-ready artwork</div><div class="awd">PDF, AI, CDR, PSD at 300 DPI</div></div>
-      </button>
-      <button class="awcard${f.artwork_mode==="need_design"?" sel":""}" onclick="setArtwork('need_design')">
-        <span class="awi">✏️</span>
-        <div><div class="awt">I need design help</div><div class="awd">Share a brief — our team will design it</div></div>
-      </button>
-    </div>
-    <div id="aw-err" class="ferr hidden">Please select an artwork option</div>
-    <div id="aw-sub"></div>`;
-}
-
-function bindStep3() { renderArtworkSub(); }
-
-function setArtwork(mode) {
-  state.form.artwork_mode = mode;
-  saveDraft();
-  document.querySelectorAll(".awcard").forEach(c=>c.classList.remove("sel"));
-  event.currentTarget.classList.add("sel");
-  document.getElementById("aw-err").classList.add("hidden");
-  renderArtworkSub();
-  updateSummary();
-}
-
-function renderArtworkSub() {
-  const sub = document.getElementById("aw-sub");
-  if (!sub) return;
-  const f = state.form;
-  if (f.artwork_mode==="print_ready") {
-    sub.innerHTML = `
-      <div class="awbox">
-        <p class="awinfo">📎 Share files via WhatsApp or email after submitting. Accepted: <strong>PDF, AI, CDR, PSD, TIFF</strong> — 300 DPI or higher.</p>
-        <div class="spf"><label class="spl" for="aw-notes">Notes about your artwork (optional)</label>
-          <textarea id="aw-notes" class="spi" rows="2" placeholder="E.g. CMYK, bleed marks included…" oninput="setField('artwork_notes',this.value)">${f.artwork_notes||""}</textarea></div>
-      </div>`;
-  } else if (f.artwork_mode==="need_design") {
-    sub.innerHTML = `
-      <div class="awbox spgrid">
-        <div class="spf"><label class="spl" for="dlang">Preferred language</label>
-          <select id="dlang" class="spi" onchange="setField('design_language',this.value)">
-            <option value="">Select…</option>
-            ${["English","Tamil","Tamil & English","Hindi","Hindi & English"].map(o=>`<option${f.design_language===o?" selected":""}>${o}</option>`).join("")}
-          </select></div>
-        <div class="spf"><label class="spl" for="dstyle">Design style</label>
-          <select id="dstyle" class="spi" onchange="setField('design_style',this.value)">
-            <option value="">Select…</option>
-            ${["Clean & minimal","Traditional / Classic","Bold & colourful","Corporate","Festive","Modern"].map(o=>`<option${f.design_style===o?" selected":""}>${o}</option>`).join("")}
-          </select></div>
-        <div class="spf" style="grid-column:1/-1">
-          <label class="spl">Is your content / text ready?</label>
-          <div class="radiorow">
-            ${["Yes — I'll share the text","No — I need help with content too"].map(opt=>`
-              <label class="cchip${f.design_content_note===opt?" sel":""}">
-                <input type="radio" name="dcontent" value="${opt}" ${f.design_content_note===opt?"checked":""} onchange="setField('design_content_note','${opt}')" style="display:none">
-                ${opt}
-              </label>`).join("")}
-          </div>
-        </div>
-        <div class="spf" style="grid-column:1/-1">
-          <label class="spl" for="dref">Design brief or reference</label>
-          <textarea id="dref" class="spi" rows="3" placeholder="Describe your idea, share reference links…" oninput="setField('artwork_notes',this.value)">${f.artwork_notes||""}</textarea>
-        </div>
-      </div>`;
+  if (existing) {
+    existing.outerHTML = html;
   } else {
-    sub.innerHTML = "";
+    fileList.insertAdjacentHTML("beforeend", html);
   }
 }
 
-// ── STEP 4: Delivery ─────────────────────────────────────────────────────────
-function renderStep4() {
-  const f = state.form;
-  const minDate = new Date(Date.now()+86400000).toISOString().split("T")[0];
-  const delivOpts = [{id:"pickup",l:"Pick up from shop",i:"🏪"},{id:"local_delivery",l:"Local delivery (Chennai)",i:"🛵"},{id:"courier",l:"Courier anywhere in India",i:"📦"}];
-  const urgOpts   = [{id:"standard",l:"Standard",d:"3–5 working days"},{id:"priority",l:"Priority",d:"1–2 working days"},{id:"urgent",l:"Urgent",d:"Same / next day"}];
-
-  return `
-    <h2 class="step-h">Delivery &amp; Deadline</h2>
-    <p class="step-sub">Actual timeline confirmed after artwork review — this helps us plan.</p>
-    <fieldset class="fs">
-      <legend class="spl">How do you want to receive your order? *</legend>
-      <div class="drow">
-        ${delivOpts.map(d=>`<button class="dcard${f.delivery_mode===d.id?" sel":""}" onclick="setDeliv('${d.id}')"><span class="di">${d.i}</span><span>${d.l}</span></button>`).join("")}
-      </div>
-      <div id="deliv-err" class="ferr hidden">Please select a delivery option</div>
-    </fieldset>
-    <div id="addr-field" class="${["courier","local_delivery"].includes(f.delivery_mode)?"spf":"spf hidden"}">
-      <label class="spl" for="addr">Delivery address</label>
-      <textarea id="addr" class="spi" rows="2" placeholder="Full address including pincode…" oninput="setField('delivery_address',this.value)">${f.delivery_address||""}</textarea>
-    </div>
-    <fieldset class="fs">
-      <legend class="spl">Urgency *</legend>
-      <div class="urow">
-        ${urgOpts.map(u=>`<button class="ucard${f.urgency===u.id?" sel":""}" onclick="setUrgency('${u.id}')"><span class="ul">${u.l}</span><span class="ud">${u.d}</span></button>`).join("")}
-      </div>
-      <div id="urg-err" class="ferr hidden">Please select urgency</div>
-    </fieldset>
-    <div class="spf">
-      <label class="spl" for="deldate">Required by date *</label>
-      <input id="deldate" type="date" class="spi" min="${minDate}" value="${f.delivery_date||""}" onchange="setField('delivery_date',this.value)"/>
-      <p class="hint">We'll confirm if this timeline is achievable after artwork review.</p>
-      <div id="date-err" class="ferr hidden">Please select a required-by date</div>
-    </div>`;
+function removeFile(id) {
+  selectedFiles = selectedFiles.filter(f => f.id !== id);
+  const el = document.getElementById("fi-" + id);
+  if (el) el.remove();
+  fileInput.value = "";
 }
 
-function bindStep4() {}
-function setDeliv(id) {
-  state.form.delivery_mode = id;
-  saveDraft(); updateSummary();
-  document.querySelectorAll(".dcard").forEach(c=>c.classList.toggle("sel",c.onclick?.toString().includes(id)));
-  renderStep4Inline();
-}
-function setUrgency(id) {
-  state.form.urgency = id;
-  saveDraft(); updateSummary();
-  document.querySelectorAll(".ucard").forEach(c=>c.classList.toggle("sel",c.onclick?.toString().includes(`'${id}'`)));
-}
-function renderStep4Inline() {
-  const addr = document.getElementById("addr-field");
-  if (addr) addr.classList.toggle("hidden", !["courier","local_delivery"].includes(state.form.delivery_mode));
+fileInput.addEventListener("change", () => addFiles(Array.from(fileInput.files)));
+
+// Drag and drop
+zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("drag"); });
+zone.addEventListener("dragleave", () => zone.classList.remove("drag"));
+zone.addEventListener("drop", e => {
+  e.preventDefault();
+  zone.classList.remove("drag");
+  addFiles(Array.from(e.dataTransfer.files));
+});
+
+// ── VALIDATION ──────────────────────────────────────────────────────────────
+function showErr(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle("show", show);
 }
 
-// ── STEP 5: Contact + Review ─────────────────────────────────────────────────
-function renderStep5() {
-  const f = state.form;
-  const cat = CATS.find(c=>c.id===f.product_category);
-  const dlabel = f.delivery_date ? new Date(f.delivery_date).toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}) : "—";
-  const contactOpts = [{id:"whatsapp",l:"WhatsApp"},{id:"phone",l:"Phone call"},{id:"email",l:"Email"}];
-
-  return `
-    <h2 class="step-h">Contact details</h2>
-    <p class="step-sub">We'll send the confirmed quote before any printing starts.</p>
-    <div class="spgrid">
-      <div class="spf"><label class="spl" for="cname">Full Name *</label>
-        <input id="cname" class="spi" placeholder="Your full name" value="${f.customer_name||""}" oninput="setField('customer_name',this.value)"/>
-        <div id="name-err" class="ferr hidden">Full name is required</div></div>
-      <div class="spf"><label class="spl" for="cphone">Mobile Number *</label>
-        <input id="cphone" class="spi" type="tel" placeholder="10-digit number" maxlength="10" value="${f.contact_no||""}" oninput="setField('contact_no',this.value)"/>
-        <div id="phone-err" class="ferr hidden">Enter a valid 10-digit mobile number</div></div>
-      <div class="spf"><label class="spl" for="cemail">Email address (optional)</label>
-        <input id="cemail" class="spi" type="email" placeholder="you@example.com" value="${f.email||""}" oninput="setField('email',this.value)"/></div>
-      <div class="spf"><label class="spl" for="cco">Company / Brand (optional)</label>
-        <input id="cco" class="spi" placeholder="Your business name" value="${f.company||""}" oninput="setField('company',this.value)"/></div>
-    </div>
-    <div class="spf">
-      <label class="spl">Preferred way to confirm quote *</label>
-      <div class="radiorow">
-        ${contactOpts.map(o=>`
-          <label class="cchip${f.preferred_contact===o.id?" sel":""}">
-            <input type="radio" name="pref" value="${o.id}" ${f.preferred_contact===o.id?"checked":""} onchange="setContact('${o.id}')" style="display:none">
-            ${o.l}
-          </label>`).join("")}
-      </div>
-    </div>
-    <button class="gsttog" onclick="toggleGst()">▸ Need a GST invoice?</button>
-    <div id="gst-field" class="spf hidden">
-      <label class="spl" for="gstin">GSTIN</label>
-      <input id="gstin" class="spi" placeholder="e.g. 33AADCC0948F1Z1" maxlength="15" value="${f.gstin||""}" oninput="setField('gstin',this.value.toUpperCase())"/>
-    </div>
-    <div class="spf">
-      <label class="spl" for="notes">Additional notes (optional)</label>
-      <textarea id="notes" class="spi" rows="2" placeholder="Anything else we should know…" oninput="setField('special_instructions',this.value)">${f.special_instructions||""}</textarea>
-    </div>
-    <div class="revcard">
-      <div class="revhead">Order Summary</div>
-      <div class="revrow"><span class="revk">Print type</span><span class="revv">${cat?.label||"—"}</span></div>
-      <div class="revrow"><span class="revk">Quantity</span><span class="revv">${f.quantity>0?f.quantity.toLocaleString("en-IN")+" pcs":"—"}</span></div>
-      <div class="revrow"><span class="revk">Artwork</span><span class="revv">${f.artwork_mode==="print_ready"?"Print-ready":f.artwork_mode==="need_design"?"Design needed":"—"}</span></div>
-      <div class="revrow"><span class="revk">Delivery</span><span class="revv">${(f.delivery_mode||"—").replace("_"," ")}</span></div>
-      <div class="revrow"><span class="revk">Urgency</span><span class="revv">${f.urgency||"—"}</span></div>
-      <div class="revrow"><span class="revk">Required by</span><span class="revv">${dlabel}</span></div>
-      <p class="revnote">We'll confirm the quote and timeline. No payment needed now.</p>
-    </div>`;
-}
-
-function bindStep5() {}
-function setContact(id) {
-  state.form.preferred_contact = id;
-  saveDraft();
-  document.querySelectorAll("[name='pref']").forEach(r=>{ r.closest(".cchip").classList.toggle("sel",r.value===id); });
-}
-function toggleGst() {
-  state.gstOpen = !state.gstOpen;
-  document.getElementById("gst-field").classList.toggle("hidden", !state.gstOpen);
-  document.querySelector(".gsttog").textContent = (state.gstOpen?"▾":"▸")+" Need a GST invoice?";
-}
-
-// ── SHARED FIELD SETTER ──────────────────────────────────────────────────────
-function setField(key, val) {
-  state.form[key] = val;
-  saveDraft();
-  updateSummary();
-}
-
-// ── NAVIGATION ───────────────────────────────────────────────────────────────
-function goBack() {
-  if (state.step===1) { backToHome(); return; }
-  state.step--;
-  renderStep();
-  window.scrollTo(0,0);
-}
-
-function goNext() {
-  if (!validate()) return;
-  if (state.step<5) { state.step++; renderStep(); window.scrollTo(0,0); }
-  else submit();
-}
-
-// ── VALIDATION ───────────────────────────────────────────────────────────────
 function validate() {
   let ok = true;
-  const show = (id,visible)=>{ const el=document.getElementById(id); if(el) el.classList.toggle("hidden",!visible); };
+  const name  = document.getElementById("f-name").value.trim();
+  const phone = document.getElementById("f-phone").value.trim();
+  const prod  = document.getElementById("f-product").value;
+  const qty   = document.getElementById("f-qty").value;
+  const desc  = document.getElementById("f-desc").value.trim();
+  const date  = document.getElementById("f-date").value;
 
-  if (state.step===1) {
-    if (!state.form.product_category) { show("cat-err",true); ok=false; }
-    else show("cat-err",false);
-    if (!state.form.quantity||state.form.quantity<1) { show("qty-err",true); ok=false; }
-    else show("qty-err",false);
-  }
-  if (state.step===3) {
-    if (!state.form.artwork_mode) { show("aw-err",true); ok=false; }
-    else show("aw-err",false);
-  }
-  if (state.step===4) {
-    if (!state.form.delivery_mode) { show("deliv-err",true); ok=false; }
-    else show("deliv-err",false);
-    if (!state.form.urgency) { show("urg-err",true); ok=false; }
-    else show("urg-err",false);
-    if (!state.form.delivery_date) { show("date-err",true); ok=false; }
-    else show("date-err",false);
-  }
-  if (state.step===5) {
-    if (!state.form.customer_name.trim()) { show("name-err",true); ok=false; }
-    else show("name-err",false);
-    if (!/^\d{10}$/.test(state.form.contact_no)) { show("phone-err",true); ok=false; }
-    else show("phone-err",false);
-  }
+  showErr("e-name",  !name);         if (!name)                     ok = false;
+  showErr("e-phone", !/^\d{10}$/.test(phone)); if (!/^\d{10}$/.test(phone)) ok = false;
+  showErr("e-product", !prod);       if (!prod)                     ok = false;
+  showErr("e-qty",   !qty || qty<1); if (!qty || qty<1)             ok = false;
+  showErr("e-desc",  !desc);         if (!desc)                     ok = false;
+  showErr("e-date",  !date);         if (!date)                     ok = false;
+
   return ok;
 }
 
 // ── SUBMIT ───────────────────────────────────────────────────────────────────
-async function submit() {
-  const f = state.form;
-  const btn = document.getElementById("btn-next");
-  btn.disabled = true;
-  document.getElementById("next-label").textContent = "Sending…";
-  document.getElementById("errbox").classList.add("hidden");
+document.getElementById("order-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  document.getElementById("err-global").classList.remove("show");
+  if (!validate()) return;
 
-  const cat = CATS.find(c=>c.id===f.product_category);
+  const btn = document.getElementById("submit-btn");
+  const lbl = document.getElementById("submit-label");
+  btn.disabled = true;
+  lbl.innerHTML = '<span class="spin">⟳</span> Sending…';
+
+  const fileNames = selectedFiles.map(f => `${f.file.name} (${fmtSize(f.file.size)})`);
+  const notes = document.getElementById("f-notes").value.trim();
+  const filesNote = fileNames.length ? `\nFiles: ${fileNames.join(", ")}` : "";
+
   const payload = {
-    customer_name: f.customer_name,
-    contact_no: f.contact_no,
-    email: f.email||"",
-    product_type: cat?.label||f.product_category,
-    quantity: f.quantity,
-    size: f.specs.size||"",
-    color_mode: "full_color",
-    paper_type: f.specs.paper||"",
-    delivery_date: f.delivery_date,
-    special_instructions: [
-      f.special_instructions,
-      f.artwork_notes,
-      Object.entries(f.specs).map(([k,v])=>`${k}: ${v}`).join(", "),
-    ].filter(Boolean).join("\n"),
-    // Extended fields
-    artwork_mode: f.artwork_mode,
-    delivery_mode: f.delivery_mode,
-    urgency: f.urgency,
-    company: f.company,
-    gstin: f.gstin,
-    preferred_contact: f.preferred_contact,
-    design_language: f.design_language,
-    design_style: f.design_style,
+    customer_name:        document.getElementById("f-name").value.trim(),
+    contact_no:           document.getElementById("f-phone").value.trim(),
+    email:                document.getElementById("f-email").value.trim(),
+    product_type:         document.getElementById("f-product").value,
+    quantity:             parseInt(document.getElementById("f-qty").value) || 0,
+    delivery_date:        document.getElementById("f-date").value,
+    special_instructions: document.getElementById("f-desc").value.trim() + filesNote + (notes ? "\nNotes: " + notes : ""),
+    // passthrough fields to satisfy existing API contract
+    size: "", color_mode: "full_color", paper_type: "",
   };
 
   try {
-    const res  = await fetch(ENDPOINT, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const res  = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload),
+    });
     const data = await res.json();
-    if (!res.ok||!data.success) {
-      showError(data.error||"Something went wrong. Please try again.");
+
+    if (!res.ok || !data.success) {
+      showGlobalErr(data.error || "Something went wrong. Please try again.");
       btn.disabled = false;
-      document.getElementById("next-label").textContent = CTA[5];
+      lbl.textContent = "Send Print Request";
       return;
     }
-    const no = data.order_no;
-    // Save to localStorage
-    const saved = {
-      id: state.editingId || crypto.randomUUID(),
-      order_no: no,
-      product_label: cat?.label||f.product_category,
-      quantity: f.quantity,
-      status: "pending",
-      submitted_at: new Date().toISOString(),
-      delivery_date: f.delivery_date,
-      form_data: {...f},
-    };
-    saveOrder(saved);
-    clearDraft();
-    showSuccess(no, f);
+
+    showSuccess(data.order_no, payload, fileNames);
   } catch {
-    showError("Network error. Please check your connection and try again.");
+    showGlobalErr("Network error — please check your connection and try again.");
     btn.disabled = false;
-    document.getElementById("next-label").textContent = CTA[5];
+    lbl.textContent = "Send Print Request";
   }
-}
+});
 
-function showError(msg) {
-  const el = document.getElementById("errbox");
+function showGlobalErr(msg) {
+  const el = document.getElementById("err-global");
   el.textContent = msg;
-  el.classList.remove("hidden");
+  el.classList.add("show");
 }
 
-function showSuccess(orderNo, f) {
-  const via = f.preferred_contact==="whatsapp"?"WhatsApp":f.preferred_contact==="phone"?"phone call":"email";
+// ── SUCCESS ──────────────────────────────────────────────────────────────────
+function showSuccess(orderNo, payload, fileNames) {
   document.getElementById("succ-ono").textContent = orderNo;
-  document.getElementById("succ-body").innerHTML = `We'll review your specs and get back to you via <strong>${via}</strong> with a confirmed quote. Printing starts only after your approval.`;
-  document.getElementById("succ-note").innerHTML = `Save your order number: <strong>${orderNo}</strong>`;
-  showView("view-success");
-  window.scrollTo(0,0);
+  document.getElementById("succ-body").innerHTML =
+    `We've received your request for <strong>${payload.product_type}</strong>. Our team will review the details and confirm the quote on WhatsApp within a few hours. No payment is needed until you approve.`;
+  document.getElementById("succ-note").textContent = `Save your request number: ${orderNo}`;
+
+  if (fileNames.length > 0) {
+    document.getElementById("succ-files").classList.remove("hidden");
+    document.getElementById("succ-files-list").textContent =
+      ` Please send these files: ${fileNames.join(", ")}`;
+  }
+
+  document.getElementById("view-form").style.display = "none";
+  document.getElementById("view-success").style.display = "block";
+  window.scrollTo({top: 0, behavior: "smooth"});
 }
 
-// ── INIT ────────────────────────────────────────────────────────────────────
-initLanding();
-showView("view-landing");
+// ── RESET ────────────────────────────────────────────────────────────────────
+function resetForm() {
+  document.getElementById("order-form").reset();
+  selectedFiles = [];
+  fileList.innerHTML = "";
+  document.getElementById("succ-files").classList.add("hidden");
+  document.getElementById("submit-btn").disabled = false;
+  document.getElementById("submit-label").textContent = "Send Print Request";
+  document.getElementById("view-success").style.display = "none";
+  document.getElementById("view-form").style.display = "block";
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+// ── Date min ─────────────────────────────────────────────────────────────────
+document.getElementById("f-date").min = new Date(Date.now()+86400000).toISOString().split("T")[0];
+
+// ── Hide helper class ─────────────────────────────────────────────────────────
+document.head.insertAdjacentHTML("beforeend","<style>.hidden{display:none!important}</style>");
 </script>
 </body>
 </html>
