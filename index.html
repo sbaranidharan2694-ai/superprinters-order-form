@@ -66,6 +66,21 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 /* ── Divider ── */
 .divider{height:1px;background:var(--br);margin:2px 0}
 
+/* ── Books section ── */
+.books-section{
+  background:#F0F7FF;border:1.5px solid #BFDBFE;border-radius:8px;
+  padding:16px;display:flex;flex-direction:column;gap:14px;
+}
+.books-section-title{font-size:12px;font-weight:700;color:#1E40AF;margin-bottom:2px;letter-spacing:.03em}
+.toggle-row{display:flex;align-items:center;gap:10px}
+.toggle-row label{font-size:13px;font-weight:500;color:var(--n);margin:0}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#CBD5E1;border-radius:11px;cursor:pointer;transition:background .2s}
+.toggle-slider::before{content:"";position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle input:checked+.toggle-slider{background:#2563EB}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+
 /* ── File upload ── */
 .upload-zone{
   border:2px dashed var(--br2);border-radius:8px;padding:20px 16px;
@@ -89,6 +104,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .file-info{flex:1;min-width:0}
 .file-name{font-size:12px;font-weight:600;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .file-size{font-size:11px;color:var(--g2);margin-top:1px}
+.file-status{font-size:10px;font-weight:600;margin-top:2px}
+.file-status.uploading{color:#2563EB}
+.file-status.done{color:var(--gr)}
+.file-status.failed{color:var(--re)}
 .file-remove{background:none;border:none;color:var(--g2);font-size:18px;line-height:1;padding:2px 4px;cursor:pointer;flex-shrink:0;border-radius:4px;transition:color .1s,background .1s}
 .file-remove:hover{color:var(--re);background:#FEF2F2}
 
@@ -110,23 +129,31 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 /* ── Success ── */
 #view-success{display:none;width:100%;max-width:520px}
-.succ-card{background:var(--w);border:1px solid var(--br);border-radius:10px;padding:36px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.succ-card{background:var(--w);border:1px solid var(--br);border-radius:10px;padding:36px 28px;display:flex;flex-direction:column;align-items:center;gap:16px}
 @media(max-width:480px){.succ-card{padding:28px 18px}}
 .succ-tick{width:56px;height:56px;background:var(--gr);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
 .succ-h{font-family:var(--fh);font-size:22px;color:var(--n);font-weight:400}
 .succ-ono{background:var(--n);color:var(--cr);border-radius:5px;padding:8px 20px;font-size:18px;font-weight:700;letter-spacing:.08em;font-family:monospace}
-.succ-body{font-size:14px;color:var(--g);line-height:1.65;max-width:380px}
+
+/* ── Summary panel ── */
+.succ-summary{width:100%;background:#F8FAFC;border:1px solid var(--br);border-radius:8px;overflow:hidden}
+.succ-summary-title{background:#F1F5F9;padding:10px 14px;font-size:11px;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase}
+.succ-summary-rows{padding:4px 0}
+.sum-row{display:flex;gap:8px;padding:8px 14px;border-bottom:1px solid var(--br)}
+.sum-row:last-child{border-bottom:none}
+.sum-label{font-size:11px;font-weight:600;color:var(--g);width:110px;flex-shrink:0;padding-top:1px}
+.sum-val{font-size:13px;color:var(--n);font-weight:500;flex:1;word-break:break-word}
+
 .succ-wa{
   display:inline-flex;align-items:center;gap:8px;
   background:#25D366;color:#fff;border-radius:6px;
   padding:11px 20px;font-size:14px;font-weight:600;text-decoration:none;
-  font-family:var(--fb);
+  font-family:var(--fb);width:100%;justify-content:center;
 }
-.succ-files{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;padding:12px 16px;font-size:12px;color:#166534;text-align:left;width:100%}
-.succ-files strong{display:block;margin-bottom:4px;font-size:13px}
-.succ-again{background:none;border:1.5px solid var(--br);border-radius:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;font-family:var(--fb);transition:border-color .15s}
+.succ-again{background:none;border:1.5px solid var(--br);border-radius:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;font-family:var(--fb);transition:border-color .15s;width:100%}
 .succ-again:hover{border-color:var(--n);color:var(--n)}
-.succ-note{font-size:11px;color:var(--g2)}
+.succ-note{font-size:11px;color:var(--g2);text-align:center}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
@@ -178,6 +205,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <option>Stickers &amp; Labels</option>
           <option>Posters &amp; Banners</option>
           <option>Invitations</option>
+          <option>Books</option>
           <option>Custom Print Job</option>
         </select>
         <span class="err" id="e-product">Please select a print type</span>
@@ -189,9 +217,104 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
     </div>
 
+    <!-- ── Books-specific fields ── -->
+    <div class="books-section hidden" id="books-section">
+      <div class="books-section-title">📚 Book Details</div>
+
+      <div class="field">
+        <label for="b-title">Book title <span class="opt">(optional)</span></label>
+        <input id="b-title" type="text" placeholder="e.g. Annual Report 2025"/>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="b-pages">Number of pages <span style="color:var(--re)">*</span></label>
+          <input id="b-pages" type="number" placeholder="e.g. 200" min="1" inputmode="numeric"/>
+          <span class="err" id="e-pages">Enter page count</span>
+        </div>
+        <div class="field">
+          <label for="b-size">Book size <span style="color:var(--re)">*</span></label>
+          <select id="b-size">
+            <option value="">Select size…</option>
+            <option>A4 (210 × 297 mm)</option>
+            <option>A5 (148 × 210 mm)</option>
+            <option>B5 (176 × 250 mm)</option>
+            <option>Royal (156 × 234 mm)</option>
+            <option>Square (210 × 210 mm)</option>
+            <option>Custom</option>
+          </select>
+          <span class="err" id="e-bsize">Select a size</span>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="b-binding">Binding type <span style="color:var(--re)">*</span></label>
+          <select id="b-binding">
+            <option value="">Select binding…</option>
+            <option>Perfect Binding</option>
+            <option>Saddle Stitch</option>
+            <option>Spiral / Coil Binding</option>
+            <option>Hard Case Binding</option>
+            <option>Sewn Binding</option>
+            <option>Wire-O Binding</option>
+          </select>
+          <span class="err" id="e-binding">Select binding type</span>
+        </div>
+        <div class="field">
+          <label for="b-cover">Cover type <span class="opt">(optional)</span></label>
+          <select id="b-cover">
+            <option value="">Select cover…</option>
+            <option>Soft Cover</option>
+            <option>Hard Cover</option>
+            <option>Laminated Soft Cover</option>
+            <option>UV Coated Cover</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="b-paper">Paper quality <span class="opt">(optional)</span></label>
+          <select id="b-paper">
+            <option value="">Select paper…</option>
+            <option>70 GSM Maplitho</option>
+            <option>80 GSM Maplitho</option>
+            <option>90 GSM Maplitho</option>
+            <option>100 GSM Art Paper</option>
+            <option>130 GSM Art Paper</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="b-color">Color mode <span class="opt">(optional)</span></label>
+          <select id="b-color">
+            <option value="">Select color…</option>
+            <option value="full_color">Full Color</option>
+            <option value="black_white">Black &amp; White</option>
+            <option value="spot_color">Spot Color</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle">
+          <input type="checkbox" id="b-serial"/>
+          <span class="toggle-slider"></span>
+        </label>
+        <label for="b-serial">Serial numbering required</label>
+      </div>
+
+      <div class="field hidden" id="serial-start-field">
+        <label for="b-serial-start">Start serial number <span style="color:var(--re)">*</span></label>
+        <input id="b-serial-start" type="number" placeholder="e.g. 1001" min="1" inputmode="numeric"/>
+        <span class="err" id="e-serial-start">Enter the starting serial number</span>
+      </div>
+    </div>
+
     <div class="field">
       <label for="f-desc">Briefly describe your requirement <span style="color:var(--re)">*</span></label>
-      <textarea id="f-desc" placeholder="E.g. Double-sided business cards, 90×54mm, gloss lamination, 300gsm. Or just describe what you need and we'll guide you."></textarea>
+      <textarea id="f-desc" placeholder="E.g. Double-sided cards, 90×54mm, gloss lamination, 300gsm. Or just describe what you need and we'll guide you."></textarea>
       <span class="err" id="e-desc">Please describe your requirement</span>
     </div>
 
@@ -213,7 +336,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           aria-label="Upload design files"/>
         <div class="uz-icon">📎</div>
         <div class="uz-title">Tap to upload files</div>
-        <div class="uz-sub">PDF, JPG, PNG, AI, PSD, CDR, ZIP — up to 20 MB each</div>
+        <div class="uz-sub">PDF, JPG, PNG, AI, PSD, CDR, ZIP, TIFF, EPS — up to 25 MB each</div>
       </div>
       <div class="file-list" id="file-list"></div>
     </div>
@@ -247,12 +370,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="succ-tick">✓</div>
     <h2 class="succ-h">Request received!</h2>
     <div class="succ-ono" id="succ-ono"></div>
-    <p class="succ-body" id="succ-body"></p>
-    <div class="succ-files hidden" id="succ-files">
-      <strong>📎 Send your design files on WhatsApp</strong>
-      <span id="succ-files-list"></span>
+
+    <!-- Full order summary -->
+    <div class="succ-summary" id="succ-summary">
+      <div class="succ-summary-title">Order Summary</div>
+      <div class="succ-summary-rows" id="succ-rows"></div>
     </div>
-    <a href="https://wa.me/919840199878" class="succ-wa" target="_blank" rel="noopener noreferrer">
+
+    <a id="succ-wa-link" href="https://wa.me/919840199878" class="succ-wa" target="_blank" rel="noopener noreferrer">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Chat with us on WhatsApp
     </a>
@@ -262,17 +387,31 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
-// BACKEND: Supabase Edge Function endpoint
-const ENDPOINT = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/submit-public-order";
-// BACKEND: File upload requires Supabase anon JWT or a signed-URL edge function.
-// Currently, file names are included in the submission payload and customer is
-// directed to WhatsApp the files after submission.
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const SUBMIT_ENDPOINT  = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/submit-public-order";
+const UPLOAD_ENDPOINT  = "https://hlpmmdmgdgyzsxnnrdjl.supabase.co/functions/v1/upload-order-file";
+const SHOP_WA          = "919840199878";
 
-// ── FILE STATE ──────────────────────────────────────────────────────────────
-let selectedFiles = []; // Array of {file, previewUrl, id}
+// ── FILE STATE ────────────────────────────────────────────────────────────────
+let selectedFiles = []; // [{file, id, previewUrl}]
 
-// ── FILE UPLOAD ─────────────────────────────────────────────────────────────
+// ── BOOKS TOGGLE ──────────────────────────────────────────────────────────────
+const productSel    = document.getElementById("f-product");
+const booksSection  = document.getElementById("books-section");
+const serialToggle  = document.getElementById("b-serial");
+const serialField   = document.getElementById("serial-start-field");
+
+productSel.addEventListener("change", () => {
+  const isBooks = productSel.value === "Books";
+  booksSection.classList.toggle("hidden", !isBooks);
+  if (!isBooks) serialToggle.checked = false;
+});
+
+serialToggle.addEventListener("change", () => {
+  serialField.classList.toggle("hidden", !serialToggle.checked);
+});
+
+// ── FILE HELPERS ──────────────────────────────────────────────────────────────
 const fileInput = document.getElementById("f-files");
 const fileList  = document.getElementById("file-list");
 const zone      = document.getElementById("upload-zone");
@@ -282,30 +421,20 @@ function fmtSize(b) {
   if (b < 1048576) return (b/1024).toFixed(1) + " KB";
   return (b/1048576).toFixed(1) + " MB";
 }
-
-function fileExt(name) {
-  return name.split(".").pop().toUpperCase().slice(0,4);
-}
-
-function isImage(file) {
-  return file.type.startsWith("image/");
-}
-
-function isPdf(file) {
-  return file.type === "application/pdf";
-}
+function fileExt(name) { return name.split(".").pop().toUpperCase().slice(0,4); }
+function isImage(file) { return file.type.startsWith("image/"); }
 
 function addFiles(newFiles) {
   for (const file of newFiles) {
+    if (file.size > 25 * 1024 * 1024) {
+      alert(`${file.name} is too large (max 25 MB).`); continue;
+    }
     if (selectedFiles.some(f => f.file.name === file.name && f.file.size === file.size)) continue;
     const id = crypto.randomUUID();
     const entry = {file, id, previewUrl: null};
     if (isImage(file)) {
       const reader = new FileReader();
-      reader.onload = e => {
-        entry.previewUrl = e.target.result;
-        renderFileItem(id);
-      };
+      reader.onload = e => { entry.previewUrl = e.target.result; renderFileItem(id); };
       reader.readAsDataURL(file);
     }
     selectedFiles.push(entry);
@@ -313,30 +442,40 @@ function addFiles(newFiles) {
   }
 }
 
-function renderFileItem(id) {
+function renderFileItem(id, status) {
   const entry = selectedFiles.find(f => f.id === id);
   if (!entry) return;
-
-  let existing = document.getElementById("fi-" + id);
   const thumb = entry.previewUrl
     ? `<img class="file-preview" src="${entry.previewUrl}" alt="${entry.file.name}" loading="lazy"/>`
     : `<div class="file-icon">${fileExt(entry.file.name)}</div>`;
-
+  const statusHtml = status
+    ? `<div class="file-status ${status.cls}">${status.text}</div>`
+    : "";
   const html = `
     <div class="file-item" id="fi-${id}">
       ${thumb}
       <div class="file-info">
         <div class="file-name" title="${entry.file.name}">${entry.file.name}</div>
         <div class="file-size">${fmtSize(entry.file.size)}</div>
+        ${statusHtml}
       </div>
       <button type="button" class="file-remove" onclick="removeFile('${id}')" aria-label="Remove file">×</button>
     </div>`;
+  const existing = document.getElementById("fi-" + id);
+  if (existing) existing.outerHTML = html;
+  else fileList.insertAdjacentHTML("beforeend", html);
+}
 
-  if (existing) {
-    existing.outerHTML = html;
-  } else {
-    fileList.insertAdjacentHTML("beforeend", html);
-  }
+function updateFileStatus(id, cls, text) {
+  const item = document.getElementById("fi-" + id);
+  if (!item) return;
+  const existing = item.querySelector(".file-status");
+  const statusHtml = `<div class="file-status ${cls}">${text}</div>`;
+  if (existing) existing.outerHTML = statusHtml;
+  else item.querySelector(".file-info").insertAdjacentHTML("beforeend", statusHtml);
+  // Disable remove while uploading
+  const removeBtn = item.querySelector(".file-remove");
+  if (removeBtn) removeBtn.disabled = cls === "uploading";
 }
 
 function removeFile(id) {
@@ -347,17 +486,14 @@ function removeFile(id) {
 }
 
 fileInput.addEventListener("change", () => addFiles(Array.from(fileInput.files)));
-
-// Drag and drop
-zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("drag"); });
-zone.addEventListener("dragleave", () => zone.classList.remove("drag"));
-zone.addEventListener("drop", e => {
-  e.preventDefault();
-  zone.classList.remove("drag");
+zone.addEventListener("dragover",  e => { e.preventDefault(); zone.classList.add("drag"); });
+zone.addEventListener("dragleave", ()  => zone.classList.remove("drag"));
+zone.addEventListener("drop",      e  => {
+  e.preventDefault(); zone.classList.remove("drag");
   addFiles(Array.from(e.dataTransfer.files));
 });
 
-// ── VALIDATION ──────────────────────────────────────────────────────────────
+// ── VALIDATION ────────────────────────────────────────────────────────────────
 function showErr(id, show) {
   const el = document.getElementById(id);
   if (el) el.classList.toggle("show", show);
@@ -367,22 +503,38 @@ function validate() {
   let ok = true;
   const name  = document.getElementById("f-name").value.trim();
   const phone = document.getElementById("f-phone").value.trim();
-  const prod  = document.getElementById("f-product").value;
+  const prod  = productSel.value;
   const qty   = document.getElementById("f-qty").value;
   const desc  = document.getElementById("f-desc").value.trim();
   const date  = document.getElementById("f-date").value;
 
-  showErr("e-name",  !name);         if (!name)                     ok = false;
-  showErr("e-phone", !/^\d{10}$/.test(phone)); if (!/^\d{10}$/.test(phone)) ok = false;
-  showErr("e-product", !prod);       if (!prod)                     ok = false;
-  showErr("e-qty",   !qty || qty<1); if (!qty || qty<1)             ok = false;
-  showErr("e-desc",  !desc);         if (!desc)                     ok = false;
-  showErr("e-date",  !date);         if (!date)                     ok = false;
+  showErr("e-name",    !name);                          if (!name)                     ok = false;
+  showErr("e-phone",   !/^\d{10}$/.test(phone));        if (!/^\d{10}$/.test(phone))   ok = false;
+  showErr("e-product", !prod);                          if (!prod)                     ok = false;
+  showErr("e-qty",     !qty || Number(qty) < 1);        if (!qty || Number(qty) < 1)   ok = false;
+  showErr("e-desc",    !desc);                          if (!desc)                     ok = false;
+  showErr("e-date",    !date);                          if (!date)                     ok = false;
+
+  if (prod === "Books") {
+    const pages   = document.getElementById("b-pages").value;
+    const bsize   = document.getElementById("b-size").value;
+    const binding = document.getElementById("b-binding").value;
+    const serial  = serialToggle.checked;
+    const sstart  = document.getElementById("b-serial-start").value;
+
+    showErr("e-pages",   !pages || Number(pages) < 1);    if (!pages || Number(pages) < 1) ok = false;
+    showErr("e-bsize",   !bsize);                         if (!bsize)                       ok = false;
+    showErr("e-binding", !binding);                       if (!binding)                     ok = false;
+    if (serial) {
+      showErr("e-serial-start", !sstart || Number(sstart) < 1);
+      if (!sstart || Number(sstart) < 1) ok = false;
+    }
+  }
 
   return ok;
 }
 
-// ── SUBMIT ───────────────────────────────────────────────────────────────────
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
 document.getElementById("order-form").addEventListener("submit", async e => {
   e.preventDefault();
   document.getElementById("err-global").classList.remove("show");
@@ -391,29 +543,54 @@ document.getElementById("order-form").addEventListener("submit", async e => {
   const btn = document.getElementById("submit-btn");
   const lbl = document.getElementById("submit-label");
   btn.disabled = true;
-  lbl.innerHTML = '<span class="spin">⟳</span> Sending…';
+  lbl.innerHTML = '<span class="spin">⟳</span> Submitting…';
 
-  const fileNames = selectedFiles.map(f => `${f.file.name} (${fmtSize(f.file.size)})`);
+  const isBooks = productSel.value === "Books";
+  const fileNames = selectedFiles.map(f => f.file.name);
+
+  // Build book_details if Books
+  let bookDetails = null;
+  if (isBooks) {
+    const serial = serialToggle.checked;
+    bookDetails = {
+      book_title:      document.getElementById("b-title").value.trim() || undefined,
+      num_pages:       parseInt(document.getElementById("b-pages").value) || undefined,
+      book_size:       document.getElementById("b-size").value || undefined,
+      binding_type:    document.getElementById("b-binding").value,
+      cover_type:      document.getElementById("b-cover").value || undefined,
+      paper_quality:   document.getElementById("b-paper").value || undefined,
+      book_color_mode: document.getElementById("b-color").value || undefined,
+      serial_numbering: serial,
+      serial_start:    serial ? (parseInt(document.getElementById("b-serial-start").value) || undefined) : undefined,
+    };
+    // Remove undefined keys
+    Object.keys(bookDetails).forEach(k => bookDetails[k] === undefined && delete bookDetails[k]);
+  }
+
   const notes = document.getElementById("f-notes").value.trim();
-  const filesNote = fileNames.length ? `\nFiles: ${fileNames.join(", ")}` : "";
-
   const payload = {
     customer_name:        document.getElementById("f-name").value.trim(),
     contact_no:           document.getElementById("f-phone").value.trim(),
-    email:                document.getElementById("f-email").value.trim(),
-    product_type:         document.getElementById("f-product").value,
+    email:                document.getElementById("f-email").value.trim() || undefined,
+    product_type:         productSel.value,
     quantity:             parseInt(document.getElementById("f-qty").value) || 0,
     delivery_date:        document.getElementById("f-date").value,
-    special_instructions: document.getElementById("f-desc").value.trim() + filesNote + (notes ? "\nNotes: " + notes : ""),
-    // passthrough fields to satisfy existing API contract
-    size: "", color_mode: "full_color", paper_type: "",
+    special_instructions: document.getElementById("f-desc").value.trim() + (notes ? "\n\n" + notes : ""),
+    color_mode:           (isBooks && document.getElementById("b-color").value) || "full_color",
+    ...(fileNames.length > 0 ? { file_names: fileNames } : {}),
+    ...(bookDetails ? { book_details: bookDetails } : {}),
   };
 
+  let orderId = null;
+  let orderNo = null;
+  let submitted = null;
+
   try {
-    const res  = await fetch(ENDPOINT, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload),
+    // ── Step 1: Submit order ──────────────────────────────────────────────────
+    const res  = await fetch(SUBMIT_ENDPOINT, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(payload),
     });
     const data = await res.json();
 
@@ -424,7 +601,41 @@ document.getElementById("order-form").addEventListener("submit", async e => {
       return;
     }
 
-    showSuccess(data.order_no, payload, fileNames);
+    orderId   = data.order_id;
+    orderNo   = data.order_no;
+    submitted = data.submitted;
+
+    // ── Step 2: Upload files (if any) ─────────────────────────────────────────
+    if (selectedFiles.length > 0 && orderId) {
+      lbl.innerHTML = '<span class="spin">⟳</span> Uploading files…';
+
+      const uploadResults = await Promise.allSettled(
+        selectedFiles.map(async entry => {
+          updateFileStatus(entry.id, "uploading", "⟳ Uploading…");
+          const fd = new FormData();
+          fd.append("order_id", orderId);
+          fd.append("file", entry.file);
+          try {
+            const ur = await fetch(UPLOAD_ENDPOINT, { method: "POST", body: fd });
+            const ud = await ur.json();
+            if (!ur.ok || !ud.success) throw new Error(ud.error || "Upload failed");
+            updateFileStatus(entry.id, "done", "✓ Uploaded");
+            return { id: entry.id, ok: true };
+          } catch (err) {
+            updateFileStatus(entry.id, "failed", "✗ Failed — send via WhatsApp");
+            return { id: entry.id, ok: false };
+          }
+        })
+      );
+
+      const anyFailed = uploadResults.some(r => r.status === "fulfilled" && !r.value.ok);
+      if (anyFailed) {
+        // Non-fatal: order is placed, files can be sent manually
+        submitted._file_upload_partial = true;
+      }
+    }
+
+    showSuccess(orderNo, submitted);
   } catch {
     showGlobalErr("Network error — please check your connection and try again.");
     btn.disabled = false;
@@ -438,42 +649,86 @@ function showGlobalErr(msg) {
   el.classList.add("show");
 }
 
-// ── SUCCESS ──────────────────────────────────────────────────────────────────
-function showSuccess(orderNo, payload, fileNames) {
-  document.getElementById("succ-ono").textContent = orderNo;
-  document.getElementById("succ-body").innerHTML =
-    `We've received your request for <strong>${payload.product_type}</strong>. Our team will review the details and confirm the quote on WhatsApp within a few hours. No payment is needed until you approve.`;
-  document.getElementById("succ-note").textContent = `Save your request number: ${orderNo}`;
+// ── SUCCESS PANEL ─────────────────────────────────────────────────────────────
+function fmtDate(d) {
+  if (!d) return "—";
+  try {
+    return new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  } catch { return d; }
+}
 
-  if (fileNames.length > 0) {
-    document.getElementById("succ-files").classList.remove("hidden");
-    document.getElementById("succ-files-list").textContent =
-      ` Please send these files: ${fileNames.join(", ")}`;
+function row(label, val) {
+  if (!val) return "";
+  return `<div class="sum-row"><span class="sum-label">${label}</span><span class="sum-val">${val}</span></div>`;
+}
+
+function showSuccess(orderNo, s) {
+  document.getElementById("succ-ono").textContent = orderNo;
+
+  const isBooks = s.product_type === "Books";
+  const bd = s.book_details || {};
+
+  const filesNote = (s.file_names && s.file_names.length > 0)
+    ? (s._file_upload_partial
+        ? `⚠ Some files failed — please send via WhatsApp: ${s.file_names.join(", ")}`
+        : `✓ ${s.file_names.join(", ")}`)
+    : null;
+
+  let rows = "";
+  rows += row("Name",      s.customer_name);
+  rows += row("Mobile",    s.contact_no);
+  rows += row("Email",     s.email);
+  rows += row("Product",   s.product_type);
+  rows += row("Quantity",  String(s.quantity));
+  rows += row("Delivery",  fmtDate(s.delivery_date));
+  rows += row("Notes",     s.special_instructions);
+
+  if (isBooks) {
+    rows += row("Book Title",   bd.book_title);
+    rows += row("Pages",        bd.num_pages ? String(bd.num_pages) : null);
+    rows += row("Book Size",    bd.book_size);
+    rows += row("Binding",      bd.binding_type);
+    rows += row("Cover",        bd.cover_type);
+    rows += row("Paper",        bd.paper_quality);
+    rows += row("Color Mode",   bd.book_color_mode);
+    if (bd.serial_numbering) {
+      rows += row("Serial No.", `Yes — starting from ${bd.serial_start || "—"}`);
+    }
   }
+
+  rows += row("Files", filesNote);
+
+  document.getElementById("succ-rows").innerHTML = rows;
+
+  // Compose a pre-filled WhatsApp message with the order number
+  const waMsg = encodeURIComponent(`Hi Super Printers! My order no. is *${orderNo}*. I'd like to discuss my print request.`);
+  document.getElementById("succ-wa-link").href = `https://wa.me/${SHOP_WA}?text=${waMsg}`;
+
+  document.getElementById("succ-note").textContent =
+    `Save your order number: ${orderNo}. We'll call you to confirm details.`;
 
   document.getElementById("view-form").style.display = "none";
   document.getElementById("view-success").style.display = "block";
-  window.scrollTo({top: 0, behavior: "smooth"});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ── RESET ────────────────────────────────────────────────────────────────────
+// ── RESET ─────────────────────────────────────────────────────────────────────
 function resetForm() {
   document.getElementById("order-form").reset();
   selectedFiles = [];
   fileList.innerHTML = "";
-  document.getElementById("succ-files").classList.add("hidden");
+  booksSection.classList.add("hidden");
+  serialField.classList.add("hidden");
+  serialToggle.checked = false;
   document.getElementById("submit-btn").disabled = false;
   document.getElementById("submit-label").textContent = "Send Print Request";
   document.getElementById("view-success").style.display = "none";
   document.getElementById("view-form").style.display = "block";
-  window.scrollTo({top: 0, behavior: "smooth"});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ── Date min ─────────────────────────────────────────────────────────────────
-document.getElementById("f-date").min = new Date(Date.now()+86400000).toISOString().split("T")[0];
-
-// ── Hide helper class ─────────────────────────────────────────────────────────
-document.head.insertAdjacentHTML("beforeend","<style>.hidden{display:none!important}</style>");
+// ── Date min ──────────────────────────────────────────────────────────────────
+document.getElementById("f-date").min = new Date(Date.now() + 86400000).toISOString().split("T")[0];
 </script>
 </body>
 </html>
