@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Place a Print Order – Super Printers, Chennai</title>
-<meta name="description" content="Place your print order with Super Printers, Chennai. Business cards, wedding cards, flyers, books, and more. We confirm artwork on WhatsApp before production starts."/>
-<meta property="og:title" content="Place a Print Order – Super Printers, Chennai"/>
-<meta property="og:description" content="Order prints online. We confirm artwork and timeline on WhatsApp — production starts once you approve."/>
+<title>Super Printers Chennai | Order Business Cards, Wedding Cards &amp; Books Online — Est. 1990</title>
+<meta name="description" content="Super Printers Chennai — 35 years of quality printing. Order business cards, wedding cards, books &amp; more online. WhatsApp confirmation before production. Est. 1990, Pallavaram."/>
+<meta property="og:title" content="Super Printers Chennai | Est. 1990 — Order Prints Online"/>
+<meta property="og:description" content="35 years of quality printing in Chennai. Order business cards, wedding cards, books &amp; more. WhatsApp confirmation before production starts."/>
 <meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Super Printers Chennai"/>
+<meta property="og:image" content="https://superprinters-order-form.netlify.app/super-printers-logo.png"/>
 <meta name="theme-color" content="#0C1A2E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -425,6 +427,76 @@ select{
 }
 .succ-again:hover{border-color:var(--n);color:var(--n)}
 .succ-note{font-size:11.5px;color:var(--g2);text-align:center}
+
+/* ══════════════════════════════════════
+   DELIVERY SEGMENTED CONTROL
+══════════════════════════════════════ */
+.ds-seg{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1.5px solid var(--br);border-radius:8px;overflow:hidden;
+}
+.ds-opt{position:relative}
+.ds-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.ds-opt label{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9px 6px;min-height:52px;
+  font-size:11.5px;font-weight:600;color:var(--g);
+  cursor:pointer;text-align:center;line-height:1.3;
+  border-right:1.5px solid var(--br);
+  transition:background .12s,color .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ds-opt:last-child label{border-right:none}
+.ds-opt label .ds-sub{
+  display:block;font-size:10px;font-weight:400;color:var(--g2);
+  margin-top:2px;line-height:1.2;
+}
+.ds-opt input[type=radio]:checked+label{
+  background:var(--a-faint);color:var(--n);
+  box-shadow:inset 0 0 0 1.5px var(--a);
+}
+.ds-opt input[type=radio]:checked+label .ds-sub{color:var(--g)}
+
+/* delivery address block */
+.delivery-fields{display:flex;flex-direction:column;gap:14px}
+
+/* ══════════════════════════════════════
+   GST REVEAL
+══════════════════════════════════════ */
+.gst-wrap{border:1.5px solid var(--br);border-radius:8px;overflow:hidden}
+.gst-reveal-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;background:none;border:none;cursor:pointer;
+  font-family:var(--fb);transition:background .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.gst-reveal-btn:hover{background:#F8F9FA}
+.gst-btn-inner{display:flex;align-items:center;gap:10px}
+.gst-icon{font-size:16px;line-height:1;flex-shrink:0}
+.gst-btn-label{display:block;font-size:13px;font-weight:600;color:var(--n);text-align:left}
+.gst-btn-hint{display:block;font-size:11px;color:var(--g2);margin-top:2px;text-align:left}
+.gst-chevron{
+  stroke:var(--g2);flex-shrink:0;
+  transition:transform .2s ease;
+}
+.gst-chevron.open{transform:rotate(180deg)}
+.gst-body{
+  padding:14px;
+  border-top:1px solid var(--br);
+  display:flex;flex-direction:column;gap:14px;
+}
+
+/* ══════════════════════════════════════
+   HERITAGE STRIP
+══════════════════════════════════════ */
+.heritage-strip{
+  font-size:11px;color:var(--g2);
+  text-align:center;line-height:1.8;
+  padding:2px 0 0;
+  display:flex;flex-wrap:wrap;justify-content:center;
+  align-items:center;gap:5px;
+}
+.heritage-strip .hs-sep{color:var(--br2);font-size:10px;flex-shrink:0}
 
 /* utility */
 .hidden{display:none!important}
@@ -890,10 +962,93 @@ select{
           </div>
         </div>
 
+        <!-- ── Delivery type ── -->
+        <div class="field">
+          <label>How will you receive your order? <span class="req">*</span></label>
+          <div class="ds-seg" role="group" aria-label="Delivery method">
+            <div class="ds-opt">
+              <input type="radio" name="delivery_type" id="dt-pickup" value="pickup" checked/>
+              <label for="dt-pickup">
+                🏪 Pickup
+                <span class="ds-sub">Pallavaram store</span>
+              </label>
+            </div>
+            <div class="ds-opt">
+              <input type="radio" name="delivery_type" id="dt-delivery" value="delivery"/>
+              <label for="dt-delivery">
+                🏍 Chennai
+                <span class="ds-sub">Local delivery</span>
+              </label>
+            </div>
+            <div class="ds-opt">
+              <input type="radio" name="delivery_type" id="dt-courier" value="courier"/>
+              <label for="dt-courier">
+                📦 Courier
+                <span class="ds-sub">Outside Chennai</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Delivery address (shown for delivery/courier) ── -->
+        <div id="delivery-fields" class="delivery-fields hidden">
+          <div class="field">
+            <label for="del-address">Delivery address <span class="req">*</span></label>
+            <textarea id="del-address" rows="2" placeholder="Door no., street name, area…" style="min-height:60px"></textarea>
+            <span class="err" id="e-del-address">Please enter the delivery address</span>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="del-pincode">Pincode <span class="req">*</span></label>
+              <input id="del-pincode" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit pincode"/>
+              <span class="err" id="e-del-pincode">Please enter a valid 6-digit pincode</span>
+            </div>
+            <div class="field">
+              <label for="del-landmark">Landmark <span class="opt">(optional)</span></label>
+              <input id="del-landmark" type="text" placeholder="e.g. Near Apollo Hospital"/>
+            </div>
+          </div>
+        </div>
+
         <div class="field">
           <label for="f-email">Email address <span class="opt">(optional)</span></label>
           <input id="f-email" type="email" placeholder="For your order confirmation email" autocomplete="email"/>
         </div>
+
+        <!-- ── GST / Invoice ── -->
+        <div class="gst-wrap">
+          <button type="button" id="gst-toggle-btn" class="gst-reveal-btn" aria-expanded="false">
+            <span class="gst-btn-inner">
+              <span class="gst-icon">🧾</span>
+              <span>
+                <span class="gst-btn-label">Need a GST invoice?</span>
+                <span class="gst-btn-hint">for businesses — tap to add billing details</span>
+              </span>
+            </span>
+            <svg class="gst-chevron" id="gst-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div id="gst-fields" class="gst-body hidden">
+            <div class="field">
+              <label for="gst-company">Company name <span class="req">*</span></label>
+              <input id="gst-company" type="text" placeholder="e.g. Acme Technologies Pvt Ltd" autocomplete="organization"/>
+              <span class="err" id="e-gst-company">Please enter the company name</span>
+            </div>
+            <div class="field">
+              <label for="gst-number">GSTIN <span class="req">*</span></label>
+              <input id="gst-number" type="text" placeholder="15-character GSTIN" maxlength="15" style="text-transform:uppercase;letter-spacing:.05em"/>
+              <span class="hint">Format: 33ABCDE1234F1Z5</span>
+              <span class="err" id="e-gst-number">Please enter a valid 15-character GSTIN</span>
+            </div>
+            <div class="field">
+              <label for="gst-address">Billing address <span class="req">*</span></label>
+              <textarea id="gst-address" rows="2" placeholder="Registered office address for GST invoice" style="min-height:60px"></textarea>
+              <span class="err" id="e-gst-address">Please enter the billing address</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ── Trust strip — ABOVE CTA ── -->
@@ -915,6 +1070,16 @@ select{
       <!-- ── Submit ── -->
       <div class="submit-area">
         <div class="err-global" id="err-global"></div>
+
+        <div class="heritage-strip">
+          <span>Trusted by Chennai businesses since 1990</span>
+          <span class="hs-sep">·</span>
+          <span>35+ years</span>
+          <span class="hs-sep">·</span>
+          <span>50,000+ orders delivered</span>
+          <span class="hs-sep">·</span>
+          <span>Pallavaram, Chennai</span>
+        </div>
 
         <button type="submit" class="submit-btn" id="submit-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -975,6 +1140,18 @@ const SHOP_WA         = "919840199878";
 // ── FILE STATE ─────────────────────────────────────────────────────────────
 let selectedFiles = [];
 
+// ── ORDER REF ──────────────────────────────────────────────────────────────
+function generateOrderRef() {
+  const d    = new Date();
+  const yy   = String(d.getFullYear()).slice(-2);
+  const mm   = String(d.getMonth() + 1).padStart(2, "0");
+  const dd   = String(d.getDate()).padStart(2, "0");
+  const pool = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let rand   = "";
+  for (let i = 0; i < 4; i++) rand += pool[Math.floor(Math.random() * pool.length)];
+  return `SP-${yy}${mm}${dd}-${rand}`;
+}
+
 // ── ELEMENT REFS ───────────────────────────────────────────────────────────
 const productSel   = document.getElementById("f-product");
 const serialToggle = document.getElementById("b-serial");
@@ -1028,6 +1205,38 @@ productSel.addEventListener("change", () => {
 
 serialToggle.addEventListener("change", () => {
   serialField.classList.toggle("hidden", !serialToggle.checked);
+});
+
+// ── DELIVERY TOGGLE ────────────────────────────────────────────────────────
+const deliveryFieldsEl = document.getElementById("delivery-fields");
+document.querySelectorAll("input[name='delivery_type']").forEach(radio => {
+  radio.addEventListener("change", () => {
+    const needs = radio.value === "delivery" || radio.value === "courier";
+    deliveryFieldsEl.classList.toggle("hidden", !needs);
+    if (!needs) {
+      showErr("e-del-address", false);
+      showErr("e-del-pincode", false);
+    }
+  });
+});
+
+// ── GST TOGGLE ─────────────────────────────────────────────────────────────
+let gstOpen = false;
+const gstFieldsEl  = document.getElementById("gst-fields");
+const gstChevronEl = document.getElementById("gst-chevron");
+const gstToggleBtn = document.getElementById("gst-toggle-btn");
+
+gstToggleBtn.addEventListener("click", () => {
+  gstOpen = !gstOpen;
+  gstFieldsEl.classList.toggle("hidden", !gstOpen);
+  gstChevronEl.classList.toggle("open", gstOpen);
+  gstToggleBtn.setAttribute("aria-expanded", String(gstOpen));
+  if (!gstOpen) {
+    document.getElementById("gst-company").value = "";
+    document.getElementById("gst-number").value  = "";
+    document.getElementById("gst-address").value = "";
+    ["e-gst-company", "e-gst-number", "e-gst-address"].forEach(id => showErr(id, false));
+  }
 });
 
 // ── STEP NAVIGATION ────────────────────────────────────────────────────────
@@ -1098,8 +1307,28 @@ function validate() {
   let ok = true;
   const name  = document.getElementById("f-name").value.trim();
   const phone = document.getElementById("f-phone").value.trim();
-  showErr("e-name",  !name);                         if (!name)                   ok = false;
-  showErr("e-phone", !/^[6-9]\d{9}$/.test(phone));  if (!/^[6-9]\d{9}$/.test(phone)) ok = false;
+  showErr("e-name",  !name);                              if (!name)                          ok = false;
+  showErr("e-phone", !/^[6-9]\d{9}$/.test(phone));       if (!/^[6-9]\d{9}$/.test(phone))    ok = false;
+
+  // Delivery address (required when delivery or courier selected)
+  const deliveryType = document.querySelector("input[name='delivery_type']:checked")?.value || "pickup";
+  if (deliveryType === "delivery" || deliveryType === "courier") {
+    const addr    = document.getElementById("del-address").value.trim();
+    const pincode = document.getElementById("del-pincode").value.trim();
+    showErr("e-del-address", !addr);                      if (!addr)                          ok = false;
+    showErr("e-del-pincode", !/^\d{6}$/.test(pincode));   if (!/^\d{6}$/.test(pincode))       ok = false;
+  }
+
+  // GST fields (required only when section is open)
+  if (gstOpen) {
+    const company = document.getElementById("gst-company").value.trim();
+    const gstin   = document.getElementById("gst-number").value.trim();
+    const gstAddr = document.getElementById("gst-address").value.trim();
+    showErr("e-gst-company", !company);                   if (!company)                       ok = false;
+    showErr("e-gst-number",  gstin.length !== 15);        if (gstin.length !== 15)            ok = false;
+    showErr("e-gst-address", !gstAddr);                   if (!gstAddr)                       ok = false;
+  }
+
   return ok;
 }
 
@@ -1232,9 +1461,30 @@ document.getElementById("order-form").addEventListener("submit", async e => {
   btn.disabled = true;
   lbl.innerHTML = '<span class="spin">⟳</span> Placing order…';
 
-  const isBooks  = productSel.value === "Books";
-  const fileNames = selectedFiles.map(f => f.file.name);
-  const specsText = buildSpecsText();
+  const isBooks      = productSel.value === "Books";
+  const fileNames    = selectedFiles.map(f => f.file.name);
+  const specsText    = buildSpecsText();
+  const clientRef    = generateOrderRef();
+
+  // Delivery
+  const deliveryType = document.querySelector("input[name='delivery_type']:checked")?.value || "pickup";
+  const deliveryInfo = { type: deliveryType };
+  if (deliveryType === "delivery" || deliveryType === "courier") {
+    deliveryInfo.address  = document.getElementById("del-address").value.trim();
+    deliveryInfo.pincode  = document.getElementById("del-pincode").value.trim();
+    const landmark        = document.getElementById("del-landmark").value.trim();
+    if (landmark) deliveryInfo.landmark = landmark;
+  }
+
+  // GST
+  let gstDetails = null;
+  if (gstOpen) {
+    gstDetails = {
+      company: document.getElementById("gst-company").value.trim(),
+      gstin:   document.getElementById("gst-number").value.trim().toUpperCase(),
+      address: document.getElementById("gst-address").value.trim(),
+    };
+  }
 
   let bookDetails = null;
   if (isBooks) {
@@ -1262,6 +1512,9 @@ document.getElementById("order-form").addEventListener("submit", async e => {
     delivery_date:        document.getElementById("f-date").value,
     special_instructions: specsText,
     color_mode:           (isBooks && document.getElementById("b-color").value) || "full_color",
+    client_order_ref:     clientRef,
+    delivery:             deliveryInfo,
+    ...(gstDetails  ? { gst_details:  gstDetails  } : {}),
     ...(fileNames.length > 0 ? { file_names: fileNames } : {}),
     ...(bookDetails ? { book_details: bookDetails } : {}),
   };
@@ -1312,7 +1565,7 @@ document.getElementById("order-form").addEventListener("submit", async e => {
       if (anyFailed && submitted) submitted._file_upload_partial = true;
     }
 
-    showSuccess(orderNo, submitted);
+    showSuccess(orderNo || clientRef, submitted, clientRef);
   } catch {
     showGlobalErr("Network error — please check your connection and try again.");
     btn.disabled = false;
@@ -1338,13 +1591,16 @@ function row(label, val) {
   return `<div class="sum-row"><span class="sum-label">${label}</span><span class="sum-val">${val}</span></div>`;
 }
 
-function showSuccess(orderNo, s) {
-  document.getElementById("succ-ono").textContent = orderNo;
+function showSuccess(displayRef, s, clientRef) {
+  // displayRef = backend order_no if returned, else clientRef
+  document.getElementById("succ-ono").textContent = displayRef;
   document.getElementById("succ-sub").textContent =
-    `Order ${orderNo} received for ${s.quantity} ${s.product_type}. We'll WhatsApp +91${s.contact_no} within 2 hours to confirm artwork and timeline.`;
+    `Order ${displayRef} received for ${s.quantity} ${s.product_type}. We'll WhatsApp +91${s.contact_no} within 2 hours to confirm artwork and timeline.`;
 
   const isBooks = s.product_type === "Books";
   const bd      = s.book_details || {};
+  const del     = s.delivery     || {};
+  const gst     = s.gst_details  || null;
 
   const filesNote = (s.file_names && s.file_names.length > 0)
     ? (s._file_upload_partial
@@ -1353,34 +1609,49 @@ function showSuccess(orderNo, s) {
     : "Not attached — send on WhatsApp";
 
   let rows = "";
-  rows += row("Name",     s.customer_name);
-  rows += row("WhatsApp", `+91 ${s.contact_no}`);
-  rows += row("Email",    s.email);
-  rows += row("Product",  s.product_type);
-  rows += row("Quantity", String(s.quantity));
-  rows += row("Delivery", fmtDate(s.delivery_date));
+  rows += row("Order ref",  displayRef);
+  rows += row("Name",       s.customer_name);
+  rows += row("WhatsApp",   `+91 ${s.contact_no}`);
+  rows += row("Email",      s.email);
+  rows += row("Product",    s.product_type);
+  rows += row("Quantity",   String(s.quantity));
+  rows += row("Due date",   fmtDate(s.delivery_date));
   if (s.special_instructions) rows += row("Specs", s.special_instructions);
   if (isBooks) {
-    if (bd.book_title)    rows += row("Book Title", bd.book_title);
-    if (bd.num_pages)     rows += row("Pages",      String(bd.num_pages));
-    if (bd.book_size)     rows += row("Book Size",  bd.book_size);
-    if (bd.binding_type)  rows += row("Binding",    bd.binding_type);
-    if (bd.cover_type)    rows += row("Cover",      bd.cover_type);
-    if (bd.paper_quality) rows += row("Paper",      bd.paper_quality);
+    if (bd.book_title)       rows += row("Book Title", bd.book_title);
+    if (bd.num_pages)        rows += row("Pages",      String(bd.num_pages));
+    if (bd.book_size)        rows += row("Book Size",  bd.book_size);
+    if (bd.binding_type)     rows += row("Binding",    bd.binding_type);
+    if (bd.cover_type)       rows += row("Cover",      bd.cover_type);
+    if (bd.paper_quality)    rows += row("Paper",      bd.paper_quality);
     if (bd.serial_numbering) rows += row("Serial No.", `Yes — starting from ${bd.serial_start || "—"}`);
+  }
+  // Delivery summary
+  const deliveryLabel = { pickup: "Pickup at store (Pallavaram)", delivery: "Chennai delivery", courier: "Courier" };
+  rows += row("Delivery", deliveryLabel[del.type] || del.type);
+  if (del.address) rows += row("Address", `${del.address}${del.pincode ? ", " + del.pincode : ""}${del.landmark ? " — " + del.landmark : ""}`);
+  // GST summary
+  if (gst) {
+    rows += row("GST Invoice", "Yes");
+    rows += row("Company",     gst.company);
+    rows += row("GSTIN",       gst.gstin);
   }
   rows += row("Artwork", filesNote);
 
   document.getElementById("succ-rows").innerHTML = rows;
 
+  const deliveryLine = del.type === "pickup"
+    ? "Pickup from our Pallavaram store."
+    : del.address ? `Deliver to: ${del.address}${del.pincode ? ", " + del.pincode : ""}.` : "";
+
   const waMsg = encodeURIComponent(
-    `Hi Super Printers! I just placed a print order.\n\nOrder #: *${orderNo}*\nPrint type: ${s.product_type}\nQuantity: ${s.quantity}\nNeeded by: ${fmtDate(s.delivery_date)}\n\nAttaching my artwork files now.`
+    `Hi Super Printers! I just placed a print order.\n\nOrder #: *${displayRef}*\nPrint type: ${s.product_type}\nQuantity: ${s.quantity}\nNeeded by: ${fmtDate(s.delivery_date)}\n${deliveryLine}\n\nAttaching my artwork files now.`
   );
   document.getElementById("succ-wa-link").href = `https://wa.me/${SHOP_WA}?text=${waMsg}`;
   document.getElementById("succ-note").textContent =
-    `Save your order number: ${orderNo}. Quote it whenever you contact us.`;
+    `Save your order reference: ${displayRef}. Quote it whenever you contact us.`;
 
-  document.getElementById("view-form").style.display   = "none";
+  document.getElementById("view-form").style.display    = "none";
   document.getElementById("view-success").style.display = "block";
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1393,6 +1664,14 @@ function resetForm() {
   ALL_SPEC_IDS.forEach(id => document.getElementById(id)?.classList.add("hidden"));
   serialField.classList.add("hidden");
   serialToggle.checked = false;
+  // Reset delivery
+  document.getElementById("dt-pickup").checked = true;
+  deliveryFieldsEl.classList.add("hidden");
+  // Reset GST
+  gstOpen = false;
+  gstFieldsEl.classList.add("hidden");
+  gstChevronEl.classList.remove("open");
+  gstToggleBtn.setAttribute("aria-expanded", "false");
   document.getElementById("submit-btn").disabled = false;
   document.getElementById("submit-label").textContent = "Place My Order";
   document.getElementById("view-success").style.display = "none";
