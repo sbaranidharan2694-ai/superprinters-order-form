@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+<script defer data-domain="superprinters-order-form.netlify.app" src="https://plausible.io/js/script.js"></script>
 <style>
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -72,7 +73,7 @@ body{
   line-height:1.65;margin-bottom:12px;
 }
 .wa-alt{
-  margin-bottom:24px;
+  margin-bottom:16px;
   font-size:13px;
 }
 .wa-alt a{
@@ -82,6 +83,28 @@ body{
   transition:color .12s,border-color .12s;
 }
 .wa-alt a:hover{color:var(--n);border-color:var(--n)}
+
+/* ══════════════════════════════════════
+   DRAFT BANNER
+══════════════════════════════════════ */
+.draft-banner{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#FFF9EC;border:1.5px solid var(--a);border-radius:8px;
+  padding:12px 14px;margin-bottom:16px;gap:10px;
+}
+.draft-banner-text{font-size:13px;font-weight:600;color:var(--n)}
+.draft-banner-sub{font-size:11px;color:var(--g);margin-top:2px}
+.draft-resume-btn{
+  padding:7px 14px;background:var(--a);color:var(--n);
+  border:none;border-radius:6px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:var(--fb);white-space:nowrap;
+  transition:background .12s;flex-shrink:0;
+}
+.draft-resume-btn:hover{background:var(--a2)}
+.draft-dismiss{
+  background:none;border:none;color:var(--g2);font-size:20px;
+  cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;
+}
 
 /* ══════════════════════════════════════
    STEP INDICATOR
@@ -203,7 +226,7 @@ select{
 .chip.active{border-color:var(--a);background:var(--a-faint);color:var(--n)}
 
 /* ══════════════════════════════════════
-   SPEC BLOCKS (conditional per type)
+   SPEC BLOCKS (injected per type)
 ══════════════════════════════════════ */
 .spec-block{
   display:flex;flex-direction:column;gap:14px;
@@ -524,6 +547,16 @@ select{
   <p class="pg-sub">Fill in your order details and we'll confirm artwork and timeline on WhatsApp — usually within 2 hours. Production starts once you approve.</p>
   <p class="wa-alt"><a href="https://wa.me/919840199878" target="_blank" rel="noopener noreferrer">Prefer to order on WhatsApp? →</a></p>
 
+  <!-- ── Draft resume banner ── -->
+  <div id="draft-banner" class="draft-banner hidden">
+    <div style="flex:1">
+      <div class="draft-banner-text">Resume your previous order?</div>
+      <div class="draft-banner-sub" id="draft-banner-sub">Your details were saved</div>
+    </div>
+    <button type="button" class="draft-resume-btn" id="draft-resume-btn">Resume</button>
+    <button type="button" class="draft-dismiss" id="draft-dismiss-btn" aria-label="Dismiss">×</button>
+  </div>
+
   <form class="card" id="order-form" novalidate>
 
     <!-- ══ STEP INDICATOR ═══════════════════════ -->
@@ -582,305 +615,13 @@ select{
             <label for="f-qty">How many copies? <span class="req">*</span></label>
             <input id="f-qty" type="number" placeholder="e.g. 500" min="1" inputmode="numeric"/>
             <span class="hint">Estimate is fine — we'll confirm before printing</span>
+            <span class="hint" id="qty-hint"></span>
             <span class="err" id="e-qty">Please enter a quantity</span>
           </div>
         </div>
 
-        <!-- ── Business Cards specs ── -->
-        <div id="specs-bc" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="bc-size">Size <span class="opt">(optional)</span></label>
-              <select id="bc-size">
-                <option value="">Select size…</option>
-                <option>Standard (90 × 55 mm)</option>
-                <option>Square (55 × 55 mm)</option>
-                <option>Custom — specify in notes</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="bc-sides">Single or double sided? <span class="opt">(optional)</span></label>
-              <select id="bc-sides">
-                <option value="">Select…</option>
-                <option>Single sided</option>
-                <option>Double sided</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label for="bc-lam">Finish / lamination <span class="opt">(optional)</span></label>
-            <select id="bc-lam">
-              <option value="">Select finish…</option>
-              <option>No lamination</option>
-              <option>Matte lamination</option>
-              <option>Gloss lamination</option>
-              <option>Soft touch / velvet</option>
-              <option>Not sure — advise me</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- ── Wedding Cards & Invitations specs ── -->
-        <div id="specs-wedding" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="wc-size">Size <span class="opt">(optional)</span></label>
-              <select id="wc-size">
-                <option value="">Select size…</option>
-                <option>A5 (148 × 210 mm)</option>
-                <option>DL (99 × 210 mm)</option>
-                <option>Square (130 × 130 mm)</option>
-                <option>Custom — specify in notes</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="wc-finish">Finish <span class="opt">(optional)</span></label>
-              <select id="wc-finish">
-                <option value="">Select finish…</option>
-                <option>Matte</option>
-                <option>Gloss</option>
-                <option>Gold foil accent</option>
-                <option>Textured / embossed</option>
-                <option>Not sure — advise me</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Flyers specs ── -->
-        <div id="specs-flyers" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="fl-size">Size <span class="opt">(optional)</span></label>
-              <select id="fl-size">
-                <option value="">Select size…</option>
-                <option>A4 (210 × 297 mm)</option>
-                <option>A5 (148 × 210 mm)</option>
-                <option>A6 (105 × 148 mm)</option>
-                <option>Custom — specify in notes</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="fl-sides">Single or double sided? <span class="opt">(optional)</span></label>
-              <select id="fl-sides">
-                <option value="">Select…</option>
-                <option>Single sided</option>
-                <option>Double sided</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fl-lam">Finish / lamination <span class="opt">(optional)</span></label>
-            <select id="fl-lam">
-              <option value="">Select finish…</option>
-              <option>No lamination</option>
-              <option>Matte lamination</option>
-              <option>Gloss lamination</option>
-              <option>Not sure — advise me</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- ── Brochures specs ── -->
-        <div id="specs-brochures" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="br-size">Size <span class="opt">(optional)</span></label>
-              <select id="br-size">
-                <option value="">Select size…</option>
-                <option>A4 folded</option>
-                <option>A5</option>
-                <option>DL (⅓ A4)</option>
-                <option>Custom — specify in notes</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="br-fold">Fold type <span class="opt">(optional)</span></label>
-              <select id="br-fold">
-                <option value="">Select fold…</option>
-                <option>Bi-fold (2 panels)</option>
-                <option>Tri-fold (3 panels)</option>
-                <option>Z-fold</option>
-                <option>Not sure — advise me</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label for="br-lam">Finish / lamination <span class="opt">(optional)</span></label>
-            <select id="br-lam">
-              <option value="">Select finish…</option>
-              <option>No lamination</option>
-              <option>Matte lamination</option>
-              <option>Gloss lamination</option>
-              <option>Not sure — advise me</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- ── Stickers & Labels specs ── -->
-        <div id="specs-stickers" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="st-material">Material <span class="opt">(optional)</span></label>
-              <select id="st-material">
-                <option value="">Select material…</option>
-                <option>White paper</option>
-                <option>Kraft / brown paper</option>
-                <option>Vinyl (waterproof)</option>
-                <option>Transparent</option>
-                <option>Not sure — advise me</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="st-finish">Finish <span class="opt">(optional)</span></label>
-              <select id="st-finish">
-                <option value="">Select finish…</option>
-                <option>Gloss</option>
-                <option>Matte</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Posters & Banners specs ── -->
-        <div id="specs-banners" class="spec-block hidden">
-          <div class="field-row">
-            <div class="field">
-              <label for="bn-size">Size <span class="opt">(optional)</span></label>
-              <select id="bn-size">
-                <option value="">Select size…</option>
-                <option>A3 (297 × 420 mm)</option>
-                <option>A2 (420 × 594 mm)</option>
-                <option>A1 (594 × 841 mm)</option>
-                <option>A0 (841 × 1189 mm)</option>
-                <option>Custom — specify in notes</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="bn-material">Material <span class="opt">(optional)</span></label>
-              <select id="bn-material">
-                <option value="">Select material…</option>
-                <option>Paper (indoor)</option>
-                <option>Vinyl / flex (outdoor)</option>
-                <option>Canvas</option>
-                <option>Fabric / mesh</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Books specs ── -->
-        <div class="books-section hidden" id="specs-books">
-          <div class="books-head">
-            <div class="books-badge">📚</div>
-            <div>
-              <div class="books-title">Book Specifications</div>
-              <div class="books-desc">Fill in what you know — we'll confirm the rest when we contact you</div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="b-title">Book title <span class="opt">(optional)</span></label>
-            <input id="b-title" type="text" placeholder="e.g. Annual Report 2025"/>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="b-pages">Number of pages <span class="req">*</span></label>
-              <input id="b-pages" type="number" placeholder="e.g. 200" min="1" inputmode="numeric"/>
-              <span class="hint">Count all pages including cover</span>
-              <span class="err" id="e-pages">Please enter the page count</span>
-            </div>
-            <div class="field">
-              <label for="b-size">Book size <span class="req">*</span></label>
-              <select id="b-size">
-                <option value="">Select size…</option>
-                <option>A4 (210 × 297 mm)</option>
-                <option>A5 (148 × 210 mm)</option>
-                <option>B5 (176 × 250 mm)</option>
-                <option>Royal (156 × 234 mm)</option>
-                <option>Square (210 × 210 mm)</option>
-                <option>Custom</option>
-              </select>
-              <span class="err" id="e-bsize">Please select a size</span>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="b-binding">Binding type <span class="req">*</span></label>
-              <select id="b-binding">
-                <option value="">Select binding…</option>
-                <option>Perfect Binding</option>
-                <option>Saddle Stitch</option>
-                <option>Spiral / Coil Binding</option>
-                <option>Hard Case Binding</option>
-                <option>Sewn Binding</option>
-                <option>Wire-O Binding</option>
-                <option>Not sure — advise me</option>
-              </select>
-              <span class="err" id="e-binding">Please select binding type</span>
-            </div>
-            <div class="field">
-              <label for="b-cover">Cover type <span class="opt">(optional)</span></label>
-              <select id="b-cover">
-                <option value="">Select cover…</option>
-                <option>Soft Cover</option>
-                <option>Hard Cover</option>
-                <option>Matte Laminated Soft Cover</option>
-                <option>Gloss Laminated Soft Cover</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="b-paper">Paper quality <span class="opt">(optional)</span></label>
-              <select id="b-paper">
-                <option value="">Select paper…</option>
-                <option>70 GSM Maplitho</option>
-                <option>80 GSM Maplitho</option>
-                <option>90 GSM Maplitho</option>
-                <option>100 GSM Art Paper</option>
-                <option>130 GSM Art Paper</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="b-color">Color mode <span class="opt">(optional)</span></label>
-              <select id="b-color">
-                <option value="">Select color…</option>
-                <option value="full_color">Full Color</option>
-                <option value="black_white">Black &amp; White</option>
-                <option value="mixed">Color cover, B&amp;W inside</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="toggle-row">
-            <label class="toggle">
-              <input type="checkbox" id="b-serial"/>
-              <span class="toggle-slider"></span>
-            </label>
-            <label for="b-serial">Serial numbering required</label>
-          </div>
-
-          <div class="field hidden" id="serial-start-field">
-            <label for="b-serial-start">Starting serial number <span class="req">*</span></label>
-            <input id="b-serial-start" type="number" placeholder="e.g. 1001" min="1" inputmode="numeric"/>
-            <span class="err" id="e-serial-start">Please enter the starting serial number</span>
-          </div>
-        </div>
-
-        <!-- ── Custom Print Job specs ── -->
-        <div id="specs-custom" class="spec-block hidden">
-          <div class="field">
-            <label for="cust-desc">Describe what you need <span class="req">*</span></label>
-            <textarea id="cust-desc" rows="4" placeholder="e.g. 3-ply invoice books, A5, 50 sets with carbon copies. Or: raffle tickets with sequential numbering. Include size, material, quantity details."></textarea>
-            <span class="hint">Be as specific as you can — the more detail, the faster we can prepare your order</span>
-            <span class="err" id="e-cust-desc">Please describe what you need so we can prepare your order</span>
-          </div>
-        </div>
+        <!-- Spec fields injected here per print type -->
+        <div id="specs-container"></div>
 
       </div><!-- /fs: What are you ordering -->
 
@@ -919,6 +660,7 @@ select{
         </div>
 
         <div class="file-list" id="file-list"></div>
+        <p class="hint" style="margin-top:0">Max 50 MB per file · Up to 5 files</p>
 
         <div class="field">
           <label for="f-notes">Anything else to mention? <span class="opt">(optional)</span></label>
@@ -1153,35 +895,384 @@ function generateOrderRef() {
 }
 
 // ── ELEMENT REFS ───────────────────────────────────────────────────────────
-const productSel   = document.getElementById("f-product");
-const serialToggle = document.getElementById("b-serial");
-const serialField  = document.getElementById("serial-start-field");
-const fileInput    = document.getElementById("f-files");
-const fileList     = document.getElementById("file-list");
-const zone         = document.getElementById("upload-zone");
+const productSel = document.getElementById("f-product");
+const fileInput  = document.getElementById("f-files");
+const fileList   = document.getElementById("file-list");
+const zone       = document.getElementById("upload-zone");
 
-// ── SPEC SECTION MAP ───────────────────────────────────────────────────────
-const SPECS_MAP = {
-  "Business Cards":    "specs-bc",
-  "Wedding Cards":     "specs-wedding",
-  "Invitations":       "specs-wedding",
-  "Flyers":            "specs-flyers",
-  "Brochures":         "specs-brochures",
-  "Stickers & Labels": "specs-stickers",
-  "Posters & Banners": "specs-banners",
-  "Books":             "specs-books",
-  "Custom Print Job":  "specs-custom",
-};
-const ALL_SPEC_IDS = [...new Set(Object.values(SPECS_MAP))];
+// ── ANALYTICS ──────────────────────────────────────────────────────────────
+function track(event, props) {
+  try {
+    if (typeof window.plausible === "function") window.plausible(event, props ? { props } : undefined);
+  } catch {}
+}
 
-function showSpecs(type) {
-  ALL_SPEC_IDS.forEach(id => document.getElementById(id)?.classList.add("hidden"));
-  const specId = SPECS_MAP[type];
-  if (specId) document.getElementById(specId)?.classList.remove("hidden");
-  if (type !== "Books") {
-    serialToggle.checked = false;
-    serialField.classList.add("hidden");
+let formStarted   = false;
+let formSubmitted = false;
+
+document.getElementById("order-form").addEventListener("focusin", function trackStart() {
+  if (formStarted) return;
+  formStarted = true;
+  track("form_started");
+}, { once: true });
+
+window.addEventListener("beforeunload", () => {
+  if (formStarted && !formSubmitted) track("form_abandoned");
+});
+
+// ── SPEC HTML TEMPLATES ────────────────────────────────────────────────────
+function getSpecsHTML(type) {
+  switch (type) {
+    case "Business Cards":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="bc-size">Size <span class="opt">(optional)</span></label>
+            <select id="bc-size">
+              <option value="">Select size…</option>
+              <option>Standard (90 × 55 mm)</option>
+              <option>Square (55 × 55 mm)</option>
+              <option>Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bc-sides">Sides <span class="opt">(optional)</span></label>
+            <select id="bc-sides">
+              <option value="">Select…</option>
+              <option>Single sided</option>
+              <option>Double sided</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="bc-lam">Finish / lamination <span class="opt">(optional)</span></label>
+          <select id="bc-lam">
+            <option value="">Select finish…</option>
+            <option>No lamination</option>
+            <option>Matte lamination</option>
+            <option>Gloss lamination</option>
+            <option>Soft touch / velvet</option>
+            <option>Not sure — advise me</option>
+          </select>
+        </div>
+      </div>`;
+
+    case "Wedding Cards":
+    case "Invitations":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="wc-size">Size <span class="opt">(optional)</span></label>
+            <select id="wc-size">
+              <option value="">Select size…</option>
+              <option>A5 (148 × 210 mm)</option>
+              <option>DL (99 × 210 mm)</option>
+              <option>Square (130 × 130 mm)</option>
+              <option>Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="wc-finish">Finish <span class="opt">(optional)</span></label>
+            <select id="wc-finish">
+              <option value="">Select finish…</option>
+              <option>Matte</option>
+              <option>Gloss</option>
+              <option>Gold foil accent</option>
+              <option>Textured / embossed</option>
+              <option>Not sure — advise me</option>
+            </select>
+          </div>
+        </div>
+      </div>`;
+
+    case "Flyers":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="fl-size">Size <span class="opt">(optional)</span></label>
+            <select id="fl-size">
+              <option value="">Select size…</option>
+              <option>A4 (210 × 297 mm)</option>
+              <option>A5 (148 × 210 mm)</option>
+              <option>A6 (105 × 148 mm)</option>
+              <option>Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fl-sides">Sides <span class="opt">(optional)</span></label>
+            <select id="fl-sides">
+              <option value="">Select…</option>
+              <option>Single sided</option>
+              <option>Double sided</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fl-lam">Finish / lamination <span class="opt">(optional)</span></label>
+          <select id="fl-lam">
+            <option value="">Select finish…</option>
+            <option>No lamination</option>
+            <option>Matte lamination</option>
+            <option>Gloss lamination</option>
+            <option>Not sure — advise me</option>
+          </select>
+        </div>
+      </div>`;
+
+    case "Brochures":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="br-size">Size <span class="opt">(optional)</span></label>
+            <select id="br-size">
+              <option value="">Select size…</option>
+              <option>A4 folded</option>
+              <option>A5</option>
+              <option>DL (⅓ A4)</option>
+              <option>Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="br-fold">Fold type <span class="opt">(optional)</span></label>
+            <select id="br-fold">
+              <option value="">Select fold…</option>
+              <option>Bi-fold (2 panels)</option>
+              <option>Tri-fold (3 panels)</option>
+              <option>Z-fold</option>
+              <option>Not sure — advise me</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="br-lam">Finish / lamination <span class="opt">(optional)</span></label>
+          <select id="br-lam">
+            <option value="">Select finish…</option>
+            <option>No lamination</option>
+            <option>Matte lamination</option>
+            <option>Gloss lamination</option>
+            <option>Not sure — advise me</option>
+          </select>
+        </div>
+      </div>`;
+
+    case "Stickers & Labels":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="st-material">Material <span class="opt">(optional)</span></label>
+            <select id="st-material">
+              <option value="">Select material…</option>
+              <option>White paper</option>
+              <option>Kraft / brown paper</option>
+              <option>Vinyl (waterproof)</option>
+              <option>Transparent</option>
+              <option>Not sure — advise me</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="st-finish">Finish <span class="opt">(optional)</span></label>
+            <select id="st-finish">
+              <option value="">Select finish…</option>
+              <option>Gloss</option>
+              <option>Matte</option>
+            </select>
+          </div>
+        </div>
+      </div>`;
+
+    case "Posters & Banners":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="bn-size">Size <span class="opt">(optional)</span></label>
+            <select id="bn-size">
+              <option value="">Select size…</option>
+              <option>A3 (297 × 420 mm)</option>
+              <option>A2 (420 × 594 mm)</option>
+              <option>A1 (594 × 841 mm)</option>
+              <option>A0 (841 × 1189 mm)</option>
+              <option>Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bn-material">Material <span class="opt">(optional)</span></label>
+            <select id="bn-material">
+              <option value="">Select material…</option>
+              <option>Paper (indoor)</option>
+              <option>Vinyl / flex (outdoor)</option>
+              <option>Canvas</option>
+              <option>Fabric / mesh</option>
+            </select>
+          </div>
+        </div>
+      </div>`;
+
+    case "Books":
+      return `<div class="books-section">
+        <div class="books-head">
+          <div class="books-badge">📚</div>
+          <div>
+            <div class="books-title">Book Specifications</div>
+            <div class="books-desc">Fill in what you know — we'll confirm the rest when we contact you</div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="b-title">Book title <span class="opt">(optional)</span></label>
+          <input id="b-title" type="text" placeholder="e.g. Annual Report 2025"/>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="b-pages">Number of pages <span class="req">*</span></label>
+            <input id="b-pages" type="number" placeholder="e.g. 200" min="1" inputmode="numeric"/>
+            <span class="hint">Count all pages including cover</span>
+            <span class="err" id="e-pages">Please enter the page count</span>
+          </div>
+          <div class="field">
+            <label for="b-size">Book size <span class="req">*</span></label>
+            <select id="b-size">
+              <option value="">Select size…</option>
+              <option>A4 (210 × 297 mm)</option>
+              <option>A5 (148 × 210 mm)</option>
+              <option>B5 (176 × 250 mm)</option>
+              <option>Royal (156 × 234 mm)</option>
+              <option>Square (210 × 210 mm)</option>
+              <option>Custom</option>
+            </select>
+            <span class="err" id="e-bsize">Please select a size</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="b-binding">Binding type <span class="req">*</span></label>
+            <select id="b-binding">
+              <option value="">Select binding…</option>
+              <option>Perfect Binding</option>
+              <option>Saddle Stitch</option>
+              <option>Spiral / Coil Binding</option>
+              <option>Hard Case Binding</option>
+              <option>Sewn Binding</option>
+              <option>Wire-O Binding</option>
+              <option>Not sure — advise me</option>
+            </select>
+            <span class="err" id="e-binding">Please select binding type</span>
+          </div>
+          <div class="field">
+            <label for="b-cover">Cover type <span class="opt">(optional)</span></label>
+            <select id="b-cover">
+              <option value="">Select cover…</option>
+              <option>Soft Cover</option>
+              <option>Hard Cover</option>
+              <option>Matte Laminated Soft Cover</option>
+              <option>Gloss Laminated Soft Cover</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="b-paper">Paper quality <span class="opt">(optional)</span></label>
+            <select id="b-paper">
+              <option value="">Select paper…</option>
+              <option>70 GSM Maplitho</option>
+              <option>80 GSM Maplitho</option>
+              <option>90 GSM Maplitho</option>
+              <option>100 GSM Art Paper</option>
+              <option>130 GSM Art Paper</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="b-color">Color mode <span class="opt">(optional)</span></label>
+            <select id="b-color">
+              <option value="">Select color…</option>
+              <option value="full_color">Full Color</option>
+              <option value="black_white">Black &amp; White</option>
+              <option value="mixed">Color cover, B&amp;W inside</option>
+            </select>
+          </div>
+        </div>
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="b-serial"/>
+            <span class="toggle-slider"></span>
+          </label>
+          <label for="b-serial">Serial numbering required</label>
+        </div>
+        <div class="field hidden" id="serial-start-field">
+          <label for="b-serial-start">Starting serial number <span class="req">*</span></label>
+          <input id="b-serial-start" type="number" placeholder="e.g. 1001" min="1" inputmode="numeric"/>
+          <span class="err" id="e-serial-start">Please enter the starting serial number</span>
+        </div>
+      </div>`;
+
+    case "Custom Print Job":
+      return `<div class="spec-block">
+        <div class="field-row">
+          <div class="field">
+            <label for="cust-medium">Print medium <span class="opt">(optional)</span></label>
+            <select id="cust-medium">
+              <option value="">Select medium…</option>
+              <option>Paper</option>
+              <option>Vinyl</option>
+              <option>Canvas</option>
+              <option>Fabric</option>
+              <option>Other — describe below</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cust-size">Approximate size <span class="opt">(optional)</span></label>
+            <input id="cust-size" type="text" placeholder="e.g. A4, 10×15 cm"/>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cust-desc">Describe what you need <span class="req">*</span></label>
+          <textarea id="cust-desc" rows="4" placeholder="e.g. 3-ply invoice books, A5, 50 sets with carbon copies. Or: raffle tickets with sequential numbering. Include size, material, quantity details."></textarea>
+          <span class="hint">Be as specific as you can — the more detail, the faster we can prepare your order</span>
+          <span class="err" id="e-cust-desc">Please describe what you need so we can prepare your order</span>
+        </div>
+      </div>`;
+
+    default:
+      return "";
   }
+}
+
+function initSpecsListeners(type) {
+  if (type === "Books") {
+    const serialToggle = document.getElementById("b-serial");
+    const serialField  = document.getElementById("serial-start-field");
+    if (serialToggle && serialField) {
+      serialToggle.addEventListener("change", () => {
+        serialField.classList.toggle("hidden", !serialToggle.checked);
+      });
+    }
+  }
+}
+
+// ── QUANTITY HINTS ─────────────────────────────────────────────────────────
+const QTY_HINTS = {
+  "Business Cards":    "Most customers order 250–500 for a good price per card",
+  "Wedding Cards":     "Order 10–15% extra for last-minute additions to the guest list",
+  "Invitations":       "Order 10–15% extra for last-minute additions",
+  "Flyers":            "500 or 1,000 are common quantities for flyer runs",
+  "Brochures":         "250–500 is a typical first print run for brochures",
+  "Stickers & Labels": "Labels are usually ordered in rolls of 100 or 500",
+  "Posters & Banners": "Enter the number of individual prints needed",
+  "Books":             "Enter the number of copies — minimum is usually 25",
+  "Custom Print Job":  "Give your best estimate — we'll confirm before printing",
+};
+
+function updateQtyHint(type) {
+  const el = document.getElementById("qty-hint");
+  if (!el) return;
+  el.textContent = QTY_HINTS[type] || "";
+}
+
+// ── SPEC SHOW ──────────────────────────────────────────────────────────────
+function showSpecs(type) {
+  const container = document.getElementById("specs-container");
+  container.innerHTML = getSpecsHTML(type);
+  initSpecsListeners(type);
+  updateQtyHint(type);
 }
 
 // ── CHIPS ──────────────────────────────────────────────────────────────────
@@ -1201,10 +1292,6 @@ document.querySelectorAll(".chip").forEach(chip => {
 productSel.addEventListener("change", () => {
   showSpecs(productSel.value);
   syncChips();
-});
-
-serialToggle.addEventListener("change", () => {
-  serialField.classList.toggle("hidden", !serialToggle.checked);
 });
 
 // ── DELIVERY TOGGLE ────────────────────────────────────────────────────────
@@ -1252,6 +1339,7 @@ function showStep(n) {
 document.getElementById("btn-continue").addEventListener("click", () => {
   document.getElementById("err-step1").classList.remove("show");
   if (!validateStep1()) return;
+  track("step_1_completed");
   showStep(2);
 });
 
@@ -1275,21 +1363,22 @@ function validateStep1() {
   showErr("e-date",    !date);             if (!date)                    ok = false;
 
   if (prod === "Books") {
-    const pages   = document.getElementById("b-pages").value;
-    const bsize   = document.getElementById("b-size").value;
-    const binding = document.getElementById("b-binding").value;
+    const pages     = document.getElementById("b-pages")?.value;
+    const bsize     = document.getElementById("b-size")?.value;
+    const binding   = document.getElementById("b-binding")?.value;
+    const serialChk = document.getElementById("b-serial");
     showErr("e-pages",   !pages || Number(pages) < 1); if (!pages || Number(pages) < 1) ok = false;
     showErr("e-bsize",   !bsize);                      if (!bsize)                       ok = false;
     showErr("e-binding", !binding);                    if (!binding)                     ok = false;
-    if (serialToggle.checked) {
-      const ss = document.getElementById("b-serial-start").value;
+    if (serialChk?.checked) {
+      const ss = document.getElementById("b-serial-start")?.value;
       showErr("e-serial-start", !ss || Number(ss) < 1);
       if (!ss || Number(ss) < 1) ok = false;
     }
   }
 
   if (prod === "Custom Print Job") {
-    const desc = document.getElementById("cust-desc").value.trim();
+    const desc = document.getElementById("cust-desc")?.value.trim();
     showErr("e-cust-desc", !desc);
     if (!desc) ok = false;
   }
@@ -1310,7 +1399,6 @@ function validate() {
   showErr("e-name",  !name);                              if (!name)                          ok = false;
   showErr("e-phone", !/^[6-9]\d{9}$/.test(phone));       if (!/^[6-9]\d{9}$/.test(phone))    ok = false;
 
-  // Delivery address (required when delivery or courier selected)
   const deliveryType = document.querySelector("input[name='delivery_type']:checked")?.value || "pickup";
   if (deliveryType === "delivery" || deliveryType === "courier") {
     const addr    = document.getElementById("del-address").value.trim();
@@ -1319,7 +1407,6 @@ function validate() {
     showErr("e-del-pincode", !/^\d{6}$/.test(pincode));   if (!/^\d{6}$/.test(pincode))       ok = false;
   }
 
-  // GST fields (required only when section is open)
   if (gstOpen) {
     const company = document.getElementById("gst-company").value.trim();
     const gstin   = document.getElementById("gst-number").value.trim();
@@ -1338,14 +1425,14 @@ function buildSpecsText() {
   const parts = [];
 
   function addField(label, id) {
-    const val = document.getElementById(id)?.value;
-    if (val) parts.push(`${label}: ${val}`);
+    const el = document.getElementById(id);
+    if (el && el.value) parts.push(`${label}: ${el.value}`);
   }
 
   if (type === "Business Cards") {
-    addField("Size",       "bc-size");
-    addField("Sides",      "bc-sides");
-    addField("Finish",     "bc-lam");
+    addField("Size",   "bc-size");
+    addField("Sides",  "bc-sides");
+    addField("Finish", "bc-lam");
   } else if (type === "Wedding Cards" || type === "Invitations") {
     addField("Size",   "wc-size");
     addField("Finish", "wc-finish");
@@ -1364,6 +1451,8 @@ function buildSpecsText() {
     addField("Size",     "bn-size");
     addField("Material", "bn-material");
   } else if (type === "Custom Print Job") {
+    addField("Medium", "cust-medium");
+    addField("Size",   "cust-size");
     const desc = document.getElementById("cust-desc")?.value.trim();
     if (desc) parts.push(desc);
   }
@@ -1385,8 +1474,12 @@ function isImage(file) { return file.type.startsWith("image/"); }
 
 function addFiles(newFiles) {
   for (const file of newFiles) {
-    if (file.size > 25 * 1024 * 1024) {
-      alert(`${file.name} is too large (max 25 MB).`);
+    if (selectedFiles.length >= 5) {
+      alert("Maximum 5 files allowed. Remove a file to add another.");
+      break;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      alert(`${file.name} is too large (max 50 MB).`);
       continue;
     }
     if (selectedFiles.some(f => f.file.name === file.name && f.file.size === file.size)) continue;
@@ -1450,6 +1543,103 @@ zone.addEventListener("drop",      e  => {
   addFiles(Array.from(e.dataTransfer.files));
 });
 
+// ── DRAFT AUTOSAVE ─────────────────────────────────────────────────────────
+const DRAFT_KEY = "sp_order_draft";
+let saveTimer   = null;
+
+function getDraftState() {
+  const state = {};
+  document.querySelectorAll("#order-form input[id], #order-form select[id], #order-form textarea[id]").forEach(el => {
+    if (el.type === "radio") {
+      if (el.checked) state[el.name] = el.value;
+    } else if (el.type === "checkbox") {
+      if (el.checked) state[el.id] = true;
+    } else if (el.type === "file") {
+      // skip
+    } else if (el.value) {
+      state[el.id] = el.value;
+    }
+  });
+  if (gstOpen) state._gstOpen = true;
+  return state;
+}
+
+function saveDraft() {
+  try {
+    const state = getDraftState();
+    if (!state["f-product"] && !state["f-qty"] && !state["f-name"]) return;
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ state, ts: Date.now() }));
+  } catch {}
+}
+
+function clearDraft() {
+  try { localStorage.removeItem(DRAFT_KEY); } catch {}
+}
+
+function applyDraft(state) {
+  if (state["f-product"]) {
+    productSel.value = state["f-product"];
+    productSel.dispatchEvent(new Event("change"));
+  }
+  requestAnimationFrame(() => {
+    Object.entries(state).forEach(([id, val]) => {
+      if (id === "_gstOpen" || id === "delivery_type" || id === "f-product") return;
+      if (val === true) {
+        const el = document.getElementById(id);
+        if (el && el.type === "checkbox") { el.checked = true; el.dispatchEvent(new Event("change")); }
+      } else {
+        const el = document.getElementById(id);
+        if (el && el.type !== "file") el.value = val;
+      }
+    });
+    if (state.delivery_type) {
+      const radio = document.querySelector(`input[name="delivery_type"][value="${state.delivery_type}"]`);
+      if (radio) { radio.checked = true; radio.dispatchEvent(new Event("change")); }
+    }
+    if (state._gstOpen && !gstOpen) gstToggleBtn.click();
+    syncChips();
+  });
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDraft, 500);
+}
+
+document.getElementById("order-form").addEventListener("input",  scheduleSave);
+document.getElementById("order-form").addEventListener("change", scheduleSave);
+
+// ── CHECK FOR SAVED DRAFT ON LOAD ──────────────────────────────────────────
+(function checkDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const { state, ts } = JSON.parse(raw);
+    if (!state || !ts) return;
+    if (Date.now() - ts > 7 * 24 * 3600 * 1000) { clearDraft(); return; }
+    if (!state["f-product"] && !state["f-qty"] && !state["f-name"]) return;
+
+    const age = Date.now() - ts;
+    const ageLabel = age < 3600000
+      ? "just now"
+      : age < 86400000 ? `${Math.floor(age / 3600000)}h ago`
+      : `${Math.floor(age / 86400000)}d ago`;
+
+    document.getElementById("draft-banner-sub").textContent =
+      `Saved ${ageLabel} — ${state["f-product"] || "incomplete order"}`;
+    document.getElementById("draft-banner").classList.remove("hidden");
+
+    document.getElementById("draft-resume-btn").addEventListener("click", () => {
+      applyDraft(state);
+      document.getElementById("draft-banner").classList.add("hidden");
+    });
+    document.getElementById("draft-dismiss-btn").addEventListener("click", () => {
+      clearDraft();
+      document.getElementById("draft-banner").classList.add("hidden");
+    });
+  } catch {}
+})();
+
 // ── SUBMIT ─────────────────────────────────────────────────────────────────
 document.getElementById("order-form").addEventListener("submit", async e => {
   e.preventDefault();
@@ -1461,22 +1651,20 @@ document.getElementById("order-form").addEventListener("submit", async e => {
   btn.disabled = true;
   lbl.innerHTML = '<span class="spin">⟳</span> Placing order…';
 
-  const isBooks      = productSel.value === "Books";
-  const fileNames    = selectedFiles.map(f => f.file.name);
-  const specsText    = buildSpecsText();
-  const clientRef    = generateOrderRef();
+  const isBooks   = productSel.value === "Books";
+  const fileNames = selectedFiles.map(f => f.file.name);
+  const specsText = buildSpecsText();
+  const clientRef = generateOrderRef();
 
-  // Delivery
   const deliveryType = document.querySelector("input[name='delivery_type']:checked")?.value || "pickup";
   const deliveryInfo = { type: deliveryType };
   if (deliveryType === "delivery" || deliveryType === "courier") {
-    deliveryInfo.address  = document.getElementById("del-address").value.trim();
-    deliveryInfo.pincode  = document.getElementById("del-pincode").value.trim();
-    const landmark        = document.getElementById("del-landmark").value.trim();
+    deliveryInfo.address = document.getElementById("del-address").value.trim();
+    deliveryInfo.pincode = document.getElementById("del-pincode").value.trim();
+    const landmark       = document.getElementById("del-landmark").value.trim();
     if (landmark) deliveryInfo.landmark = landmark;
   }
 
-  // GST
   let gstDetails = null;
   if (gstOpen) {
     gstDetails = {
@@ -1488,17 +1676,18 @@ document.getElementById("order-form").addEventListener("submit", async e => {
 
   let bookDetails = null;
   if (isBooks) {
-    const serial = serialToggle.checked;
+    const serialChk = document.getElementById("b-serial");
+    const serial    = serialChk?.checked || false;
     bookDetails = {
-      book_title:       document.getElementById("b-title").value.trim() || undefined,
-      num_pages:        parseInt(document.getElementById("b-pages").value) || undefined,
-      book_size:        document.getElementById("b-size").value || undefined,
-      binding_type:     document.getElementById("b-binding").value,
-      cover_type:       document.getElementById("b-cover").value || undefined,
-      paper_quality:    document.getElementById("b-paper").value || undefined,
-      book_color_mode:  document.getElementById("b-color").value || undefined,
+      book_title:      document.getElementById("b-title")?.value.trim()     || undefined,
+      num_pages:       parseInt(document.getElementById("b-pages")?.value)  || undefined,
+      book_size:       document.getElementById("b-size")?.value             || undefined,
+      binding_type:    document.getElementById("b-binding")?.value,
+      cover_type:      document.getElementById("b-cover")?.value            || undefined,
+      paper_quality:   document.getElementById("b-paper")?.value            || undefined,
+      book_color_mode: document.getElementById("b-color")?.value            || undefined,
       serial_numbering: serial,
-      serial_start:     serial ? (parseInt(document.getElementById("b-serial-start").value) || undefined) : undefined,
+      serial_start:    serial ? (parseInt(document.getElementById("b-serial-start")?.value) || undefined) : undefined,
     };
     Object.keys(bookDetails).forEach(k => bookDetails[k] === undefined && delete bookDetails[k]);
   }
@@ -1511,7 +1700,7 @@ document.getElementById("order-form").addEventListener("submit", async e => {
     quantity:             parseInt(document.getElementById("f-qty").value) || 0,
     delivery_date:        document.getElementById("f-date").value,
     special_instructions: specsText,
-    color_mode:           (isBooks && document.getElementById("b-color").value) || "full_color",
+    color_mode:           (isBooks && document.getElementById("b-color")?.value) || "full_color",
     client_order_ref:     clientRef,
     delivery:             deliveryInfo,
     ...(gstDetails  ? { gst_details:  gstDetails  } : {}),
@@ -1565,6 +1754,10 @@ document.getElementById("order-form").addEventListener("submit", async e => {
       if (anyFailed && submitted) submitted._file_upload_partial = true;
     }
 
+    formSubmitted = true;
+    clearDraft();
+    track("form_submitted", { product: productSel.value });
+    track("step_2_completed");
     showSuccess(orderNo || clientRef, submitted, clientRef);
   } catch {
     showGlobalErr("Network error — please check your connection and try again.");
@@ -1592,7 +1785,6 @@ function row(label, val) {
 }
 
 function showSuccess(displayRef, s, clientRef) {
-  // displayRef = backend order_no if returned, else clientRef
   document.getElementById("succ-ono").textContent = displayRef;
   document.getElementById("succ-sub").textContent =
     `Order ${displayRef} received for ${s.quantity} ${s.product_type}. We'll WhatsApp +91${s.contact_no} within 2 hours to confirm artwork and timeline.`;
@@ -1626,11 +1818,9 @@ function showSuccess(displayRef, s, clientRef) {
     if (bd.paper_quality)    rows += row("Paper",      bd.paper_quality);
     if (bd.serial_numbering) rows += row("Serial No.", `Yes — starting from ${bd.serial_start || "—"}`);
   }
-  // Delivery summary
   const deliveryLabel = { pickup: "Pickup at store (Pallavaram)", delivery: "Chennai delivery", courier: "Courier" };
   rows += row("Delivery", deliveryLabel[del.type] || del.type);
   if (del.address) rows += row("Address", `${del.address}${del.pincode ? ", " + del.pincode : ""}${del.landmark ? " — " + del.landmark : ""}`);
-  // GST summary
   if (gst) {
     rows += row("GST Invoice", "Yes");
     rows += row("Company",     gst.company);
@@ -1661,13 +1851,9 @@ function resetForm() {
   document.getElementById("order-form").reset();
   selectedFiles  = [];
   fileList.innerHTML = "";
-  ALL_SPEC_IDS.forEach(id => document.getElementById(id)?.classList.add("hidden"));
-  serialField.classList.add("hidden");
-  serialToggle.checked = false;
-  // Reset delivery
+  document.getElementById("specs-container").innerHTML = "";
   document.getElementById("dt-pickup").checked = true;
   deliveryFieldsEl.classList.add("hidden");
-  // Reset GST
   gstOpen = false;
   gstFieldsEl.classList.add("hidden");
   gstChevronEl.classList.remove("open");
@@ -1678,6 +1864,7 @@ function resetForm() {
   document.getElementById("view-form").style.display    = "block";
   showStep(1);
   syncChips();
+  updateQtyHint("");
 }
 
 document.getElementById("succ-again-btn").addEventListener("click", resetForm);
